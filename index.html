@@ -163,6 +163,7 @@
   <!-- ======= NEWS TICKER ======= -->
   <div class="news-ticker" id="newsTicker">
     <span class="news-ticker-label"><span class="ticker-dot"></span> LIVE</span>
+    <div class="news-ticker-track-wrapper">
     <div class="news-ticker-track" id="tickerTrack">
       <span>Ukraine-Russia: Frontline shifts reported near Zaporizhzhia</span>
       <span>Sudan: Humanitarian corridors under strain as fighting intensifies</span>
@@ -180,6 +181,7 @@
       <span>Myanmar: Resistance forces make territorial gains in Shan State</span>
       <span>DR Congo: M23 advances prompt new displacement wave</span>
       <span>Haiti: Gang violence paralyzes Port-au-Prince infrastructure</span>
+    </div>
     </div>
   </div>
 
@@ -333,8 +335,15 @@
           <p class="section-desc">Rotate, zoom, and click on any conflict to learn more. Red pulses indicate critical zones.</p>
         </div>
       </div>
-      <div class="globe-wrapper">
+      <div class="globe-wrapper" style="position:relative">
         <div id="globeViz" style="background:#060a14;border-radius:16px"></div>
+        <div class="globe-popup" id="globePopup" style="display:none">
+          <button class="globe-popup-close" id="globePopupClose" aria-label="Close">&times;</button>
+          <span class="globe-popup-severity" id="globePopupSeverity"></span>
+          <h4 class="globe-popup-title" id="globePopupTitle"></h4>
+          <p class="globe-popup-status" id="globePopupStatus"></p>
+          <a class="globe-popup-btn" id="globePopupLink" href="#">Read More &rarr;</a>
+        </div>
         <div class="globe-legend">
           <span class="legend-item"><span class="legend-dot" style="background:#f97316"></span> Critical</span>
           <span class="legend-item"><span class="legend-dot" style="background:#eab308"></span> Significant</span>
@@ -645,7 +654,7 @@
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="review-text">"I'm an IR student and this is the only app that gives me a complete picture of global conflicts. The conflict map alone is worth the download. Absolutely essential."</p>
             <div class="review-author">
-              <div class="review-avatar">A</div>
+              <img class="review-avatar" src="https://ui-avatars.com/api/?name=Ananya+R&background=0d9488&color=fff&size=80&rounded=true&bold=true" alt="Ananya R." width="40" height="40" loading="lazy">
               <div>
                 <span class="review-name">Ananya R.</span>
                 <span class="review-role">Graduate Student, International Relations</span>
@@ -656,7 +665,7 @@
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="review-text">"Finally something that connects sanctions to trade to military moves. I use it every morning as part of my brief. Essential for anyone in foreign policy."</p>
             <div class="review-author">
-              <div class="review-avatar">J</div>
+              <img class="review-avatar" src="https://ui-avatars.com/api/?name=James+M&background=2563eb&color=fff&size=80&rounded=true&bold=true" alt="James M." width="40" height="40" loading="lazy">
               <div>
                 <span class="review-name">James M.</span>
                 <span class="review-role">Policy Analyst</span>
@@ -667,7 +676,7 @@
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="review-text">"The feed algorithm is surprisingly good. It knows what's relevant to my region and interests. Clean, fast, no clutter. Exactly how news apps should work."</p>
             <div class="review-author">
-              <div class="review-avatar">S</div>
+              <img class="review-avatar" src="https://ui-avatars.com/api/?name=Sophie+L&background=7c3aed&color=fff&size=80&rounded=true&bold=true" alt="Sophie L." width="40" height="40" loading="lazy">
               <div>
                 <span class="review-name">Sophie L.</span>
                 <span class="review-role">Journalist</span>
@@ -678,7 +687,7 @@
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="review-text">"I track geopolitical risk for investment decisions. InSnaps gives me situational awareness I can't get from any other single source. The multi-source approach builds real confidence."</p>
             <div class="review-author">
-              <div class="review-avatar">D</div>
+              <img class="review-avatar" src="https://ui-avatars.com/api/?name=David+K&background=dc2626&color=fff&size=80&rounded=true&bold=true" alt="David K." width="40" height="40" loading="lazy">
               <div>
                 <span class="review-name">David K.</span>
                 <span class="review-role">Investment Analyst</span>
@@ -689,7 +698,7 @@
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="review-text">"Great concept, great execution. Having UCDP conflict data alongside Reuters and BBC in one app is exactly what my students need. A classroom-ready global overview."</p>
             <div class="review-author">
-              <div class="review-avatar">M</div>
+              <img class="review-avatar" src="https://ui-avatars.com/api/?name=Marco+T&background=ea580c&color=fff&size=80&rounded=true&bold=true" alt="Marco T." width="40" height="40" loading="lazy">
               <div>
                 <span class="review-name">Marco T.</span>
                 <span class="review-role">University Lecturer, Security Studies</span>

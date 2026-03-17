@@ -415,10 +415,32 @@
           .attr('fill', dotColor(d)).attr('opacity', 0.92)
           .style('cursor', 'pointer')
           .style('filter', 'drop-shadow(0 0 3px ' + dotColor(d) + ')')
-          .on('click', function() { window.location.href = '/conflicts/' + d.slug + '/'; })
+          .on('click', function() { showGlobePopup(d); })
           .append('title').text(d.title + ' \u2014 ' + d.status);
       });
     }
+
+    // Globe popup on click
+    var popup = document.getElementById('globePopup');
+    var popupClose = document.getElementById('globePopupClose');
+    function showGlobePopup(d) {
+      if (!popup) return;
+      var col = dotColor(d);
+      document.getElementById('globePopupTitle').textContent = d.title;
+      document.getElementById('globePopupStatus').textContent = d.status;
+      var sev = document.getElementById('globePopupSeverity');
+      sev.textContent = d.severity;
+      sev.style.background = col + '22';
+      sev.style.color = col;
+      document.getElementById('globePopupLink').href = '/conflicts/' + d.slug + '/';
+      popup.style.display = 'block';
+    }
+    if (popupClose) {
+      popupClose.addEventListener('click', function() { popup.style.display = 'none'; });
+    }
+    container.addEventListener('click', function(e) {
+      if (popup && e.target === container.querySelector('svg')) popup.style.display = 'none';
+    });
 
     function renderAll() {
       graticulePath.attr('d', path);

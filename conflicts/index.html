@@ -53,6 +53,23 @@
         <h1>Active Conflicts & Wars — 2026</h1>
         <p class="conflict-meta">Tracking 30 conflicts and crises worldwide. Updated regularly.</p>
       </header>
+
+      <div class="globe-wrapper" style="margin-bottom:2.5rem;position:relative">
+        <div id="globeViz" style="width:100%;height:420px;border-radius:16px;overflow:hidden;background:#060a14"></div>
+        <div class="globe-popup" id="globePopup" style="display:none">
+          <button class="globe-popup-close" id="globePopupClose" aria-label="Close">&times;</button>
+          <span class="globe-popup-severity" id="globePopupSeverity"></span>
+          <h4 class="globe-popup-title" id="globePopupTitle"></h4>
+          <p class="globe-popup-status" id="globePopupStatus"></p>
+          <a class="globe-popup-btn" id="globePopupLink" href="#">Read More &rarr;</a>
+        </div>
+        <div class="globe-legend" style="text-align:center;margin-top:0.75rem;font-size:0.85rem;opacity:0.7">
+          <span style="margin:0 0.6rem"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f97316;vertical-align:middle;margin-right:4px"></span> Critical</span>
+          <span style="margin:0 0.6rem"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#eab308;vertical-align:middle;margin-right:4px"></span> Significant</span>
+          <span style="margin:0 0.6rem"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;vertical-align:middle;margin-right:4px"></span> Limited</span>
+        </div>
+      </div>
+
       <div class="conflicts-index-grid">
       <a href="/conflicts/ukraine-russia/" class="conflict-index-card severity-border-critical">
         <div class="conflict-index-status"><span class="severity-dot severity-critical"></span>Active War</div>
@@ -307,10 +324,24 @@
           dGroup.append('circle').attr('cx',p[0]).attr('cy',p[1]).attr('r',dr(d))
             .attr('fill',dc(d)).attr('opacity',0.92)
             .style('cursor','pointer').style('filter','drop-shadow(0 0 3px '+dc(d)+')')
-            .on('click',function(){window.location.href='/conflicts/'+d.slug+'/'})
-            .append('title').text(d.title+' \u2014 '+d.status);
+            .on('click',function(){showGlobePopup(d)})
+              .append('title').text(d.title+' \u2014 '+d.status);
         });
       }
+
+      var popup=document.getElementById('globePopup');
+      var popupClose=document.getElementById('globePopupClose');
+      function showGlobePopup(d){
+        if(!popup)return;
+        var col=dc(d);
+        document.getElementById('globePopupTitle').textContent=d.title;
+        document.getElementById('globePopupStatus').textContent=d.status;
+        var sev=document.getElementById('globePopupSeverity');
+        sev.textContent=d.severity;sev.style.background=col+'22';sev.style.color=col;
+        document.getElementById('globePopupLink').href='/conflicts/'+d.slug+'/';
+        popup.style.display='block';
+      }
+      if(popupClose){popupClose.addEventListener('click',function(){popup.style.display='none'})}
 
       function renderAll(){gratPath.attr('d',pathGen);cGroup.selectAll('path').attr('d',pathGen);renderDots()}
 
