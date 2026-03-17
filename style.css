@@ -2399,7 +2399,7 @@ a:hover { color: var(--accent-light); }
 .news-ticker-track {
   display: inline-block;
   white-space: nowrap;
-  animation: tickerScroll 120s linear infinite;
+  animation: tickerScroll 140s linear infinite;
   color: var(--fg-secondary);
   font-size: 0.8rem;
 }

@@ -1,5 +1,11 @@
 # InSnaps — insnaps.app
 # Jekyll config for GitHub Pages
+
+title: InSnaps — Geopolitics & Conflict Monitor
+description: Real-time geopolitics monitor and conflict tracker. Track 30+ active wars, sanctions, diplomacy, military movements, and trade disruptions worldwide.
+url: https://insnaps.app
+baseurl: ""
+
 include:
   - .well-known
   - _data
@@ -9,3 +15,4 @@ exclude:
   - _templates
   - README.md
   - "*.sh"
+  - _scripts
