@@ -22,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/conflict-page.css">
+  <script type="application/json" id="conflictsGeoData">[{"slug":"ukraine-russia","title":"Ukraine-Russia War","status":"Active War","severity":"critical","lat":50.45,"lng":30.52},{"slug":"israel-palestine","title":"Israel-Palestine Conflict","status":"Active Conflict","severity":"critical","lat":31.50,"lng":34.47},{"slug":"sudan-civil-war","title":"Sudan Civil War","status":"Active War","severity":"critical","lat":15.50,"lng":32.56},{"slug":"myanmar-civil-war","title":"Myanmar Civil War","status":"Active War","severity":"critical","lat":19.75,"lng":96.12},{"slug":"yemen-war","title":"Yemen War","status":"Active Conflict","severity":"significant","lat":15.37,"lng":44.19},{"slug":"ethiopia-tigray","title":"Ethiopia Tigray","status":"Post-Ceasefire","severity":"significant","lat":13.50,"lng":39.48},{"slug":"dr-congo","title":"DR Congo Conflict","status":"Active Conflict","severity":"critical","lat":-1.68,"lng":29.22},{"slug":"syria-civil-war","title":"Syria Civil War","status":"Active Conflict","severity":"significant","lat":33.51,"lng":36.28},{"slug":"india-pakistan","title":"India-Pakistan Tensions","status":"Tensions","severity":"significant","lat":34.5,"lng":74.5},{"slug":"taiwan-strait","title":"Taiwan Strait","status":"Tensions","severity":"significant","lat":24.5,"lng":119.5},{"slug":"south-china-sea","title":"South China Sea","status":"Dispute","severity":"significant","lat":9.5,"lng":114.0},{"slug":"north-korea","title":"North Korea","status":"Tensions","severity":"significant","lat":39.04,"lng":125.76},{"slug":"somalia","title":"Somalia","status":"Active Conflict","severity":"significant","lat":2.05,"lng":45.32},{"slug":"libya","title":"Libya","status":"Political Crisis","severity":"limited","lat":32.89,"lng":13.19},{"slug":"iraq","title":"Iraq","status":"Post-Conflict","severity":"limited","lat":33.32,"lng":44.37},{"slug":"armenia-azerbaijan","title":"Armenia-Azerbaijan","status":"Post-War","severity":"limited","lat":39.8,"lng":46.7},{"slug":"haiti","title":"Haiti Crisis","status":"State Collapse","severity":"critical","lat":18.59,"lng":-72.31},{"slug":"central-african-republic","title":"Central African Republic","status":"Active Conflict","severity":"limited","lat":4.39,"lng":18.56},{"slug":"south-sudan","title":"South Sudan","status":"Active Conflict","severity":"significant","lat":4.86,"lng":31.57},{"slug":"afghanistan","title":"Afghanistan","status":"Taliban Rule","severity":"significant","lat":34.56,"lng":69.21},{"slug":"lebanon","title":"Lebanon","status":"Active Conflict","severity":"significant","lat":33.89,"lng":35.50},{"slug":"iran-tensions","title":"Iran Tensions","status":"Tensions","severity":"significant","lat":35.69,"lng":51.39},{"slug":"sahel-crisis","title":"Sahel Crisis","status":"Active Conflict","severity":"critical","lat":12.64,"lng":-8.0},{"slug":"cameroon-anglophone","title":"Cameroon Crisis","status":"Active Conflict","severity":"limited","lat":4.15,"lng":9.24},{"slug":"mozambique-cabo-delgado","title":"Mozambique","status":"Insurgency","severity":"limited","lat":-11.5,"lng":39.5},{"slug":"colombia","title":"Colombia","status":"Peace Process","severity":"limited","lat":4.71,"lng":-74.07},{"slug":"mexico-drug-war","title":"Mexico Drug War","status":"Active Conflict","severity":"significant","lat":19.43,"lng":-99.13},{"slug":"kashmir","title":"Kashmir","status":"Active Conflict","severity":"limited","lat":34.08,"lng":74.80},{"slug":"nagorno-karabakh","title":"Nagorno-Karabakh","status":"Post-Conflict","severity":"limited","lat":39.82,"lng":46.75},{"slug":"west-papua","title":"West Papua","status":"Insurgency","severity":"limited","lat":-2.53,"lng":140.72}]</script>
 </head>
 <body>
   <nav class="navbar scrolled" id="navbar">
@@ -49,10 +50,21 @@
   <main class="conflict-page">
     <div class="container">
       <nav class="breadcrumb"><a href="/">Home</a> &rsaquo; <span>Conflicts</span></nav>
-      <header class="conflict-header" style="margin-bottom:3rem">
+      <header class="conflict-header" style="margin-bottom:1.5rem">
         <h1>Active Conflicts & Wars — 2026</h1>
-        <p class="conflict-meta">Tracking 30 conflicts and crises worldwide. Updated regularly.</p>
+        <p class="conflict-meta">Tracking 30 conflicts and crises worldwide. Click any point on the globe or any card below to learn more.</p>
       </header>
+
+      <!-- Interactive Globe -->
+      <div class="globe-wrapper" style="margin-bottom:2.5rem">
+        <div id="globeViz"></div>
+        <div class="globe-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Critical</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Significant</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span> Limited</span>
+        </div>
+      </div>
+
       <div class="conflicts-index-grid">
       <a href="/conflicts/ukraine-russia/" class="conflict-index-card severity-border-critical">
         <div class="conflict-index-status"><span class="severity-dot severity-critical"></span>Active War</div>
@@ -251,15 +263,55 @@
     </div></div>
   </footer>
 
+  <script src="https://unpkg.com/globe.gl@2.35.2/dist/globe.gl.min.js"></script>
   <script>
     (function(){
       var html=document.documentElement,t=document.getElementById('themeToggle');
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
       else if(window.matchMedia('(prefers-color-scheme:light)').matches)html.setAttribute('data-theme','light');
-      t.addEventListener('click',function(){var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n)});
+      t.addEventListener('click',function(){var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n);
+        // Update globe theme
+        if(window._globe){
+          var dk=n!=='light';
+          window._globe.globeImageUrl(dk?'https://unpkg.com/three-globe/example/img/earth-night.jpg':'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+            .backgroundImageUrl(dk?'https://unpkg.com/three-globe/example/img/night-sky.png':'')
+            .backgroundColor(dk?'#050505':'#f5f5f7')
+            .atmosphereColor(dk?'rgba(20,184,166,0.15)':'rgba(13,148,136,0.1)');
+        }
+      });
       var h=document.getElementById('navHamburger'),nl=document.getElementById('navLinks');
       h.addEventListener('click',function(){h.classList.toggle('open');nl.classList.toggle('open');document.body.style.overflow=nl.classList.contains('open')?'hidden':''});
+
+      // Globe init
+      var gc=document.getElementById('globeViz');
+      if(gc&&typeof Globe!=='undefined'){
+        var conflicts=[];
+        try{conflicts=JSON.parse(document.getElementById('conflictsGeoData').textContent)}catch(e){}
+        var dk=html.getAttribute('data-theme')!=='light';
+        var g=Globe()
+          .globeImageUrl(dk?'https://unpkg.com/three-globe/example/img/earth-night.jpg':'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+          .backgroundImageUrl(dk?'https://unpkg.com/three-globe/example/img/night-sky.png':'')
+          .backgroundColor(dk?'#050505':'#f5f5f7')
+          .pointsData(conflicts).pointLat('lat').pointLng('lng')
+          .pointAltitude(function(d){return d.severity==='critical'?0.12:d.severity==='significant'?0.08:0.05})
+          .pointRadius(function(d){return d.severity==='critical'?0.55:d.severity==='significant'?0.4:0.3})
+          .pointColor(function(d){return d.severity==='critical'?'#ef4444':d.severity==='significant'?'#f59e0b':'#3b82f6'})
+          .pointLabel(function(d){return'<div style="text-align:center;font-family:Inter,sans-serif;padding:6px 10px;background:rgba(0,0,0,0.85);color:#fff;border-radius:8px;font-size:13px;max-width:200px"><strong>'+d.title+'</strong><br><span style="font-size:11px;opacity:0.8">'+d.status+'</span></div>'})
+          .onPointClick(function(d){window.location.href='/conflicts/'+d.slug+'/'})
+          .atmosphereColor(dk?'rgba(20,184,166,0.15)':'rgba(13,148,136,0.1)')
+          .atmosphereAltitude(0.2)
+          .width(gc.clientWidth).height(gc.clientHeight)
+          (gc);
+        g.controls().autoRotate=true;g.controls().autoRotateSpeed=0.5;
+        g.controls().enableZoom=true;g.controls().minDistance=200;g.controls().maxDistance=500;
+        var crit=conflicts.filter(function(d){return d.severity==='critical'});
+        g.ringsData(crit).ringLat('lat').ringLng('lng')
+          .ringColor(function(){return'rgba(239,68,68,0.6)'})
+          .ringMaxRadius(3).ringPropagationSpeed(1.5).ringRepeatPeriod(2000);
+        window._globe=g;
+        window.addEventListener('resize',function(){g.width(gc.clientWidth).height(gc.clientHeight)});
+      }
     })();
   </script>
 </body>

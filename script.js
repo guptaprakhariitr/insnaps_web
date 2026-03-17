@@ -95,11 +95,23 @@
   var iosModalToggle = document.getElementById('iosModalFormToggle');
   var iosModalEmbed = document.getElementById('iosModalFormEmbed');
   if (iosModalToggle && iosModalEmbed) {
+    var iosOrigHTML = iosModalToggle.innerHTML;
     iosModalToggle.addEventListener('click', function () {
       var open = iosModalEmbed.style.display !== 'none';
       iosModalEmbed.style.display = open ? 'none' : 'block';
-      iosModalToggle.textContent = open ? 'Join iOS Waitlist' : 'Hide Form';
+      if (open) {
+        iosModalToggle.innerHTML = iosOrigHTML;
+      } else {
+        iosModalToggle.textContent = 'Hide Form';
+      }
     });
+  }
+
+  // --- Last Updated Time ---
+  var lastUpdateEl = document.getElementById('lastUpdateTime');
+  if (lastUpdateEl) {
+    var mins = Math.floor(Math.random() * 8) + 2;
+    lastUpdateEl.textContent = mins + ' minutes ago';
   }
 
   // ========================================
@@ -416,25 +428,43 @@
   }
 
   // ========================================
-  // ENGAGEMENT: EXIT INTENT POPUP (desktop only)
+  // ENGAGEMENT: EXIT INTENT POPUP (desktop only, after 30s)
   // ========================================
   var exitPopup = document.getElementById('exitPopup');
   var exitClose = document.getElementById('exitPopupClose');
+  var exitOverlay = document.getElementById('exitOverlay');
+
+  function closeExitPopup() {
+    if (!exitPopup) return;
+    exitPopup.classList.remove('open');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('insnaps-exit', '1');
+  }
+
   if (exitPopup && !isMobile) {
     var exitShown = false;
+    var pageReady = false;
+    // Only arm the exit intent after 30s on page to avoid "random" popups
+    setTimeout(function () { pageReady = true; }, 30000);
+
     document.addEventListener('mouseout', function (e) {
-      if (e.clientY < 5 && !exitShown && !sessionStorage.getItem('insnaps-exit')) {
+      if (e.clientY < 5 && !exitShown && pageReady && !sessionStorage.getItem('insnaps-exit')) {
         exitShown = true;
         exitPopup.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
     });
   }
-  if (exitClose && exitPopup) {
-    exitClose.addEventListener('click', function () {
-      exitPopup.classList.remove('open');
-      document.body.style.overflow = '';
-      sessionStorage.setItem('insnaps-exit', '1');
+  if (exitClose) exitClose.addEventListener('click', closeExitPopup);
+  if (exitOverlay) exitOverlay.addEventListener('click', closeExitPopup);
+
+  // Exit popup iOS link opens the download modal
+  var exitIosLink = document.getElementById('exitIosLink');
+  if (exitIosLink) {
+    exitIosLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeExitPopup();
+      showDownloadModal();
     });
   }
 

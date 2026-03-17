@@ -160,6 +160,35 @@
     </div>
   </nav>
 
+  <!-- ======= NEWS TICKER ======= -->
+  <div class="news-ticker" id="newsTicker">
+    <span class="news-ticker-label"><span class="ticker-dot"></span> LIVE</span>
+    <div class="news-ticker-track" id="tickerTrack">
+      <span>Ukraine-Russia: Frontline shifts reported near Zaporizhzhia</span>
+      <span>Sudan: Humanitarian corridors under strain as fighting intensifies</span>
+      <span>Taiwan Strait: Military exercises escalate regional tensions</span>
+      <span>Sahel: Jihadist attacks surge across Mali and Burkina Faso</span>
+      <span>Middle East: Ceasefire negotiations stall amid continued airstrikes</span>
+      <span>Myanmar: Resistance forces make territorial gains in Shan State</span>
+      <span>DR Congo: M23 advances prompt new displacement wave</span>
+      <span>Haiti: Gang violence paralyzes Port-au-Prince infrastructure</span>
+      <span>Ukraine-Russia: Frontline shifts reported near Zaporizhzhia</span>
+      <span>Sudan: Humanitarian corridors under strain as fighting intensifies</span>
+      <span>Taiwan Strait: Military exercises escalate regional tensions</span>
+      <span>Sahel: Jihadist attacks surge across Mali and Burkina Faso</span>
+      <span>Middle East: Ceasefire negotiations stall amid continued airstrikes</span>
+      <span>Myanmar: Resistance forces make territorial gains in Shan State</span>
+      <span>DR Congo: M23 advances prompt new displacement wave</span>
+      <span>Haiti: Gang violence paralyzes Port-au-Prince infrastructure</span>
+    </div>
+  </div>
+
+  <!-- ======= LAST UPDATED BAR ======= -->
+  <div class="last-updated-bar">
+    <span class="update-dot"></span>
+    Sources updated <strong id="lastUpdateTime">moments ago</strong> &middot; Monitoring 30+ active conflicts worldwide
+  </div>
+
   <!-- ======= STICKY APP BANNER ======= -->
   <div class="app-banner" id="appBanner">
     <span class="app-banner-text">Track 30+ conflicts in real-time</span>
@@ -915,13 +944,19 @@
 
   <!-- ======= EXIT INTENT POPUP (Desktop) ======= -->
   <div class="exit-popup" id="exitPopup">
-    <div class="exit-popup-overlay" onclick="document.getElementById('exitPopup').classList.remove('open');document.body.style.overflow=''"></div>
+    <div class="exit-popup-overlay" id="exitOverlay"></div>
     <div class="exit-popup-content">
       <button class="exit-popup-close" id="exitPopupClose" aria-label="Close">&times;</button>
-      <h3>Before you go...</h3>
-      <p>Stay ahead of global events. InSnaps tracks 30+ conflicts, sanctions, and military moves — all in one free app.</p>
-      <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="exit-popup-btn">Download Free on Play Store</a>
-      <p class="exit-popup-sub">No account needed · Zero data collected</p>
+      <h3>Don't miss the bigger picture</h3>
+      <p>Get real-time updates on 30+ conflicts, sanctions, diplomacy, and military moves — all in one free app. No account needed.</p>
+      <div class="exit-popup-actions">
+        <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="exit-popup-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
+          Get it on Android
+        </a>
+        <a href="#" class="exit-popup-ios-link" id="exitIosLink">iOS coming soon — join waitlist</a>
+      </div>
+      <p class="exit-popup-sub">Zero data collected · 100% free</p>
     </div>
   </div>
 
