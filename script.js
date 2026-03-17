@@ -333,7 +333,7 @@
   }
 
   // ========================================
-  // 3D GLOBE (Globe.gl) — dark style matching the app
+  // 3D GLOBE (Globe.gl) — polygon world map with conflict markers
   // ========================================
   (function initGlobe() {
     var globeContainer = document.getElementById('globeViz');
@@ -342,17 +342,20 @@
     var CONFLICTS = [];
     try { CONFLICTS = JSON.parse(document.getElementById('conflictsGeoData').textContent); } catch(e) {}
 
+    var W = globeContainer.clientWidth || 600;
+    var H = globeContainer.clientHeight || 520;
+
     var globe = Globe()
-      .backgroundColor('rgba(0,0,0,0)')
-      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+      .backgroundColor('#060a14')
+      .showGlobe(true)
       .showAtmosphere(true)
-      .atmosphereColor('rgba(30,100,180,0.25)')
-      .atmosphereAltitude(0.18)
+      .atmosphereColor('rgba(60,120,220,0.3)')
+      .atmosphereAltitude(0.2)
       .pointsData(CONFLICTS)
       .pointLat('lat')
       .pointLng('lng')
-      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.08 : d.severity === 'significant' ? 0.06 : 0.04; })
-      .pointRadius(function(d) { return d.severity === 'critical' ? 0.55 : d.severity === 'significant' ? 0.4 : 0.3; })
+      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.12 : d.severity === 'significant' ? 0.08 : 0.05; })
+      .pointRadius(function(d) { return d.severity === 'critical' ? 0.6 : d.severity === 'significant' ? 0.45 : 0.32; })
       .pointColor(function(d) { return d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e'; })
       .pointLabel(function(d) {
         var col = d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e';
@@ -361,27 +364,54 @@
       .onPointClick(function(d) {
         window.location.href = '/conflicts/' + d.slug + '/';
       })
-      .width(globeContainer.clientWidth)
-      .height(globeContainer.clientHeight)
+      .width(W)
+      .height(H)
       (globeContainer);
 
+    // Dark sphere surface
+    try {
+      var globeMat = globe.globeMaterial();
+      globeMat.color.set('#0a1025');
+      globeMat.emissive.set('#061030');
+      globeMat.emissiveIntensity = 0.15;
+      globeMat.shininess = 0.2;
+    } catch(e) {}
+
     globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.4;
+    globe.controls().autoRotateSpeed = 0.5;
     globe.controls().enableZoom = true;
     globe.controls().minDistance = 180;
     globe.controls().maxDistance = 450;
 
+    // Pulsing rings on critical conflicts
     var criticalConflicts = CONFLICTS.filter(function(d) { return d.severity === 'critical'; });
     globe.ringsData(criticalConflicts)
       .ringLat('lat')
       .ringLng('lng')
-      .ringColor(function() { return 'rgba(249,115,22,0.5)'; })
-      .ringMaxRadius(3)
-      .ringPropagationSpeed(1.2)
-      .ringRepeatPeriod(2500);
+      .ringColor(function() { return 'rgba(249,115,22,0.6)'; })
+      .ringMaxRadius(4)
+      .ringPropagationSpeed(1.5)
+      .ringRepeatPeriod(2000);
+
+    // Load country polygons for world outline
+    if (typeof topojson !== 'undefined') {
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+        .then(function(r) { return r.json(); })
+        .then(function(worldData) {
+          var countries = topojson.feature(worldData, worldData.objects.countries);
+          globe.polygonsData(countries.features)
+            .polygonCapColor(function() { return 'rgba(15,25,50,0.9)'; })
+            .polygonSideColor(function() { return 'rgba(15,25,50,0.6)'; })
+            .polygonStrokeColor(function() { return 'rgba(80,140,240,0.35)'; })
+            .polygonAltitude(0.008);
+        })
+        .catch(function(err) { console.warn('Globe: failed to load country data', err); });
+    }
 
     window.addEventListener('resize', function () {
-      globe.width(globeContainer.clientWidth).height(globeContainer.clientHeight);
+      var w = globeContainer.clientWidth || 600;
+      var h = globeContainer.clientHeight || 520;
+      globe.width(w).height(h);
     });
   })();
 

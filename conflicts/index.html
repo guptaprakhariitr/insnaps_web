@@ -263,6 +263,7 @@
   </footer>
 
   <script src="https://unpkg.com/globe.gl@2.35.2/dist/globe.gl.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
   <script>
     (function(){
       var html=document.documentElement,t=document.getElementById('themeToggle');
@@ -278,29 +279,40 @@
         var conflicts=[];
         try{conflicts=JSON.parse(document.getElementById('conflictsGeoData').textContent)}catch(e){}
 
+        var W=gc.clientWidth||600;
+        var H=gc.clientHeight||420;
+
         var g=Globe()
-          .backgroundColor('rgba(0,0,0,0)')
-          .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+          .backgroundColor('#060a14')
+          .showGlobe(true)
           .showAtmosphere(true)
-          .atmosphereColor('rgba(30,100,180,0.25)')
-          .atmosphereAltitude(0.18)
+          .atmosphereColor('rgba(60,120,220,0.3)')
+          .atmosphereAltitude(0.2)
           .pointsData(conflicts)
           .pointLat('lat')
           .pointLng('lng')
-          .pointAltitude(function(d){return d.severity==='critical'?0.08:d.severity==='significant'?0.06:0.04})
-          .pointRadius(function(d){return d.severity==='critical'?0.55:d.severity==='significant'?0.4:0.3})
+          .pointAltitude(function(d){return d.severity==='critical'?0.12:d.severity==='significant'?0.08:0.05})
+          .pointRadius(function(d){return d.severity==='critical'?0.6:d.severity==='significant'?0.45:0.32})
           .pointColor(function(d){return d.severity==='critical'?'#f97316':d.severity==='significant'?'#eab308':'#22c55e'})
           .pointLabel(function(d){
             var col=d.severity==='critical'?'#f97316':d.severity==='significant'?'#eab308':'#22c55e';
             return '<div style="text-align:center;font-family:Inter,sans-serif;padding:8px 12px;background:rgba(10,10,20,0.95);color:#fff;border-radius:10px;font-size:13px;max-width:220px;border:1px solid '+col+'40"><strong>'+d.title+'</strong><br><span style="font-size:11px;color:'+col+'">'+d.status+'</span></div>';
           })
           .onPointClick(function(d){window.location.href='/conflicts/'+d.slug+'/'})
-          .width(gc.clientWidth)
-          .height(gc.clientHeight)
+          .width(W)
+          .height(H)
           (gc);
 
+        try{
+          var gm=g.globeMaterial();
+          gm.color.set('#0a1025');
+          gm.emissive.set('#061030');
+          gm.emissiveIntensity=0.15;
+          gm.shininess=0.2;
+        }catch(e){}
+
         g.controls().autoRotate=true;
-        g.controls().autoRotateSpeed=0.4;
+        g.controls().autoRotateSpeed=0.5;
         g.controls().enableZoom=true;
         g.controls().minDistance=180;
         g.controls().maxDistance=450;
@@ -308,10 +320,24 @@
         var crit=conflicts.filter(function(d){return d.severity==='critical'});
         g.ringsData(crit)
           .ringLat('lat').ringLng('lng')
-          .ringColor(function(){return'rgba(249,115,22,0.5)'})
-          .ringMaxRadius(3).ringPropagationSpeed(1.2).ringRepeatPeriod(2500);
+          .ringColor(function(){return'rgba(249,115,22,0.6)'})
+          .ringMaxRadius(4).ringPropagationSpeed(1.5).ringRepeatPeriod(2000);
 
-        window.addEventListener('resize',function(){g.width(gc.clientWidth).height(gc.clientHeight)});
+        if(typeof topojson!=='undefined'){
+          fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+            .then(function(r){return r.json()})
+            .then(function(worldData){
+              var countries=topojson.feature(worldData,worldData.objects.countries);
+              g.polygonsData(countries.features)
+                .polygonCapColor(function(){return'rgba(15,25,50,0.9)'})
+                .polygonSideColor(function(){return'rgba(15,25,50,0.6)'})
+                .polygonStrokeColor(function(){return'rgba(80,140,240,0.35)'})
+                .polygonAltitude(0.008);
+            })
+            .catch(function(err){console.warn('Globe: failed to load country data',err)});
+        }
+
+        window.addEventListener('resize',function(){g.width(gc.clientWidth||600).height(gc.clientHeight||420)});
       }
     })();
   </script>
