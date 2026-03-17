@@ -333,7 +333,7 @@
   }
 
   // ========================================
-  // 3D GLOBE (Globe.gl) — dark polygon style matching the app
+  // 3D GLOBE (Globe.gl) — dark style matching the app
   // ========================================
   (function initGlobe() {
     var globeContainer = document.getElementById('globeViz');
@@ -344,16 +344,15 @@
 
     var globe = Globe()
       .backgroundColor('rgba(0,0,0,0)')
-      .showGlobe(true)
+      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
       .showAtmosphere(true)
-      .atmosphereColor('rgba(30,80,160,0.2)')
+      .atmosphereColor('rgba(30,100,180,0.25)')
       .atmosphereAltitude(0.18)
-      .globeImageUrl('')
       .pointsData(CONFLICTS)
       .pointLat('lat')
       .pointLng('lng')
-      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.06 : d.severity === 'significant' ? 0.04 : 0.03; })
-      .pointRadius(function(d) { return d.severity === 'critical' ? 0.5 : d.severity === 'significant' ? 0.38 : 0.28; })
+      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.08 : d.severity === 'significant' ? 0.06 : 0.04; })
+      .pointRadius(function(d) { return d.severity === 'critical' ? 0.55 : d.severity === 'significant' ? 0.4 : 0.3; })
       .pointColor(function(d) { return d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e'; })
       .pointLabel(function(d) {
         var col = d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e';
@@ -366,27 +365,12 @@
       .height(globeContainer.clientHeight)
       (globeContainer);
 
-    // Dark globe surface
-    var scene = globe.scene();
-    scene.children.forEach(function(child) {
-      if (child.type === 'Group') {
-        child.children.forEach(function(mesh) {
-          if (mesh.type === 'Mesh' && mesh.material && mesh.material.type === 'MeshPhongMaterial') {
-            mesh.material.color.set('#0a0e1a');
-            mesh.material.emissive.set('#050810');
-            mesh.material.emissiveIntensity = 0.3;
-          }
-        });
-      }
-    });
-
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.4;
     globe.controls().enableZoom = true;
     globe.controls().minDistance = 180;
     globe.controls().maxDistance = 450;
 
-    // Pulse rings on critical
     var criticalConflicts = CONFLICTS.filter(function(d) { return d.severity === 'critical'; });
     globe.ringsData(criticalConflicts)
       .ringLat('lat')
@@ -395,20 +379,6 @@
       .ringMaxRadius(3)
       .ringPropagationSpeed(1.2)
       .ringRepeatPeriod(2500);
-
-    // Country borders
-    if (typeof topojson !== 'undefined') {
-      fetch('https://unpkg.com/world-atlas@2.0.2/countries-110m.json')
-        .then(function(r) { return r.json(); })
-        .then(function(worldData) {
-          var countries = topojson.feature(worldData, worldData.objects.countries);
-          globe.polygonsData(countries.features)
-            .polygonCapColor(function() { return 'rgba(12,18,35,0.85)'; })
-            .polygonSideColor(function() { return 'rgba(12,18,35,0.6)'; })
-            .polygonStrokeColor(function() { return 'rgba(50,100,180,0.3)'; })
-            .polygonAltitude(0.006);
-        }).catch(function() {});
-    }
 
     window.addEventListener('resize', function () {
       globe.width(globeContainer.clientWidth).height(globeContainer.clientHeight);

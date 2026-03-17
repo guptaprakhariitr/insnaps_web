@@ -418,7 +418,7 @@ a:hover { color: var(--accent-light); }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 7rem 0 4rem;
+  padding: 4rem 0;
   overflow: hidden;
 }
 .hero-bg {
@@ -1696,8 +1696,11 @@ a:hover { color: var(--accent-light); }
   }
 
   .hero {
-    padding: 6rem 0 3rem;
+    padding: 3rem 0;
     min-height: auto;
+  }
+  .news-ticker {
+    margin-top: 56px;
   }
   .hero-title {
     font-size: clamp(3rem, 12vw, 4.5rem);
@@ -2289,7 +2292,7 @@ a:hover { color: var(--accent-light); }
   overflow: hidden;
   display: flex;
   align-items: center;
-  position: relative;
+  margin-top: 64px;
 }
 .news-ticker-label {
   display: inline-flex;
