@@ -1,0 +1,49 @@
+name: Build & Deploy InSnaps
+
+on:
+  push:
+    branches: [insnaps]
+    paths:
+      - '_data/**'
+      - '_scripts/**'
+      - 'build.sh'
+      - '**.html'
+      - '**.css'
+      - '**.js'
+  schedule:
+    # Refresh blog RSS content daily at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install Pillow
+
+      - name: Run build script
+        run: bash build.sh
+
+      - name: Commit generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add conflicts/ blog/ sitemap.xml insnaps_og.png
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: auto-generate conflict pages, blog posts, and sitemap [$(date -u +%Y-%m-%d)]"
+            git push
+          fi

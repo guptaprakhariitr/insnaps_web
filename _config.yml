@@ -1,4 +1,11 @@
-# Include .well-known so assetlinks.json is deployed for Android App Links
-# (Jekyll ignores dot-directories by default.)
+# InSnaps — insnaps.app
+# Jekyll config for GitHub Pages
 include:
   - .well-known
+  - _data
+
+exclude:
+  - build.sh
+  - _templates
+  - README.md
+  - "*.sh"

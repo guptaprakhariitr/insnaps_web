@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,42 +10,320 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open in app | Credible Technologies</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Open in app | InSnaps</title>
+  <meta name="description" content="Open this article in InSnaps — the geopolitics and conflict monitor app.">
+  <link rel="icon" type="image/png" href="/logo.png">
+  <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .redirect-page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; max-width: 36rem; margin: 0 auto; }
-    .redirect-page h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .redirect-page p { color: var(--fg-muted, #888); margin: 0.5rem 0; line-height: 1.6; }
-    .redirect-page a { color: var(--accent, #22c55e); }
-    .redirect-page .btn { display: inline-block; margin: 0.75rem 0.25rem 0; padding: 0.6rem 1.2rem; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 500; }
-    .redirect-page .article-link-wrap { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border, rgba(255,255,255,0.1)); }
-    .redirect-page .article-link-wrap a { word-break: break-all; }
-    .redirect-page .app-logo { width: 80px; height: 80px; border-radius: 16px; margin: 0 auto 1rem; display: block; object-fit: contain; }
-    #non-android-view { text-align: center; width: 100%; }
+    :root, [data-theme="dark"] {
+      --bg: #050505;
+      --bg-secondary: #0d0d0d;
+      --bg-card: #141414;
+      --fg: #f5f5f7;
+      --fg-secondary: #a1a1a6;
+      --fg-muted: #6e6e73;
+      --accent: #14b8a6;
+      --accent-light: #2dd4bf;
+      --accent-glow: rgba(20, 184, 166, 0.12);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-strong: rgba(255, 255, 255, 0.12);
+      --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+      --nav-bg: rgba(5, 5, 5, 0.8);
+    }
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --bg-card: #ffffff;
+      --fg: #1d1d1f;
+      --fg-secondary: #6e6e73;
+      --fg-muted: #86868b;
+      --accent: #0d9488;
+      --accent-light: #14b8a6;
+      --accent-glow: rgba(13, 148, 136, 0.08);
+      --border: rgba(0, 0, 0, 0.06);
+      --border-strong: rgba(0, 0, 0, 0.1);
+      --nav-bg: rgba(255, 255, 255, 0.85);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-light); }
+    ::selection { background: var(--accent); color: white; }
+
+    /* --- Navbar --- */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-container {
+      max-width: 1200px; margin: 0 auto; padding: 0.85rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: var(--fg); font-weight: 700; font-size: 1.15rem; }
+    .nav-logo:hover { color: var(--fg); }
+    .nav-logo-icon { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-logo-text { font-family: var(--font-display); letter-spacing: -0.02em; }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .theme-toggle {
+      background: none; border: 1px solid var(--border-strong); border-radius: 50%;
+      width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--fg-secondary); transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .theme-toggle:hover { color: var(--fg); border-color: var(--accent); background: var(--accent-glow); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: block; }
+
+    /* --- Page --- */
+    .redirect-page {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 6rem 1.5rem 3rem; text-align: center;
+      max-width: 540px; margin: 0 auto;
+    }
+
+    .app-icon {
+      width: 88px; height: 88px; border-radius: 22px;
+      margin-bottom: 1.25rem; display: block;
+      object-fit: contain; box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      border: 2px solid var(--border-strong);
+    }
+
+    .redirect-page h1 {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 0.5rem;
+    }
+    .redirect-page .subtitle {
+      color: var(--accent); font-weight: 600;
+      font-size: 0.9rem; margin-bottom: 1rem;
+    }
+    .redirect-page p { color: var(--fg-secondary); margin: 0.4rem 0; line-height: 1.65; font-size: 0.95rem; }
+
+    .btn-primary-dl {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: white !important; padding: 0.75rem 1.6rem;
+      border-radius: 999px; font-weight: 600; font-size: 0.92rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(20, 184, 166, 0.3); margin-top: 1rem;
+    }
+    .btn-primary-dl:hover {
+      background: var(--accent-light); color: white !important;
+      transform: translateY(-2px); box-shadow: 0 6px 30px rgba(20, 184, 166, 0.4);
+    }
+    .btn-primary-dl svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* --- Divider --- */
+    .divider {
+      width: 100%; height: 1px;
+      background: var(--border-strong);
+      margin: 1.75rem 0;
+    }
+
+    /* --- Article direct link --- */
+    .article-link-section { width: 100%; text-align: center; }
+    .article-link-section p { font-size: 0.88rem; }
+    .article-link-section a.article-url {
+      word-break: break-all; font-size: 0.85rem;
+      color: var(--accent); display: inline-block; margin-top: 0.25rem;
+    }
+
+    /* --- iOS Waitlist --- */
+    .ios-section {
+      width: 100%; margin-top: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+    }
+    .ios-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; font-weight: 700;
+      margin-bottom: 0.5rem; letter-spacing: -0.01em;
+    }
+    .ios-section p { font-size: 0.88rem; margin-bottom: 1rem; }
+    .ios-form-toggle {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: none; border: 1px solid var(--border-strong);
+      color: var(--fg-secondary); padding: 0.55rem 1.3rem;
+      border-radius: 999px; font-weight: 500; font-size: 0.88rem;
+      cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
+      font-family: var(--font-body);
+    }
+    .ios-form-toggle:hover { color: var(--fg); border-color: var(--accent); background: var(--accent-glow); }
+    .ios-form-embed {
+      margin-top: 1rem; border-radius: 0.75rem; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .ios-form-embed iframe {
+      display: block; width: 100%; min-height: 440px;
+      border: none; background: white; border-radius: 0.75rem;
+    }
+
+    /* --- Feature pills --- */
+    .feature-pills {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .pill {
+      font-size: 0.75rem; font-weight: 600; color: var(--accent);
+      background: var(--accent-glow); border: 1px solid rgba(20, 184, 166, 0.2);
+      padding: 0.3rem 0.8rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* --- Explore link --- */
+    .explore-link {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      margin-top: 1.25rem; font-size: 0.88rem; font-weight: 500;
+      color: var(--fg-secondary); transition: color 0.2s;
+    }
+    .explore-link:hover { color: var(--accent); }
+
+    /* --- Android redirecting state --- */
+    .spinner {
+      width: 32px; height: 32px; border: 3px solid var(--border-strong);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* --- Footer --- */
+    .mini-footer {
+      margin-top: 2.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      width: 100%; text-align: center;
+    }
+    .mini-footer p { font-size: 0.75rem; color: var(--fg-muted); }
+    .mini-footer a { color: var(--fg-secondary); }
+
+    @media (max-width: 480px) {
+      .redirect-page { padding: 5rem 1rem 2rem; }
+      .redirect-page h1 { font-size: 1.35rem; }
+      .ios-section { padding: 1.25rem; }
+    }
   </style>
 </head>
 <body>
-  <div class="redirect-page">
-    <!-- Android: script redirects immediately; this is fallback. Non-Android: script shows non-android content. -->
-    <div id="android-view">
-      <h1>Redirecting…</h1>
-      <p id="msg">Opening Geopolitics &amp; Conflict Monitor. If nothing happens, <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="storeLink">open it on Google Play</a>.</p>
-    </div>
-    <div id="non-android-view" style="display: none;">
-      <img src="https://play-lh.googleusercontent.com/NRlqU6DchkaPR3yPqsu4GDhqZ0E8Zjqz-U2M4klmKGV9WfmCBGtjaI0UOmya4yU-9QQcZEr_zGTZ3q3b5Yxg2A=w480-h960-rw" alt="" class="app-logo" width="80" height="80">
-      <h1>InSnaps - Geopolitics &amp; Conflict Monitor</h1>
-      <p>This link opens an article in our <strong>Android app</strong>. Get the app to read it there, or use the direct article link below to open it in your browser.</p>
-      <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="storeLinkOther" class="btn">Get the app on Google Play</a>
-      <div id="article-link-wrap" class="article-link-wrap" style="display: none;">
-        <p><strong>Or read the article directly in your browser:</strong></p>
-        <p><a href="#" id="articleDirectLink" target="_blank" rel="noopener"></a></p>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="InSnaps" class="nav-logo-icon" width="32" height="32">
+        <span class="nav-logo-text">InSnaps</span>
+      </a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
       </div>
     </div>
+  </nav>
+
+  <div class="redirect-page">
+
+    <!-- ===== Android: auto-redirect (shown briefly) ===== -->
+    <div id="android-view" style="display:none">
+      <div class="spinner"></div>
+      <h1>Opening InSnaps…</h1>
+      <p id="msg">Redirecting to the article. If nothing happens, <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="storeLink">open it on Google Play</a>.</p>
+    </div>
+
+    <!-- ===== Non-Android (iOS + Desktop + other) ===== -->
+    <div id="non-android-view" style="display:none">
+      <img src="/logo.png" alt="InSnaps" class="app-icon" width="88" height="88">
+      <h1>InSnaps</h1>
+      <p class="subtitle">Geopolitics &amp; Conflict Monitor</p>
+      <p>This link opens an article in the <strong>InSnaps app</strong>. Get the app to read it there, or use the direct link below.</p>
+
+      <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="storeLinkOther" class="btn-primary-dl">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
+        Get it on Google Play
+      </a>
+
+      <!-- Direct article link (shown when token decodes) -->
+      <div id="article-link-wrap" class="article-link-section" style="display:none">
+        <div class="divider"></div>
+        <p><strong>Or read the article in your browser:</strong></p>
+        <a href="#" id="articleDirectLink" target="_blank" rel="noopener" class="article-url"></a>
+      </div>
+
+      <!-- iOS-specific waitlist (hidden unless iOS detected) -->
+      <div id="ios-waitlist-section" style="display:none">
+        <div class="divider"></div>
+        <div class="ios-section">
+          <h3>iOS Coming Soon</h3>
+          <p>We're building InSnaps for iPhone &amp; iPad. Join the waitlist to be the first to know when it launches.</p>
+          <button class="ios-form-toggle" id="iosFormToggle" type="button">Join the Waitlist</button>
+          <div id="iosFormEmbed" style="display:none" class="ios-form-embed">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfc8kj-R9Mpd9ShTGOr4tqGcAsQ0GZsP2j13bDPMKkqzzDeEQ/viewform?embedded=true" width="100%" height="440" frameborder="0" marginheight="0" marginwidth="0" loading="lazy" title="InSnaps iOS Waitlist">Loading…</iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature pills -->
+      <div class="feature-pills">
+        <span class="pill">30+ Conflicts Tracked</span>
+        <span class="pill">Interactive Map</span>
+        <span class="pill">10 Languages</span>
+        <span class="pill">Zero Data Collected</span>
+      </div>
+
+      <a href="/" class="explore-link">Explore InSnaps &rarr;</a>
+    </div>
+
+    <!-- Mini footer -->
+    <div class="mini-footer">
+      <p>&copy; 2026 <a href="/">InSnaps</a> &middot; <a href="/conflicts/">Conflicts</a> &middot; <a href="/blog/">Blog</a></p>
+    </div>
   </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js" crossorigin="anonymous"></script>
   <script>
     (function () {
-      // Encoding key (same as ArticleDeepLinkService._encodingKey). For stricter secrecy use a server or build-time secret.
+      // Theme
+      var html = document.documentElement;
+      var toggle = document.getElementById('themeToggle');
+      var stored = localStorage.getItem('insnaps-theme');
+      if (stored) html.setAttribute('data-theme', stored);
+      else if (window.matchMedia('(prefers-color-scheme: light)').matches) html.setAttribute('data-theme', 'light');
+      toggle.addEventListener('click', function () {
+        var c = html.getAttribute('data-theme');
+        var n = c === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', n);
+        localStorage.setItem('insnaps-theme', n);
+      });
+
+      // iOS waitlist toggle
+      var iosToggle = document.getElementById('iosFormToggle');
+      var iosEmbed = document.getElementById('iosFormEmbed');
+      if (iosToggle && iosEmbed) {
+        iosToggle.addEventListener('click', function () {
+          var open = iosEmbed.style.display !== 'none';
+          iosEmbed.style.display = open ? 'none' : 'block';
+          iosToggle.textContent = open ? 'Join the Waitlist' : 'Hide Form';
+        });
+      }
+
+      // Token decode
       var ENCODING_KEY = 'WcM_Art_Lnk_2025_Sec';
 
       function base64UrlDecode(str) {
@@ -84,6 +361,7 @@
         }
       }
 
+      // Parse token
       var path = window.location.pathname || '';
       var q = new URLSearchParams(window.location.search || '');
       var token = '';
@@ -95,9 +373,6 @@
       }
 
       var playStore = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree';
-      var appStore = 'https://apps.apple.com/app/idXXXXXXXXX';
-      var scheme = 'worldconflicts://article/' + token;
-
       var msgEl = document.getElementById('msg');
       var storeLink = document.getElementById('storeLink');
       var androidView = document.getElementById('android-view');
@@ -105,25 +380,26 @@
       var storeLinkOther = document.getElementById('storeLinkOther');
       var articleLinkWrap = document.getElementById('article-link-wrap');
       var articleDirectLink = document.getElementById('articleDirectLink');
+      var iosWaitlistSection = document.getElementById('ios-waitlist-section');
 
       if (!token) {
-        androidView.style.display = 'block';
-        nonAndroidView.style.display = 'none';
-        msgEl.textContent = 'Invalid or missing link.';
-        if (storeLink) storeLink.href = playStore;
+        androidView.style.display = 'none';
+        nonAndroidView.style.display = 'block';
+        document.querySelector('.redirect-page h1').textContent = 'InSnaps';
         return;
       }
 
-      // Track deep link redirect event
+      // Analytics
       if (window.gtag) {
         gtag('event', 'article_deep_link', {
           'event_category': 'deep_link',
-          'event_label': 'worldconflicts_article'
+          'event_label': 'insnaps_article'
         });
       }
 
       var ua = navigator.userAgent || '';
       var isAndroid = /Android/i.test(ua);
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
       if (!ua) isAndroid = true;
 
       if (isAndroid) {
@@ -140,11 +416,17 @@
         return;
       }
 
-      // Non-Android: show landing page with "Get app" and optional direct article link
+      // Non-Android
       androidView.style.display = 'none';
       nonAndroidView.style.display = 'block';
       if (storeLinkOther) storeLinkOther.href = playStore;
 
+      // Show iOS waitlist if on Apple device
+      if (isIOS && iosWaitlistSection) {
+        iosWaitlistSection.style.display = 'block';
+      }
+
+      // Decode and show direct article link
       var realUrl = decodeArticleToken(token);
       if (realUrl && articleLinkWrap && articleDirectLink) {
         articleDirectLink.href = realUrl;

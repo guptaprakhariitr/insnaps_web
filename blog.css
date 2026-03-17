@@ -1,0 +1,118 @@
+/* Blog Styles */
+
+.blog-post-header {
+  margin-bottom: 2.5rem;
+}
+.blog-post-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.blog-post-meta {
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+.blog-post-desc {
+  color: var(--fg-secondary);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.blog-articles {
+  margin-bottom: 3rem;
+}
+
+.blog-article-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+}
+.blog-article-item:hover {
+  border-color: var(--accent);
+}
+.blog-article-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+.blog-article-item h3 a {
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.blog-article-item h3 a:hover {
+  color: var(--accent);
+}
+.blog-article-meta {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  margin-bottom: 0.5rem;
+}
+.blog-article-item > p:last-child {
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.blog-no-articles {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+.blog-no-articles p {
+  color: var(--fg-muted);
+}
+
+/* Blog Index Grid */
+.blog-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.blog-index-card {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.blog-index-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  color: inherit;
+}
+.blog-index-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.blog-index-card p {
+  color: var(--fg-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+.blog-card-meta {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 768px) {
+  .blog-index-grid { grid-template-columns: 1fr; }
+}
