@@ -333,85 +333,153 @@
   }
 
   // ========================================
-  // 3D GLOBE (Globe.gl) — polygon world map with conflict markers
+  // D3 ORTHOGRAPHIC GLOBE — SVG world map with conflict markers
   // ========================================
   (function initGlobe() {
-    var globeContainer = document.getElementById('globeViz');
-    if (!globeContainer || typeof Globe === 'undefined') return;
+    var container = document.getElementById('globeViz');
+    if (!container || typeof d3 === 'undefined') return;
 
     var CONFLICTS = [];
     try { CONFLICTS = JSON.parse(document.getElementById('conflictsGeoData').textContent); } catch(e) {}
 
-    var W = globeContainer.clientWidth || 600;
-    var H = globeContainer.clientHeight || 520;
+    var width = container.clientWidth || 600;
+    var height = container.clientHeight || 520;
+    var radius = Math.min(width, height) / 2.15;
 
-    var globe = Globe()
-      .backgroundColor('#060a14')
-      .showGlobe(true)
-      .showAtmosphere(true)
-      .atmosphereColor('rgba(60,120,220,0.3)')
-      .atmosphereAltitude(0.2)
-      .pointsData(CONFLICTS)
-      .pointLat('lat')
-      .pointLng('lng')
-      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.12 : d.severity === 'significant' ? 0.08 : 0.05; })
-      .pointRadius(function(d) { return d.severity === 'critical' ? 0.6 : d.severity === 'significant' ? 0.45 : 0.32; })
-      .pointColor(function(d) { return d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e'; })
-      .pointLabel(function(d) {
-        var col = d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e';
-        return '<div style="text-align:center;font-family:Inter,sans-serif;padding:8px 12px;background:rgba(10,10,20,0.95);color:#fff;border-radius:10px;font-size:13px;max-width:220px;border:1px solid ' + col + '40"><strong>' + d.title + '</strong><br><span style="font-size:11px;color:' + col + '">' + d.status + '</span></div>';
-      })
-      .onPointClick(function(d) {
-        window.location.href = '/conflicts/' + d.slug + '/';
-      })
-      .width(W)
-      .height(H)
-      (globeContainer);
+    var projection = d3.geoOrthographic()
+      .scale(radius)
+      .translate([width / 2, height / 2])
+      .clipAngle(90)
+      .rotate([-30, -15]);
 
-    // Dark sphere surface
-    try {
-      var globeMat = globe.globeMaterial();
-      globeMat.color.set('#0a1025');
-      globeMat.emissive.set('#061030');
-      globeMat.emissiveIntensity = 0.15;
-      globeMat.shininess = 0.2;
-    } catch(e) {}
+    var path = d3.geoPath().projection(projection);
 
-    globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.5;
-    globe.controls().enableZoom = true;
-    globe.controls().minDistance = 180;
-    globe.controls().maxDistance = 450;
+    var svg = d3.select(container).append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .style('cursor', 'grab');
 
-    // Pulsing rings on critical conflicts
-    var criticalConflicts = CONFLICTS.filter(function(d) { return d.severity === 'critical'; });
-    globe.ringsData(criticalConflicts)
-      .ringLat('lat')
-      .ringLng('lng')
-      .ringColor(function() { return 'rgba(249,115,22,0.6)'; })
-      .ringMaxRadius(4)
-      .ringPropagationSpeed(1.5)
-      .ringRepeatPeriod(2000);
+    // Atmosphere glow
+    var defs = svg.append('defs');
+    var grad = defs.append('radialGradient').attr('id', 'globe-atmo');
+    grad.append('stop').attr('offset', '85%').attr('stop-color', 'rgba(40,100,220,0.08)');
+    grad.append('stop').attr('offset', '100%').attr('stop-color', 'rgba(40,100,220,0)');
+    svg.append('circle')
+      .attr('cx', width / 2).attr('cy', height / 2).attr('r', radius + 30)
+      .attr('fill', 'url(#globe-atmo)');
 
-    // Load country polygons for world outline
-    if (typeof topojson !== 'undefined') {
-      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-        .then(function(r) { return r.json(); })
-        .then(function(worldData) {
-          var countries = topojson.feature(worldData, worldData.objects.countries);
-          globe.polygonsData(countries.features)
-            .polygonCapColor(function() { return 'rgba(15,25,50,0.9)'; })
-            .polygonSideColor(function() { return 'rgba(15,25,50,0.6)'; })
-            .polygonStrokeColor(function() { return 'rgba(80,140,240,0.35)'; })
-            .polygonAltitude(0.008);
-        })
-        .catch(function(err) { console.warn('Globe: failed to load country data', err); });
+    // Ocean sphere
+    var sphere = svg.append('circle')
+      .attr('cx', width / 2).attr('cy', height / 2).attr('r', radius)
+      .attr('fill', '#0a1025');
+
+    // Graticule
+    var graticule = d3.geoGraticule().step([20, 20]);
+    var graticulePath = svg.append('path')
+      .datum(graticule())
+      .attr('d', path)
+      .attr('fill', 'none')
+      .attr('stroke', 'rgba(50,100,180,0.08)')
+      .attr('stroke-width', 0.4);
+
+    var countriesGroup = svg.append('g');
+    var dotsGroup = svg.append('g');
+
+    function dotColor(d) {
+      return d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e';
+    }
+    function dotRadius(d) {
+      return d.severity === 'critical' ? 6 : d.severity === 'significant' ? 4.5 : 3.5;
+    }
+    function isVisible(coords) {
+      var r = projection.rotate();
+      return d3.geoDistance(coords, [-r[0], -r[1]]) < Math.PI / 2;
     }
 
-    window.addEventListener('resize', function () {
-      var w = globeContainer.clientWidth || 600;
-      var h = globeContainer.clientHeight || 520;
-      globe.width(w).height(h);
+    function renderDots() {
+      dotsGroup.selectAll('*').remove();
+      CONFLICTS.forEach(function(d) {
+        var coords = [d.lng, d.lat];
+        if (!isVisible(coords)) return;
+        var pos = projection(coords);
+        if (!pos) return;
+
+        if (d.severity === 'critical') {
+          dotsGroup.append('circle')
+            .attr('cx', pos[0]).attr('cy', pos[1]).attr('r', dotRadius(d) + 4)
+            .attr('fill', 'none').attr('stroke', dotColor(d)).attr('stroke-width', 1.2)
+            .attr('opacity', 0.4);
+        }
+        dotsGroup.append('circle')
+          .attr('cx', pos[0]).attr('cy', pos[1]).attr('r', dotRadius(d))
+          .attr('fill', dotColor(d)).attr('opacity', 0.92)
+          .style('cursor', 'pointer')
+          .style('filter', 'drop-shadow(0 0 3px ' + dotColor(d) + ')')
+          .on('click', function() { window.location.href = '/conflicts/' + d.slug + '/'; })
+          .append('title').text(d.title + ' \u2014 ' + d.status);
+      });
+    }
+
+    function renderAll() {
+      graticulePath.attr('d', path);
+      countriesGroup.selectAll('path').attr('d', path);
+      renderDots();
+    }
+
+    // Load countries
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(function(world) {
+        var countries = topojson.feature(world, world.objects.countries);
+        countriesGroup.selectAll('path')
+          .data(countries.features)
+          .join('path')
+          .attr('d', path)
+          .attr('fill', 'rgba(18,30,55,0.95)')
+          .attr('stroke', 'rgba(80,140,240,0.3)')
+          .attr('stroke-width', 0.5);
+        renderDots();
+      })
+      .catch(function(err) { console.warn('Globe: failed to load countries', err); });
+
+    // Drag to rotate
+    var autoRotating = true;
+    svg.call(d3.drag()
+      .on('start', function() {
+        autoRotating = false;
+        svg.style('cursor', 'grabbing');
+      })
+      .on('drag', function(event) {
+        var r = projection.rotate();
+        projection.rotate([r[0] + event.dx * 0.4, Math.max(-60, Math.min(60, r[1] - event.dy * 0.4))]);
+        renderAll();
+      })
+      .on('end', function() {
+        svg.style('cursor', 'grab');
+        setTimeout(function() { autoRotating = true; }, 3000);
+      })
+    );
+
+    // Auto-rotation
+    var last = Date.now();
+    (function tick() {
+      if (autoRotating) {
+        var now = Date.now();
+        var r = projection.rotate();
+        projection.rotate([r[0] + (now - last) * 0.008, r[1]]);
+        renderAll();
+        last = now;
+      } else { last = Date.now(); }
+      requestAnimationFrame(tick);
+    })();
+
+    window.addEventListener('resize', function() {
+      width = container.clientWidth || 600;
+      height = container.clientHeight || 520;
+      radius = Math.min(width, height) / 2.15;
+      projection.scale(radius).translate([width / 2, height / 2]);
+      svg.attr('width', width).attr('height', height);
+      sphere.attr('cx', width / 2).attr('cy', height / 2).attr('r', radius);
+      renderAll();
     });
   })();
 

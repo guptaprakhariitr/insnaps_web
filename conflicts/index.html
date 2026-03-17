@@ -251,6 +251,8 @@
     </div></div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
   <script>
     (function(){
       var html=document.documentElement,t=document.getElementById('themeToggle');
@@ -260,6 +262,87 @@
       t.addEventListener('click',function(){var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n)});
       var h=document.getElementById('navHamburger'),nl=document.getElementById('navLinks');
       h.addEventListener('click',function(){h.classList.toggle('open');nl.classList.toggle('open');document.body.style.overflow=nl.classList.contains('open')?'hidden':''});
+
+      // D3 Orthographic Globe
+      var gc=document.getElementById('globeViz');
+      if(!gc||typeof d3==='undefined')return;
+
+      var conflicts=[];
+      try{conflicts=JSON.parse(document.getElementById('conflictsGeoData').textContent)}catch(e){}
+
+      var w=gc.clientWidth||600,ht=gc.clientHeight||420;
+      var rad=Math.min(w,ht)/2.15;
+      var proj=d3.geoOrthographic().scale(rad).translate([w/2,ht/2]).clipAngle(90).rotate([-30,-15]);
+      var pathGen=d3.geoPath().projection(proj);
+
+      var svg=d3.select(gc).append('svg').attr('width',w).attr('height',ht).style('cursor','grab');
+
+      var defs=svg.append('defs');
+      var gr=defs.append('radialGradient').attr('id','cg-atmo');
+      gr.append('stop').attr('offset','85%').attr('stop-color','rgba(40,100,220,0.08)');
+      gr.append('stop').attr('offset','100%').attr('stop-color','rgba(40,100,220,0)');
+      svg.append('circle').attr('cx',w/2).attr('cy',ht/2).attr('r',rad+30).attr('fill','url(#cg-atmo)');
+
+      var sph=svg.append('circle').attr('cx',w/2).attr('cy',ht/2).attr('r',rad).attr('fill','#0a1025');
+
+      var grat=d3.geoGraticule().step([20,20]);
+      var gratPath=svg.append('path').datum(grat()).attr('d',pathGen).attr('fill','none').attr('stroke','rgba(50,100,180,0.08)').attr('stroke-width',0.4);
+
+      var cGroup=svg.append('g');
+      var dGroup=svg.append('g');
+
+      function dc(d){return d.severity==='critical'?'#f97316':d.severity==='significant'?'#eab308':'#22c55e'}
+      function dr(d){return d.severity==='critical'?6:d.severity==='significant'?4.5:3.5}
+      function vis(c){var r=proj.rotate();return d3.geoDistance(c,[-r[0],-r[1]])<Math.PI/2}
+
+      function renderDots(){
+        dGroup.selectAll('*').remove();
+        conflicts.forEach(function(d){
+          var c=[d.lng,d.lat];if(!vis(c))return;
+          var p=proj(c);if(!p)return;
+          if(d.severity==='critical'){
+            dGroup.append('circle').attr('cx',p[0]).attr('cy',p[1]).attr('r',dr(d)+4)
+              .attr('fill','none').attr('stroke',dc(d)).attr('stroke-width',1.2).attr('opacity',0.4);
+          }
+          dGroup.append('circle').attr('cx',p[0]).attr('cy',p[1]).attr('r',dr(d))
+            .attr('fill',dc(d)).attr('opacity',0.92)
+            .style('cursor','pointer').style('filter','drop-shadow(0 0 3px '+dc(d)+')')
+            .on('click',function(){window.location.href='/conflicts/'+d.slug+'/'})
+            .append('title').text(d.title+' \u2014 '+d.status);
+        });
+      }
+
+      function renderAll(){gratPath.attr('d',pathGen);cGroup.selectAll('path').attr('d',pathGen);renderDots()}
+
+      d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+        .then(function(world){
+          var countries=topojson.feature(world,world.objects.countries);
+          cGroup.selectAll('path').data(countries.features).join('path')
+            .attr('d',pathGen).attr('fill','rgba(18,30,55,0.95)')
+            .attr('stroke','rgba(80,140,240,0.3)').attr('stroke-width',0.5);
+          renderDots();
+        }).catch(function(e){console.warn('Globe countries failed',e)});
+
+      var autoR=true;
+      svg.call(d3.drag()
+        .on('start',function(){autoR=false;svg.style('cursor','grabbing')})
+        .on('drag',function(ev){var r=proj.rotate();proj.rotate([r[0]+ev.dx*0.4,Math.max(-60,Math.min(60,r[1]-ev.dy*0.4))]);renderAll()})
+        .on('end',function(){svg.style('cursor','grab');setTimeout(function(){autoR=true},3000)})
+      );
+
+      var lt=Date.now();
+      (function tick(){
+        if(autoR){var now=Date.now();var r=proj.rotate();proj.rotate([r[0]+(now-lt)*0.008,r[1]]);renderAll();lt=now}else{lt=Date.now()}
+        requestAnimationFrame(tick);
+      })();
+
+      window.addEventListener('resize',function(){
+        w=gc.clientWidth||600;ht=gc.clientHeight||420;rad=Math.min(w,ht)/2.15;
+        proj.scale(rad).translate([w/2,ht/2]);
+        svg.attr('width',w).attr('height',ht);
+        sph.attr('cx',w/2).attr('cy',ht/2).attr('r',rad);
+        renderAll();
+      });
     })();
   </script>
 </body>
