@@ -4,6 +4,94 @@
   var PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN';
   var IOS_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfc8kj-R9Mpd9ShTGOr4tqGcAsQ0GZsP2j13bDPMKkqzzDeEQ/viewform?embedded=true';
 
+  // ========================================
+  // RSS FEED CONFIGURATION — Google News
+  // ========================================
+  var RSS_BASE = 'https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US:en&q=';
+  var RSS_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+  var RSS_FEEDS = [
+    { label: 'Ukraine-Russia',    q: '"ukraine+russia+war"' },
+    { label: 'Israel-Palestine',  q: '"israel+palestine+conflict"' },
+    { label: 'Sudan Civil War',   q: '"sudan+civil+war"' },
+    { label: 'Myanmar',           q: '"myanmar+civil+war"' },
+    { label: 'Yemen',             q: '"yemen+war+houthi"' },
+    { label: 'Ethiopia',          q: '"ethiopia+conflict"' },
+    { label: 'DR Congo',          q: '"congo+war+M23"' },
+    { label: 'Syria',             q: '"syria+conflict"' },
+    { label: 'Taiwan Strait',     q: '"taiwan+china+tensions"' },
+    { label: 'South China Sea',   q: '"south+china+sea+dispute"' },
+    { label: 'North Korea',       q: '"north+korea+nuclear+threat"' },
+    { label: 'Somalia',           q: '"somalia+conflict+al+shabaab"' },
+    { label: 'Libya',             q: '"libya+conflict"' },
+    { label: 'Armenia-Azerbaijan',q: '"armenia+azerbaijan+conflict"' },
+    { label: 'Haiti',             q: '"haiti+crisis+gang+violence"' },
+    { label: 'Afghanistan',       q: '"afghanistan+taliban"' },
+    { label: 'Lebanon',           q: '"lebanon+hezbollah+conflict"' },
+    { label: 'Iran Tensions',     q: '"iran+nuclear+tensions"' },
+    { label: 'Sahel Crisis',      q: '"sahel+crisis+conflict"' },
+    { label: 'Mozambique',        q: '"mozambique+insurgency"' },
+    { label: 'Colombia',          q: '"colombia+conflict"' },
+    { label: 'Kashmir',           q: '"kashmir+conflict+tensions"' },
+    { label: 'Venezuela',         q: '"venezuela+conflict"' },
+    { label: 'Sanctions',         q: '"global+sanctions+geopolitics"' },
+    { label: 'Military',          q: '"military+operations+defense"' },
+    { label: 'Diplomacy',         q: '"diplomacy+peace+talks"' },
+    { label: 'Geopolitics',       q: '"geopolitics+world+order"' },
+    { label: 'Iraq',              q: '"iraq+security+conflict"' },
+    { label: 'South Sudan',       q: '"south+sudan+conflict"' },
+    { label: 'Mexico',            q: '"mexico+cartel+violence"' }
+  ];
+
+  function buildRssUrl(feed) {
+    return RSS_BASE + encodeURIComponent(feed.q).replace(/%2B/g, '+').replace(/%22/g, '"');
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function fetchRss(feed) {
+    var url = RSS_PROXY + encodeURIComponent(buildRssUrl(feed));
+    return fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+      if (data.status !== 'ok' || !data.items) return [];
+      return data.items.map(function(item) {
+        return {
+          title: escapeHtml(item.title || ''),
+          link: item.link,
+          pubDate: item.pubDate,
+          source: escapeHtml(item.author || (item.title.split(' - ').pop() || '').trim()),
+          feedLabel: feed.label
+        };
+      });
+    }).catch(function() { return []; });
+  }
+
+  function fetchMultipleFeeds(feeds) {
+    return Promise.all(feeds.map(fetchRss)).then(function(results) {
+      var all = [];
+      results.forEach(function(items) { all = all.concat(items); });
+      all.sort(function(a, b) { return new Date(b.pubDate) - new Date(a.pubDate); });
+      return all;
+    });
+  }
+
+  function shuffleArray(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  window.InSnapsRSS = {
+    FEEDS: RSS_FEEDS,
+    buildUrl: buildRssUrl,
+    fetchFeed: fetchRss,
+    fetchMultiple: fetchMultipleFeeds,
+    shuffle: shuffleArray
+  };
+
   // --- Platform Detection ---
   var ua = navigator.userAgent || '';
   var isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -17,7 +105,7 @@
   if (stored) html.setAttribute('data-theme', stored);
   else if (window.matchMedia('(prefers-color-scheme: light)').matches) html.setAttribute('data-theme', 'light');
 
-  toggle.addEventListener('click', function () {
+  if (toggle) toggle.addEventListener('click', function () {
     var current = html.getAttribute('data-theme');
     var next = current === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
@@ -26,27 +114,31 @@
 
   // --- Navbar scroll state ---
   var navbar = document.getElementById('navbar');
-  function updateNav() {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  if (navbar) {
+    function updateNav() {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
   }
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
 
   // --- Mobile hamburger ---
   var hamburger = document.getElementById('navHamburger');
   var navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', function () {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-  });
-  navLinks.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
-      document.body.style.overflow = '';
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
-  });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 
   // ========================================
   // PLATFORM-AWARE DOWNLOAD MODAL
@@ -107,9 +199,36 @@
     });
   }
 
-  // --- Last Updated Time ---
+  // ========================================
+  // LIVE RSS TICKER FETCH
+  // ========================================
+  var tickerTrack = document.getElementById('tickerTrack');
   var lastUpdateEl = document.getElementById('lastUpdateTime');
-  if (lastUpdateEl) {
+
+  (function loadLiveTicker() {
+    if (!tickerTrack) return;
+    var picks = shuffleArray(RSS_FEEDS.slice()).slice(0, 6);
+    fetchMultipleFeeds(picks).then(function(articles) {
+      if (!articles.length) return;
+      var headlines = articles.slice(0, 16);
+      var html = '';
+      headlines.forEach(function(a) {
+        var short = a.title.length > 120 ? a.title.substring(0, 117) + '...' : a.title;
+        html += '<span>' + a.feedLabel + ': ' + short + '</span>';
+      });
+      tickerTrack.innerHTML = html + html;
+      if (lastUpdateEl) {
+        lastUpdateEl.textContent = 'just now';
+      }
+    }).catch(function() {
+      if (lastUpdateEl) {
+        var mins = Math.floor(Math.random() * 8) + 2;
+        lastUpdateEl.textContent = mins + ' minutes ago';
+      }
+    });
+  })();
+
+  if (lastUpdateEl && !tickerTrack) {
     var mins = Math.floor(Math.random() * 8) + 2;
     lastUpdateEl.textContent = mins + ' minutes ago';
   }
