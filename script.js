@@ -333,7 +333,7 @@
   }
 
   // ========================================
-  // 3D GLOBE (Globe.gl)
+  // 3D GLOBE (Globe.gl) — dark polygon style matching the app
   // ========================================
   (function initGlobe() {
     var globeContainer = document.getElementById('globeViz');
@@ -342,64 +342,76 @@
     var CONFLICTS = [];
     try { CONFLICTS = JSON.parse(document.getElementById('conflictsGeoData').textContent); } catch(e) {}
 
-    var isDark = html.getAttribute('data-theme') !== 'light';
     var globe = Globe()
-      .globeImageUrl(isDark
-        ? 'https://unpkg.com/three-globe/example/img/earth-night.jpg'
-        : 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-      .backgroundImageUrl(isDark
-        ? 'https://unpkg.com/three-globe/example/img/night-sky.png'
-        : '')
-      .backgroundColor(isDark ? '#050505' : '#f5f5f7')
+      .backgroundColor('rgba(0,0,0,0)')
+      .showGlobe(true)
+      .showAtmosphere(true)
+      .atmosphereColor('rgba(30,80,160,0.2)')
+      .atmosphereAltitude(0.18)
+      .globeImageUrl('')
       .pointsData(CONFLICTS)
       .pointLat('lat')
       .pointLng('lng')
-      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.12 : d.severity === 'significant' ? 0.08 : 0.05; })
-      .pointRadius(function(d) { return d.severity === 'critical' ? 0.55 : d.severity === 'significant' ? 0.4 : 0.3; })
-      .pointColor(function(d) { return d.severity === 'critical' ? '#ef4444' : d.severity === 'significant' ? '#f59e0b' : '#3b82f6'; })
-      .pointLabel(function(d) { return '<div style="text-align:center;font-family:Inter,sans-serif;padding:6px 10px;background:rgba(0,0,0,0.85);color:#fff;border-radius:8px;font-size:13px;max-width:200px"><strong>' + d.title + '</strong><br><span style="font-size:11px;opacity:0.8">' + d.status + '</span></div>'; })
+      .pointAltitude(function(d) { return d.severity === 'critical' ? 0.06 : d.severity === 'significant' ? 0.04 : 0.03; })
+      .pointRadius(function(d) { return d.severity === 'critical' ? 0.5 : d.severity === 'significant' ? 0.38 : 0.28; })
+      .pointColor(function(d) { return d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e'; })
+      .pointLabel(function(d) {
+        var col = d.severity === 'critical' ? '#f97316' : d.severity === 'significant' ? '#eab308' : '#22c55e';
+        return '<div style="text-align:center;font-family:Inter,sans-serif;padding:8px 12px;background:rgba(10,10,20,0.95);color:#fff;border-radius:10px;font-size:13px;max-width:220px;border:1px solid ' + col + '40"><strong>' + d.title + '</strong><br><span style="font-size:11px;color:' + col + '">' + d.status + '</span></div>';
+      })
       .onPointClick(function(d) {
         window.location.href = '/conflicts/' + d.slug + '/';
       })
-      .atmosphereColor(isDark ? 'rgba(20,184,166,0.15)' : 'rgba(13,148,136,0.1)')
-      .atmosphereAltitude(0.2)
       .width(globeContainer.clientWidth)
       .height(globeContainer.clientHeight)
       (globeContainer);
 
-    // Auto-rotate
-    globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.5;
-    globe.controls().enableZoom = true;
-    globe.controls().minDistance = 200;
-    globe.controls().maxDistance = 500;
+    // Dark globe surface
+    var scene = globe.scene();
+    scene.children.forEach(function(child) {
+      if (child.type === 'Group') {
+        child.children.forEach(function(mesh) {
+          if (mesh.type === 'Mesh' && mesh.material && mesh.material.type === 'MeshPhongMaterial') {
+            mesh.material.color.set('#0a0e1a');
+            mesh.material.emissive.set('#050810');
+            mesh.material.emissiveIntensity = 0.3;
+          }
+        });
+      }
+    });
 
-    // Pulse rings for critical conflicts
+    globe.controls().autoRotate = true;
+    globe.controls().autoRotateSpeed = 0.4;
+    globe.controls().enableZoom = true;
+    globe.controls().minDistance = 180;
+    globe.controls().maxDistance = 450;
+
+    // Pulse rings on critical
     var criticalConflicts = CONFLICTS.filter(function(d) { return d.severity === 'critical'; });
     globe.ringsData(criticalConflicts)
       .ringLat('lat')
       .ringLng('lng')
-      .ringColor(function() { return 'rgba(239,68,68,0.6)'; })
+      .ringColor(function() { return 'rgba(249,115,22,0.5)'; })
       .ringMaxRadius(3)
-      .ringPropagationSpeed(1.5)
-      .ringRepeatPeriod(2000);
+      .ringPropagationSpeed(1.2)
+      .ringRepeatPeriod(2500);
 
-    // Responsive
+    // Country borders
+    if (typeof topojson !== 'undefined') {
+      fetch('https://unpkg.com/world-atlas@2.0.2/countries-110m.json')
+        .then(function(r) { return r.json(); })
+        .then(function(worldData) {
+          var countries = topojson.feature(worldData, worldData.objects.countries);
+          globe.polygonsData(countries.features)
+            .polygonCapColor(function() { return 'rgba(12,18,35,0.85)'; })
+            .polygonSideColor(function() { return 'rgba(12,18,35,0.6)'; })
+            .polygonStrokeColor(function() { return 'rgba(50,100,180,0.3)'; })
+            .polygonAltitude(0.006);
+        }).catch(function() {});
+    }
+
     window.addEventListener('resize', function () {
       globe.width(globeContainer.clientWidth).height(globeContainer.clientHeight);
-    });
-
-    // Theme sync
-    toggle.addEventListener('click', function () {
-      setTimeout(function() {
-        var dark = html.getAttribute('data-theme') !== 'light';
-        globe.globeImageUrl(dark
-          ? 'https://unpkg.com/three-globe/example/img/earth-night.jpg'
-          : 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-          .backgroundImageUrl(dark ? 'https://unpkg.com/three-globe/example/img/night-sky.png' : '')
-          .backgroundColor(dark ? '#050505' : '#f5f5f7')
-          .atmosphereColor(dark ? 'rgba(20,184,166,0.15)' : 'rgba(13,148,136,0.1)');
-      }, 100);
     });
   })();
 

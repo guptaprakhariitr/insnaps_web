@@ -1849,6 +1849,7 @@ a:hover { color: var(--accent-light); }
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.25s, visibility 0.25s;
+  padding: 1rem;
 }
 .dl-modal.open {
   opacity: 1;
@@ -1865,45 +1866,68 @@ a:hover { color: var(--accent-light); }
   background: var(--bg-card);
   border: 1px solid var(--border-strong);
   border-radius: 20px;
-  padding: 2.5rem 2rem 2rem;
   max-width: 400px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   box-shadow: var(--shadow-elevated);
   transform: scale(0.92);
   transition: transform 0.25s;
 }
 .dl-modal.open .dl-modal-content { transform: scale(1); }
+
+/* Sticky close button that never scrolls away */
+.dl-modal-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 1rem 0;
+  flex-shrink: 0;
+}
 .dl-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
   background: none;
   border: none;
   color: var(--fg-muted);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   cursor: pointer;
   line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
 }
-.dl-modal-close:hover { color: var(--fg); }
+.dl-modal-close:hover {
+  color: var(--fg);
+  background: var(--border);
+}
+
+/* Scrollable body */
+.dl-modal-body {
+  overflow-y: auto;
+  padding: 0.5rem 1.75rem 1.75rem;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
 .dl-modal-logo {
   border-radius: 14px;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.75rem;
   display: block;
 }
 .dl-modal-title {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--fg);
-  margin: 0 0 0.3rem;
+  margin: 0 0 0.25rem;
 }
 .dl-modal-desc {
   color: var(--fg-secondary);
-  font-size: 0.9rem;
-  margin: 0 0 1.5rem;
+  font-size: 0.85rem;
+  margin: 0 0 1.25rem;
 }
 .dl-modal-options {
   display: flex;
@@ -2167,25 +2191,24 @@ a:hover { color: var(--accent-light); }
   box-shadow: 0 8px 30px rgba(0,0,0,0.12);
 }
 
-/* Smooth text gradient shimmer on hero title */
+/* Subtle shimmer accent underline on hero title */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 .hero-title {
-  background: linear-gradient(
-    90deg,
-    var(--fg) 0%,
-    var(--accent-light) 25%,
-    var(--fg) 50%,
-    var(--accent-light) 75%,
-    var(--fg) 100%
-  );
+  position: relative;
+}
+.hero-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  margin-top: 0.5rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
   background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 6s linear infinite;
+  animation: shimmer 3s linear infinite;
 }
 
 /* Pulse glow on hero badge dot */
@@ -2262,41 +2285,45 @@ a:hover { color: var(--accent-light); }
 .news-ticker {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
-  padding: 0.6rem 0;
+  height: 36px;
   overflow: hidden;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 .news-ticker-label {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   background: #ef4444;
   color: #fff;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 0.25rem 0.65rem;
-  border-radius: 4px;
-  margin-right: 1rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
   flex-shrink: 0;
-  vertical-align: middle;
+  margin-left: 1rem;
+  margin-right: 0.75rem;
+  z-index: 1;
 }
 .news-ticker-label .ticker-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #fff;
   animation: badge-pulse 1.5s infinite;
 }
 .news-ticker-track {
   display: inline-block;
-  animation: tickerScroll 45s linear infinite;
+  white-space: nowrap;
+  animation: tickerScroll 60s linear infinite;
   color: var(--fg-secondary);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 .news-ticker-track span {
-  margin-right: 3rem;
+  margin-right: 2.5rem;
 }
 @keyframes tickerScroll {
   0% { transform: translateX(0); }
@@ -2306,19 +2333,19 @@ a:hover { color: var(--accent-light); }
 /* Last updated timestamp bar */
 .last-updated-bar {
   text-align: center;
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
+  padding: 0.35rem 1rem;
+  font-size: 0.72rem;
   color: var(--fg-muted);
   background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 .last-updated-bar .update-dot {
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #22c55e;
-  margin-right: 0.4rem;
+  margin-right: 0.35rem;
   vertical-align: middle;
   animation: badge-pulse 2s infinite;
 }
@@ -2338,7 +2365,7 @@ a:hover { color: var(--accent-light); }
   .sources-track { animation: none; }
   .scroll-line { animation: none; }
   .hero-badge-dot { animation: none; }
-  .hero-title { animation: none; -webkit-text-fill-color: var(--fg); }
+  .hero-title::after { animation: none; }
   .hero-phone { animation: none; }
   .cta-final .btn-primary { animation: none; }
   .news-ticker-track { animation: none; }
