@@ -53,17 +53,6 @@
         <h1>Active Conflicts & Wars — 2026</h1>
         <p class="conflict-meta">Tracking 30 conflicts and crises worldwide. Updated regularly.</p>
       </header>
-
-      <!-- Interactive Globe -->
-      <div class="globe-wrapper" style="margin-bottom:2.5rem">
-        <div id="globeViz" style="background:#060a14;border-radius:16px"></div>
-        <div class="globe-legend">
-          <span class="legend-item"><span class="legend-dot" style="background:#f97316"></span> Critical</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#eab308"></span> Significant</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Limited</span>
-        </div>
-      </div>
-
       <div class="conflicts-index-grid">
       <a href="/conflicts/ukraine-russia/" class="conflict-index-card severity-border-critical">
         <div class="conflict-index-status"><span class="severity-dot severity-critical"></span>Active War</div>
@@ -262,11 +251,6 @@
     </div></div>
   </footer>
 
-<<<<<<< HEAD
-  <script src="https://unpkg.com/globe.gl@2.35.2/dist/globe.gl.min.js"></script>
-  <script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-=======
->>>>>>> cdc900356907d9285295632a61ca03557db6f96b
   <script>
     (function(){
       var html=document.documentElement,t=document.getElementById('themeToggle');
@@ -276,83 +260,6 @@
       t.addEventListener('click',function(){var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n)});
       var h=document.getElementById('navHamburger'),nl=document.getElementById('navLinks');
       h.addEventListener('click',function(){h.classList.toggle('open');nl.classList.toggle('open');document.body.style.overflow=nl.classList.contains('open')?'hidden':''});
-<<<<<<< HEAD
-
-      // Globe init — app-matching dark polygon style
-      var gc=document.getElementById('globeViz');
-      if(gc&&typeof Globe!=='undefined'){
-        var conflicts=[];
-        try{conflicts=JSON.parse(document.getElementById('conflictsGeoData').textContent)}catch(e){}
-
-        var g=Globe()
-          .backgroundColor('rgba(0,0,0,0)')
-          .showGlobe(true)
-          .showAtmosphere(true)
-          .atmosphereColor('rgba(30,80,160,0.2)')
-          .atmosphereAltitude(0.18)
-          .globeImageUrl('')
-          .pointsData(conflicts)
-          .pointLat('lat')
-          .pointLng('lng')
-          .pointAltitude(function(d){return d.severity==='critical'?0.06:d.severity==='significant'?0.04:0.03})
-          .pointRadius(function(d){return d.severity==='critical'?0.5:d.severity==='significant'?0.38:0.28})
-          .pointColor(function(d){return d.severity==='critical'?'#f97316':d.severity==='significant'?'#eab308':'#22c55e'})
-          .pointLabel(function(d){
-            var col=d.severity==='critical'?'#f97316':d.severity==='significant'?'#eab308':'#22c55e';
-            return '<div style="text-align:center;font-family:Inter,sans-serif;padding:8px 12px;background:rgba(10,10,20,0.95);color:#fff;border-radius:10px;font-size:13px;max-width:220px;border:1px solid '+col+'40"><strong>'+d.title+'</strong><br><span style="font-size:11px;color:'+col+'">'+d.status+'</span></div>';
-          })
-          .onPointClick(function(d){window.location.href='/conflicts/'+d.slug+'/'})
-          .width(gc.clientWidth)
-          .height(gc.clientHeight)
-          (gc);
-
-        // Dark globe surface color
-        var scene=g.scene();
-        scene.children.forEach(function(child){
-          if(child.type==='Group'){
-            child.children.forEach(function(mesh){
-              if(mesh.type==='Mesh'&&mesh.material&&mesh.material.type==='MeshPhongMaterial'){
-                mesh.material.color.set('#0a0e1a');
-                mesh.material.emissive.set('#050810');
-                mesh.material.emissiveIntensity=0.3;
-              }
-            });
-          }
-        });
-
-        g.controls().autoRotate=true;
-        g.controls().autoRotateSpeed=0.4;
-        g.controls().enableZoom=true;
-        g.controls().minDistance=180;
-        g.controls().maxDistance=450;
-
-        // Pulsing rings on critical conflicts
-        var crit=conflicts.filter(function(d){return d.severity==='critical'});
-        g.ringsData(crit)
-          .ringLat('lat').ringLng('lng')
-          .ringColor(function(){return'rgba(249,115,22,0.5)'})
-          .ringMaxRadius(3)
-          .ringPropagationSpeed(1.2)
-          .ringRepeatPeriod(2500);
-
-        // Fetch country borders for the outlined look
-        fetch('https://unpkg.com/world-atlas@2.0.2/countries-110m.json')
-          .then(function(r){return r.json()})
-          .then(function(worldData){
-            var countries=topojson.feature(worldData,worldData.objects.countries);
-            g.polygonsData(countries.features)
-              .polygonCapColor(function(){return'rgba(12,18,35,0.85)'})
-              .polygonSideColor(function(){return'rgba(12,18,35,0.6)'})
-              .polygonStrokeColor(function(){return'rgba(50,100,180,0.3)'})
-              .polygonAltitude(0.006);
-          })
-          .catch(function(){});
-
-        window._globe=g;
-        window.addEventListener('resize',function(){g.width(gc.clientWidth).height(gc.clientHeight)});
-      }
-=======
->>>>>>> cdc900356907d9285295632a61ca03557db6f96b
     })();
   </script>
 </body>
