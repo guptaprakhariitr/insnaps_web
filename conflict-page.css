@@ -69,9 +69,7 @@
   font-weight: 500;
 }
 
-.conflict-summary {
-  margin-bottom: 2.5rem;
-}
+.conflict-summary { margin-bottom: 2.5rem; }
 .conflict-summary h2,
 .conflict-parties h2 {
   font-family: var(--font-display);
@@ -86,9 +84,7 @@
   line-height: 1.8;
 }
 
-.conflict-parties {
-  margin-bottom: 2.5rem;
-}
+.conflict-parties { margin-bottom: 2.5rem; }
 .parties-list {
   display: flex;
   flex-wrap: wrap;
@@ -104,9 +100,7 @@
   border-radius: 999px;
 }
 
-.conflict-cta {
-  margin-bottom: 2.5rem;
-}
+.conflict-cta { margin-bottom: 2.5rem; }
 .cta-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -125,9 +119,7 @@
   margin-bottom: 1.5rem;
   font-size: 1rem;
 }
-.cta-card .btn-primary {
-  display: inline-flex;
-}
+.cta-card .btn-primary { display: inline-flex; }
 
 .conflict-disclaimer {
   margin-bottom: 4rem;
@@ -142,68 +134,112 @@
   line-height: 1.6;
 }
 
-/* --- Conflicts Index Grid --- */
+/* ========================================
+   CONFLICTS INDEX — Organic Card Design
+   ======================================== */
 .conflicts-index-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
+
 .conflict-index-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-  padding: 1.75rem;
+  border-radius: 16px;
+  padding: 1.5rem 1.5rem 1.25rem;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.3s, transform 0.3s;
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: none;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
 }
+
+.conflict-index-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+.conflict-index-card.severity-border-critical::before { background: linear-gradient(90deg, #ef4444 0%, #f87171 100%); }
+.conflict-index-card.severity-border-significant::before { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
+.conflict-index-card.severity-border-limited::before { background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%); }
+
+.severity-border-critical { border-left: none; }
+.severity-border-significant { border-left: none; }
+.severity-border-limited { border-left: none; }
+
 .conflict-index-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   color: inherit;
 }
-.conflict-index-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
-}
-.conflict-index-card p {
-  color: var(--fg-secondary);
-  font-size: 0.88rem;
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
-}
+
 .conflict-index-status {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
+  gap: 0.4rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
-}
-.conflict-index-region {
-  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
   color: var(--fg-muted);
 }
 
+.conflict-index-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.conflict-index-card p {
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.conflict-index-region {
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
 .severity-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 .severity-dot.severity-critical { background: #ef4444; }
 .severity-dot.severity-significant { background: #f59e0b; }
 .severity-dot.severity-limited { background: #3b82f6; }
 
-.severity-border-critical { border-left: 3px solid #ef4444; }
-.severity-border-significant { border-left: 3px solid #f59e0b; }
-.severity-border-limited { border-left: 3px solid #3b82f6; }
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
 
-/* Blog coming soon */
 .blog-coming-soon {
   max-width: 600px;
   margin: 0 auto;
