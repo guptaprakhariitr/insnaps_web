@@ -209,7 +209,7 @@
     var header = document.querySelector('#redditFeed .reddit-preview-header span:last-child');
     if (!container) return;
 
-    fetch('https://www.reddit.com/r/InSnapsNewsUpdates.json?limit=6&raw_json=1', {
+    fetch('https://www.reddit.com/r/WorldNewsCards.json?limit=6&raw_json=1', {
         headers: { 'Accept': 'application/json' }
       })
       .then(function (r) {
@@ -219,7 +219,7 @@
       .then(function (data) {
         var posts = data.data.children;
         if (!posts.length) { showFallback(); return; }
-        if (header) header.textContent = 'Live from r/InSnapsNewsUpdates';
+        if (header) header.textContent = 'Live from r/WorldNewsCards';
         container.innerHTML = '';
 
         posts.forEach(function (child) {
@@ -258,9 +258,9 @@
     function showFallback() {
       if (header) header.textContent = 'Live discussions & geopolitics updates';
       container.innerHTML =
-        '<a href="https://www.reddit.com/r/InSnapsNewsUpdates/" target="_blank" rel="noopener" class="reddit-preview-item">' +
+        '<a href="https://www.reddit.com/r/WorldNewsCards/" target="_blank" rel="noopener" class="reddit-preview-item">' +
           '<div class="reddit-vote"><span class="reddit-arrow">▲</span></div>' +
-          '<div class="reddit-item-body"><p class="reddit-item-title">Visit r/InSnapsNewsUpdates for live geopolitics discussions, conflict monitoring, and community analysis.</p>' +
+          '<div class="reddit-item-body"><p class="reddit-item-title">Visit r/WorldNewsCards for live geopolitics discussions, conflict monitoring, and community analysis.</p>' +
           '<span class="reddit-item-meta">Community · Join the conversation</span></div>' +
         '</a>';
     }
