@@ -1,0 +1,9 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [{
+      "appID": "KCKVLTK944.com.prakshaappthree.appthree",
+      "paths": ["/a/*"]
+    }]
+  }
+}
