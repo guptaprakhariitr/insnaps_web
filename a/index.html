@@ -10,8 +10,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open in app | InSnaps</title>
-  <meta name="description" content="Open this article in InSnaps — the geopolitics and conflict monitor app.">
+  <title>Open in app | InSnaps : World News Cards App</title>
+  <meta name="description" content="Open this article in InSnaps : World News Cards App — the geopolitics and conflict monitor.">
   <link rel="icon" type="image/png" href="/logo.png">
   <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -226,7 +226,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/logo.png" alt="InSnaps" class="nav-logo-icon" width="32" height="32">
+        <img src="/logo.png" alt="InSnaps : World News Cards App" class="nav-logo-icon" width="32" height="32">
         <span class="nav-logo-text">InSnaps</span>
       </a>
       <div class="nav-right">
@@ -243,16 +243,16 @@
     <!-- ===== Android: auto-redirect (shown briefly) ===== -->
     <div id="android-view" style="display:none">
       <div class="spinner"></div>
-      <h1>Opening InSnaps…</h1>
+      <h1>Opening InSnaps : World News Cards App…</h1>
       <p id="msg">Redirecting to the article. If nothing happens, <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="storeLink">open it on Google Play</a>.</p>
     </div>
 
     <!-- ===== Non-Android (iOS + Desktop + other) ===== -->
     <div id="non-android-view" style="display:none">
-      <img src="/logo.png" alt="InSnaps" class="app-icon" width="88" height="88">
-      <h1>InSnaps</h1>
-      <p class="subtitle">Geopolitics &amp; Conflict Monitor</p>
-      <p>This link opens an article in the <strong>InSnaps app</strong>. Get the app to read it there, or use the direct link below.</p>
+      <img src="/logo.png" alt="InSnaps : World News Cards App" class="app-icon" width="88" height="88">
+      <h1>InSnaps : World News Cards App</h1>
+      <p class="subtitle">Geopolitics &amp; conflict monitor</p>
+      <p>This link opens an article in the app. Get <strong>InSnaps : World News Cards App</strong> to read it there, or use the direct link below.</p>
 
       <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="storeLinkOther" class="btn-primary-dl">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
@@ -271,10 +271,10 @@
         <div class="divider"></div>
         <div class="ios-section">
           <h3>iOS Coming Soon</h3>
-          <p>We're building InSnaps for iPhone &amp; iPad. Join the waitlist to be the first to know when it launches.</p>
+          <p>We're building InSnaps : World News Cards App for iPhone &amp; iPad. Join the waitlist to be the first to know when it launches.</p>
           <button class="ios-form-toggle" id="iosFormToggle" type="button">Join the Waitlist</button>
           <div id="iosFormEmbed" style="display:none" class="ios-form-embed">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfc8kj-R9Mpd9ShTGOr4tqGcAsQ0GZsP2j13bDPMKkqzzDeEQ/viewform?embedded=true" width="100%" height="440" frameborder="0" marginheight="0" marginwidth="0" loading="lazy" title="InSnaps iOS Waitlist">Loading…</iframe>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfc8kj-R9Mpd9ShTGOr4tqGcAsQ0GZsP2j13bDPMKkqzzDeEQ/viewform?embedded=true" width="100%" height="440" frameborder="0" marginheight="0" marginwidth="0" loading="lazy" title="InSnaps : World News Cards App iOS waitlist">Loading…</iframe>
           </div>
         </div>
       </div>
@@ -287,12 +287,12 @@
         <span class="pill">Zero Data Collected</span>
       </div>
 
-      <a href="/" class="explore-link">Explore InSnaps &rarr;</a>
+      <a href="/" class="explore-link">Explore InSnaps : World News Cards App &rarr;</a>
     </div>
 
     <!-- Mini footer -->
     <div class="mini-footer">
-      <p>&copy; 2026 <a href="/">InSnaps</a> &middot; <a href="/conflicts/">Conflicts</a> &middot; <a href="/blog/">Blog</a></p>
+      <p>&copy; 2026 <a href="/">InSnaps : World News Cards App</a> &middot; <a href="/conflicts/">Conflicts</a> &middot; <a href="/blog/">Blog</a></p>
     </div>
   </div>
 
@@ -385,7 +385,8 @@
       if (!token) {
         androidView.style.display = 'none';
         nonAndroidView.style.display = 'block';
-        document.querySelector('.redirect-page h1').textContent = 'InSnaps';
+        var naH1 = document.querySelector('#non-android-view h1');
+        if (naH1) naH1.textContent = 'InSnaps : World News Cards App';
         return;
       }
 

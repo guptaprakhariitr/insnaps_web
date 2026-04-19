@@ -60,7 +60,7 @@ for c in conflicts:
     \"headline\": \"{esc(c['title'])}\",
     \"description\": \"{esc(c['summary'][:200])}\",
     \"url\": \"$SITE_URL/conflicts/{slug}/\",
-    \"publisher\": {{\"@type\": \"Organization\", \"name\": \"InSnaps\", \"url\": \"$SITE_URL\"}},
+    \"publisher\": {{\"@type\": \"Organization\", \"name\": \"InSnaps : World News Cards App\", \"url\": \"$SITE_URL\"}},
     \"mainEntityOfPage\": \"$SITE_URL/conflicts/{slug}/\"
   }}
   </script>
@@ -74,7 +74,7 @@ for c in conflicts:
   <nav class=\"navbar scrolled\" id=\"navbar\">
     <div class=\"nav-container\">
       <a href=\"/\" class=\"nav-logo\">
-        <img src=\"/logo.png\" alt=\"InSnaps\" class=\"nav-logo-icon\" width=\"32\" height=\"32\">
+        <img src=\"/logo.png\" alt=\"InSnaps : World News Cards App\" class=\"nav-logo-icon\" width=\"32\" height=\"32\">
         <span class=\"nav-logo-text\">InSnaps</span>
       </a>
       <div class=\"nav-links\" id=\"navLinks\">
@@ -123,16 +123,16 @@ for c in conflicts:
       <section class=\"conflict-cta\">
         <div class=\"cta-card\">
           <h3>Track this conflict in real-time</h3>
-          <p>Get live updates, interactive maps, and timeline data in the InSnaps app.</p>
+          <p>Get live updates, interactive maps, and timeline data in <strong>InSnaps : World News Cards App</strong>.</p>
           <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"btn-primary\">
             <svg viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"20\" height=\"20\"><path d=\"M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z\"/></svg>
-            Download InSnaps Free
+            Download free
           </a>
         </div>
       </section>
 
       <section class=\"conflict-disclaimer\">
-        <p>This page provides a summary for informational purposes. For the latest real-time updates, open the InSnaps app. Sources include Reuters, BBC, Al Jazeera, UCDP, and other verified outlets.</p>
+        <p>This page provides a summary for informational purposes. For the latest real-time updates, open <strong>InSnaps : World News Cards App</strong>. Sources include Reuters, BBC, Al Jazeera, UCDP, and other verified outlets.</p>
       </section>
     </div>
   </main>
@@ -140,7 +140,7 @@ for c in conflicts:
   <footer class=\"site-footer\">
     <div class=\"container\">
       <div class=\"footer-bottom\">
-        <p>&copy; $YEAR InSnaps. Built by <a href=\"https://x.com/BuildWtPrakhar\" target=\"_blank\" rel=\"noopener\">Prakhar Gupta</a>.</p>
+        <p>&copy; $YEAR InSnaps : World News Cards App. Built by <a href=\"https://x.com/BuildWtPrakhar\" target=\"_blank\" rel=\"noopener\">Prakhar Gupta</a>.</p>
       </div>
     </div>
   </footer>
@@ -197,14 +197,14 @@ page = f'''<!DOCTYPE html>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset=\"UTF-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-  <title>Active Conflicts & Wars in $YEAR — Global Conflict Tracker | InSnaps</title>
+  <title>Active Conflicts & Wars in $YEAR — Global Conflict Tracker | InSnaps : World News Cards App</title>
   <meta name=\"description\" content=\"Track all active conflicts and wars worldwide in $YEAR. Interactive conflict map, live updates from Reuters, BBC, UCDP. Monitor 30+ ongoing wars and crises.\">
   <meta name=\"keywords\" content=\"active conflicts 2026, ongoing wars 2026, list of active conflicts, global conflict tracker, world wars map, conflict monitor\">
   <meta name=\"robots\" content=\"index, follow\">
   <link rel=\"canonical\" href=\"$SITE_URL/conflicts/\">
   <link rel=\"icon\" type=\"image/png\" href=\"/logo.png\">
   <meta name=\"google-play-app\" content=\"app-id=com.prakshaappthree.appthree\">
-  <meta property=\"og:title\" content=\"Active Conflicts & Wars in $YEAR | InSnaps\">
+  <meta property=\"og:title\" content=\"Active Conflicts & Wars in $YEAR | InSnaps : World News Cards App\">
   <meta property=\"og:description\" content=\"Track all active conflicts worldwide. 30+ wars monitored in real-time.\">
   <meta property=\"og:url\" content=\"$SITE_URL/conflicts/\">
   <meta property=\"og:type\" content=\"website\">
@@ -219,7 +219,7 @@ page = f'''<!DOCTYPE html>
   <nav class=\"navbar scrolled\" id=\"navbar\">
     <div class=\"nav-container\">
       <a href=\"/\" class=\"nav-logo\">
-        <img src=\"/logo.png\" alt=\"InSnaps\" class=\"nav-logo-icon\" width=\"32\" height=\"32\">
+        <img src=\"/logo.png\" alt=\"InSnaps : World News Cards App\" class=\"nav-logo-icon\" width=\"32\" height=\"32\">
         <span class=\"nav-logo-text\">InSnaps</span>
       </a>
       <div class=\"nav-links\" id=\"navLinks\">
@@ -250,8 +250,8 @@ page = f'''<!DOCTYPE html>
       <section class=\"conflict-cta\" style=\"margin-top:3rem\">
         <div class=\"cta-card\">
           <h3>Track all conflicts in real-time</h3>
-          <p>Get live updates, interactive maps, and personalized alerts in the InSnaps app.</p>
-          <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"btn-primary\">Download InSnaps Free</a>
+          <p>Get live updates, interactive maps, and personalized alerts in <strong>InSnaps : World News Cards App</strong>.</p>
+          <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"btn-primary\">Download free</a>
         </div>
       </section>
     </div>
@@ -259,7 +259,7 @@ page = f'''<!DOCTYPE html>
 
   <footer class=\"site-footer\">
     <div class=\"container\"><div class=\"footer-bottom\">
-      <p>&copy; $YEAR InSnaps. Built by <a href=\"https://x.com/BuildWtPrakhar\" target=\"_blank\" rel=\"noopener\">Prakhar Gupta</a>.</p>
+      <p>&copy; $YEAR InSnaps : World News Cards App. Built by <a href=\"https://x.com/BuildWtPrakhar\" target=\"_blank\" rel=\"noopener\">Prakhar Gupta</a>.</p>
     </div></div>
   </footer>
 
@@ -294,12 +294,12 @@ cat > blog/index.html << 'BLOGEOF'
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog — Geopolitics Analysis & Conflict Insights | InSnaps</title>
-  <meta name="description" content="Weekly geopolitics analysis, conflict updates, data-driven articles about wars, sanctions, diplomacy, and global security from the InSnaps team.">
+  <title>Blog — Geopolitics Analysis & Conflict Insights | InSnaps : World News Cards App</title>
+  <meta name="description" content="Weekly geopolitics analysis, conflict updates, data-driven articles about wars, sanctions, diplomacy, and global security from the InSnaps : World News Cards App team.">
   <link rel="canonical" href="https://insnaps.app/blog/">
   <link rel="icon" type="image/png" href="/logo.png">
   <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
-  <meta property="og:title" content="InSnaps Blog — Geopolitics Analysis & Conflict Insights">
+  <meta property="og:title" content="InSnaps : World News Cards App — Blog — Geopolitics Analysis & Conflict Insights">
   <meta property="og:description" content="Weekly data-driven analysis of global conflicts, wars, and geopolitics.">
   <meta property="og:url" content="https://insnaps.app/blog/">
   <meta property="og:type" content="website">
@@ -313,7 +313,7 @@ cat > blog/index.html << 'BLOGEOF'
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/logo.png" alt="InSnaps" class="nav-logo-icon" width="32" height="32">
+        <img src="/logo.png" alt="InSnaps : World News Cards App" class="nav-logo-icon" width="32" height="32">
         <span class="nav-logo-text">InSnaps</span>
       </a>
       <div class="nav-links" id="navLinks">
@@ -352,7 +352,7 @@ cat > blog/index.html << 'BLOGEOF'
 
   <footer class="site-footer">
     <div class="container"><div class="footer-bottom">
-      <p>&copy; 2026 InSnaps. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
+      <p>&copy; 2026 InSnaps : World News Cards App. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
     </div></div>
   </footer>
 

@@ -18,46 +18,48 @@ SITE_URL = "https://insnaps.app"
 PLAY_STORE = "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN"
 BLOG_DIR = "blog"
 YEAR = datetime.now().year
+APP_NAME = "InSnaps : World News Cards App"
+NAV_WORDMARK = "InSnaps"
 
 RSS_FEEDS = {
     "global-conflicts": {
         "title": "Global Conflicts & Wars — Weekly Roundup",
-        "seo_title": "Global Conflicts Update — Wars & Crisis News This Week | InSnaps",
+        "seo_title": "Global Conflicts Update — Wars & Crisis News This Week | InSnaps : World News Cards App",
         "description": "Latest updates on active conflicts, wars, and humanitarian crises around the world. Curated from top news sources.",
         "keywords": "global conflicts update, wars this week, conflict news, humanitarian crisis, world wars update",
         "url": "https://news.google.com/rss/search?q=global+conflicts+wars+crisis&hl=en-US&gl=US&ceid=US:en",
     },
     "ukraine-russia-war": {
         "title": "Ukraine-Russia War — Latest Developments",
-        "seo_title": "Ukraine-Russia War Update — Latest News & Analysis | InSnaps",
+        "seo_title": "Ukraine-Russia War Update — Latest News & Analysis | InSnaps : World News Cards App",
         "description": "The latest developments in the Russia-Ukraine war, including frontline updates, diplomacy, and international response.",
         "keywords": "ukraine war update, russia ukraine news, ukraine conflict latest, ukraine war 2026",
         "url": "https://news.google.com/rss/search?q=ukraine+russia+war&hl=en-US&gl=US&ceid=US:en",
     },
     "middle-east-conflict": {
         "title": "Middle East Conflicts — Latest Updates",
-        "seo_title": "Middle East Conflict Update — Gaza, Yemen, Iran News | InSnaps",
+        "seo_title": "Middle East Conflict Update — Gaza, Yemen, Iran News | InSnaps : World News Cards App",
         "description": "Latest news from Middle East conflicts including Israel-Palestine, Yemen, Iran tensions, and regional security.",
         "keywords": "middle east conflict, gaza war, yemen houthi, iran tensions, israel palestine update",
         "url": "https://news.google.com/rss/search?q=middle+east+conflict+war&hl=en-US&gl=US&ceid=US:en",
     },
     "geopolitics-sanctions": {
         "title": "Geopolitics & Sanctions — This Week",
-        "seo_title": "Geopolitics & Sanctions Update — Global Political News | InSnaps",
+        "seo_title": "Geopolitics & Sanctions Update — Global Political News | InSnaps : World News Cards App",
         "description": "Key geopolitical developments, sanctions updates, and international relations news from around the world.",
         "keywords": "geopolitics news, sanctions update, international relations, global politics, diplomacy news",
         "url": "https://news.google.com/rss/search?q=geopolitics+sanctions+diplomacy&hl=en-US&gl=US&ceid=US:en",
     },
     "africa-conflicts": {
         "title": "Africa Conflicts — Overlooked Crises Update",
-        "seo_title": "Africa Conflicts Update — Sudan, Congo, Sahel Crisis News | InSnaps",
+        "seo_title": "Africa Conflicts Update — Sudan, Congo, Sahel Crisis News | InSnaps : World News Cards App",
         "description": "Updates on Africa's overlooked conflicts: Sudan civil war, DR Congo, Sahel crisis, and more.",
         "keywords": "africa conflicts, sudan war, congo crisis, sahel conflict, africa war update",
         "url": "https://news.google.com/rss/search?q=africa+conflict+war+crisis+sudan+congo&hl=en-US&gl=US&ceid=US:en",
     },
     "military-defense-news": {
         "title": "Military & Defense — Global Updates",
-        "seo_title": "Military & Defense News — Arms, Operations & Analysis | InSnaps",
+        "seo_title": "Military & Defense News — Arms, Operations & Analysis | InSnaps : World News Cards App",
         "description": "Latest military and defense news: arms deals, military operations, defense budgets, and strategic developments.",
         "keywords": "military news, defense news, arms deals, military operations, defense budget",
         "url": "https://news.google.com/rss/search?q=military+defense+news+arms&hl=en-US&gl=US&ceid=US:en",
@@ -166,7 +168,7 @@ def generate_blog_post(slug, config, articles):
     "datePublished": "{today_iso}",
     "dateModified": "{today_iso}",
     "url": "{SITE_URL}/blog/{slug}/",
-    "publisher": {{"@type": "Organization", "name": "InSnaps", "url": "{SITE_URL}"}},
+    "publisher": {{"@type": "Organization", "name": "{APP_NAME}", "url": "{SITE_URL}"}},
     "author": {{"@type": "Person", "name": "Prakhar Gupta"}}
   }}
   </script>
@@ -181,8 +183,8 @@ def generate_blog_post(slug, config, articles):
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/logo.png" alt="InSnaps" class="nav-logo-icon" width="32" height="32">
-        <span class="nav-logo-text">InSnaps</span>
+        <img src="/logo.png" alt="{APP_NAME}" class="nav-logo-icon" width="32" height="32">
+        <span class="nav-logo-text">{NAV_WORDMARK}</span>
       </a>
       <div class="nav-links" id="navLinks">
         <a href="/#features">Features</a>
@@ -206,7 +208,7 @@ def generate_blog_post(slug, config, articles):
 
       <header class="blog-post-header">
         <h1>{esc(config['title'])}</h1>
-        <p class="blog-post-meta">Last updated: {today} &middot; Curated by InSnaps</p>
+        <p class="blog-post-meta">Last updated: {today} &middot; Curated by {APP_NAME}</p>
         <p class="blog-post-desc">{esc(config['description'])}</p>
       </header>
 
@@ -217,23 +219,23 @@ def generate_blog_post(slug, config, articles):
       <section class="conflict-cta">
         <div class="cta-card">
           <h3>Track these stories in real-time</h3>
-          <p>Get live updates, conflict maps, and personalized geopolitics news in the InSnaps app.</p>
+          <p>Get live updates, conflict maps, and personalized geopolitics news in <strong>{APP_NAME}</strong>.</p>
           <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="btn-primary">
             <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
-            Download InSnaps Free
+            Download free
           </a>
         </div>
       </section>
 
       <section class="conflict-disclaimer">
-        <p>This roundup curates headlines from verified sources including Reuters, BBC, Al Jazeera, and others via Google News. All links open the original articles on their respective publishers' websites. InSnaps does not claim authorship of linked content.</p>
+        <p>This roundup curates headlines from verified sources including Reuters, BBC, Al Jazeera, and others via Google News. All links open the original articles on their respective publishers' websites. {APP_NAME} does not claim authorship of linked content.</p>
       </section>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container"><div class="footer-bottom">
-      <p>&copy; {YEAR} InSnaps. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
+      <p>&copy; {YEAR} {APP_NAME}. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
     </div></div>
   </footer>
 
@@ -274,13 +276,13 @@ def generate_blog_index(posts_meta):
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog — Geopolitics Analysis & Conflict Insights | InSnaps</title>
+  <title>Blog — Geopolitics Analysis & Conflict Insights | {APP_NAME}</title>
   <meta name="description" content="Weekly geopolitics analysis, conflict updates, data-driven articles about wars, sanctions, diplomacy, and global security.">
   <meta name="keywords" content="geopolitics blog, conflict analysis, war news, sanctions update, military news, diplomacy">
   <link rel="canonical" href="{SITE_URL}/blog/">
   <link rel="icon" type="image/png" href="/logo.png">
   <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
-  <meta property="og:title" content="InSnaps Blog — Geopolitics Analysis & Conflict Insights">
+  <meta property="og:title" content="{APP_NAME} — Blog — Geopolitics Analysis & Conflict Insights">
   <meta property="og:description" content="Weekly data-driven analysis of global conflicts, wars, and geopolitics.">
   <meta property="og:url" content="{SITE_URL}/blog/">
   <meta property="og:image" content="{SITE_URL}/insnaps_og.png">
@@ -296,8 +298,8 @@ def generate_blog_index(posts_meta):
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/logo.png" alt="InSnaps" class="nav-logo-icon" width="32" height="32">
-        <span class="nav-logo-text">InSnaps</span>
+        <img src="/logo.png" alt="{APP_NAME}" class="nav-logo-icon" width="32" height="32">
+        <span class="nav-logo-text">{NAV_WORDMARK}</span>
       </a>
       <div class="nav-links" id="navLinks">
         <a href="/#features">Features</a>
@@ -319,8 +321,8 @@ def generate_blog_index(posts_meta):
     <div class="container">
       <nav class="breadcrumb"><a href="/">Home</a> &rsaquo; <span>Blog</span></nav>
       <header class="conflict-header" style="margin-bottom:3rem">
-        <h1>InSnaps Blog</h1>
-        <p class="conflict-meta">Geopolitics analysis, conflict insights, and curated news roundups. Updated regularly.</p>
+        <h1>Blog</h1>
+        <p class="conflict-meta">{APP_NAME} &mdash; geopolitics analysis, conflict insights, and curated news roundups. Updated regularly.</p>
       </header>
 
       <div class="blog-index-grid">{cards}
@@ -330,7 +332,7 @@ def generate_blog_index(posts_meta):
         <div class="cta-card">
           <h3>Get real-time updates in the app</h3>
           <p>Track 30+ conflicts live with interactive maps, ranked feeds, and personalized alerts.</p>
-          <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="btn-primary">Download InSnaps Free</a>
+          <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="btn-primary">Download free</a>
         </div>
       </section>
     </div>
@@ -338,7 +340,7 @@ def generate_blog_index(posts_meta):
 
   <footer class="site-footer">
     <div class="container"><div class="footer-bottom">
-      <p>&copy; {YEAR} InSnaps. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
+      <p>&copy; {YEAR} {APP_NAME}. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
     </div></div>
   </footer>
 
