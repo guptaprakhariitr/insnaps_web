@@ -386,6 +386,7 @@ urls = [
     ('$SITE_URL/', '1.0', 'weekly'),
     ('$SITE_URL/conflicts/', '0.9', 'weekly'),
     ('$SITE_URL/blog/', '0.8', 'weekly'),
+    ('$SITE_URL/support/', '0.75', 'monthly'),
 ]
 for c in conflicts:
     urls.append(('$SITE_URL/conflicts/' + c['slug'] + '/', '0.7', 'weekly'))
