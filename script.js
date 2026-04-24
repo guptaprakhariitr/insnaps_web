@@ -2,7 +2,7 @@
   'use strict';
 
   var PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN';
-  var IOS_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfc8kj-R9Mpd9ShTGOr4tqGcAsQ0GZsP2j13bDPMKkqzzDeEQ/viewform?embedded=true';
+  var APP_STORE = 'https://apps.apple.com/us/app/insnaps-world-news-cards-app/id6762338049';
 
   // ========================================
   // RSS FEED CONFIGURATION — Google News
@@ -153,6 +153,10 @@
       window.open(PLAY_STORE, '_blank');
       return;
     }
+    if (isIOS) {
+      window.open(APP_STORE, '_blank');
+      return;
+    }
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -183,7 +187,7 @@
     });
   }
 
-  // --- iOS Form Toggle inside modal ---
+  // --- iOS Form Toggle inside modal (legacy, kept for backwards compat) ---
   var iosModalToggle = document.getElementById('iosModalFormToggle');
   var iosModalEmbed = document.getElementById('iosModalFormEmbed');
   if (iosModalToggle && iosModalEmbed) {

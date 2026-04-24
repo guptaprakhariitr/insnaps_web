@@ -14,7 +14,8 @@ The old domain `https://www.credibletechnologies.in/a/<token>` also continues to
 2. GitHub Pages 404.html redirects to → `insnaps.app/a/?t=<token>`
 3. `a/index.html` decodes the token and:
    - **Android**: Uses intent URL to open the app, falls back to Play Store
-   - **Other**: Shows app info page with direct article link
+   - **iOS (iPhone/iPad)**: Uses universal link scheme to open the app, falls back to App Store
+   - **Other (desktop, Mac, etc.)**: Shows app info page with direct article link and store buttons
 
 ## Token format
 
@@ -23,3 +24,7 @@ Tokens are base64url-encoded, XOR-encrypted, and gzip-compressed article URLs.
 ## Android App Links
 
 `/.well-known/assetlinks.json` enables Android App Links verification for `insnaps.app`.
+
+## Apple Universal Links
+
+`/.well-known/apple-app-site-association` enables Universal Links for iOS.
