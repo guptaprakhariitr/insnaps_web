@@ -352,7 +352,7 @@ cat > blog/index.html << 'BLOGEOF'
         <div class="cta-card">
           <h3>Coming Soon</h3>
           <p>We're preparing our first articles. Check back soon for data-driven analysis of global conflicts, weekly briefings, and in-depth geopolitics coverage.</p>
-          <p style="margin-top:1rem;color:var(--fg-muted);font-size:0.9rem;">In the meantime, follow us on <a href="https://www.reddit.com/r/WorldNewsCards/" target="_blank" rel="noopener">Reddit</a> and <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">X (Twitter)</a> for updates.</p>
+          <p style="margin-top:1rem;color:var(--fg-muted);font-size:0.9rem;">In the meantime, follow us on <a href="https://www.reddit.com/r/WorldNewsSnaps/" target="_blank" rel="noopener">Reddit</a> and <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">X (Twitter)</a> for updates.</p>
         </div>
       </div>
     </div>
