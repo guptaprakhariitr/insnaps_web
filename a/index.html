@@ -73,13 +73,17 @@
     }
     .nav-container {
       max-width: 1200px; margin: 0 auto; padding: 0.85rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
     }
     .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: var(--fg); font-weight: 700; font-size: 1.15rem; }
     .nav-logo:hover { color: var(--fg); }
     .nav-logo-icon { width: 32px; height: 32px; border-radius: 8px; }
     .nav-logo-text { font-family: var(--font-display); letter-spacing: -0.02em; }
-    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-right {
+      display: flex; align-items: center; gap: 0.75rem;
+      position: absolute; right: 1.5rem;
+    }
     .theme-toggle {
       background: none; border: 1px solid var(--border-strong); border-radius: 50%;
       width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
