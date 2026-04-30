@@ -5,21 +5,21 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support — InSnaps : World News Cards App</title>
-  <meta name="description" content="Get help with InSnaps : World News Cards App. Email support with the right subject line for crashes, billing, feed issues, account sync, and more.">
+  <title>Support — InSnaps : Swipe & Share Global News</title>
+  <meta name="description" content="Get help with InSnaps : Swipe & Share Global News. Email support with the right subject line for crashes, billing, feed issues, account sync, and more.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://insnaps.app/support/">
   <link rel="icon" type="image/png" href="/logo.png">
   <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
   <meta name="apple-itunes-app" content="app-id=6762338049">
-  <meta property="og:title" content="Support — InSnaps : World News Cards App">
-  <meta property="og:description" content="Contact the InSnaps : World News Cards App team by email. Use the category subject lines so we can help you faster.">
+  <meta property="og:title" content="Support — InSnaps : Swipe & Share Global News">
+  <meta property="og:description" content="Contact the InSnaps : Swipe & Share Global News team by email. Use the category subject lines so we can help you faster.">
   <meta property="og:url" content="https://insnaps.app/support/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://insnaps.app/insnaps_og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Support — InSnaps : World News Cards App">
-  <meta name="twitter:description" content="Email support for InSnaps : World News Cards App with clear subject categories.">
+  <meta name="twitter:title" content="Support — InSnaps : Swipe & Share Global News">
+  <meta name="twitter:description" content="Email support for InSnaps : Swipe & Share Global News with clear subject categories.">
   <meta name="twitter:image" content="https://insnaps.app/insnaps_og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,13 +42,14 @@
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-container">
       <a href="/" class="nav-logo">
-        <img src="/logo.png" alt="InSnaps : World News Cards App" class="nav-logo-icon" width="32" height="32">
+        <img src="/logo.png" alt="InSnaps : Swipe & Share Global News" class="nav-logo-icon" width="32" height="32">
         <span class="nav-logo-text">InSnaps</span>
       </a>
       <div class="nav-links" id="navLinks">
         <a href="/#features">Features</a>
         <a href="/conflicts/">Conflicts</a>
         <a href="/blog/">Blog</a>
+        <a href="/partner/">Partner</a>
         <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
@@ -152,10 +153,10 @@
 
       <section class="conflict-cta">
         <div class="cta-card">
-          <h3>Download InSnaps : World News Cards App</h3>
+          <h3>Download InSnaps : Swipe & Share Global News</h3>
           <p>Get real-time conflict tracking, ranked feeds, and maps on your phone.</p>
           <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="btn-primary">Get it on Google Play</a>
-          <a href="https://apps.apple.com/us/app/insnaps-world-news-cards-app/id6762338049" target="_blank" rel="noopener" class="btn-primary" style="margin-left:0.5rem">Download on App Store</a>
+          <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" target="_blank" rel="noopener" class="btn-primary" style="margin-left:0.5rem">Download on App Store</a>
         </div>
       </section>
     </div>
@@ -163,16 +164,17 @@
 
   <footer class="site-footer">
     <div class="container"><div class="footer-bottom">
-      <p>&copy; 2026 InSnaps : World News Cards App. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
+      <p>&copy; 2026 InSnaps : Swipe & Share Global News. Built by <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">Prakhar Gupta</a>.</p>
     </div></div>
   </footer>
 
   <script>
     (function(){
       var html=document.documentElement,t=document.getElementById('themeToggle');
+      function autoTheme(){var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
-      else if(window.matchMedia('(prefers-color-scheme:light)').matches)html.setAttribute('data-theme','light');
+      else html.setAttribute('data-theme',autoTheme());
       t.addEventListener('click',function(){var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n)});
       var h=document.getElementById('navHamburger'),nl=document.getElementById('navLinks');
       h.addEventListener('click',function(){h.classList.toggle('open');nl.classList.toggle('open');document.body.style.overflow=nl.classList.contains('open')?'hidden':''});

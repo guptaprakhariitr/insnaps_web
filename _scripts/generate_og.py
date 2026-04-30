@@ -65,16 +65,16 @@ tw = title_bbox[2] - title_bbox[0]
 draw.text(((W - tw) // 2, 180), title, fill=FG, font=font_title)
 
 # Tagline
-tagline = "The Geopolitics & Conflict Monitor App"
+tagline = "Swipe & Share Global News"
 tag_bbox = draw.textbbox((0, 0), tagline, font=font_tagline)
 tgw = tag_bbox[2] - tag_bbox[0]
 draw.text(((W - tgw) // 2, 270), tagline, fill=ACCENT, font=font_tagline)
 
 # Description lines
 lines = [
-    "Conflicts · Sanctions · Diplomacy · Military · Trade",
-    "All connected — all in one ranked feed.",
-    "Free · Private · 10 Languages",
+    "Shareable News Cards · 13 Domains · Custom Layouts",
+    "iPhone · iPad · Mac · Android",
+    "Free · Private · Beautiful",
 ]
 y_start = 330
 for i, line in enumerate(lines):
@@ -84,7 +84,7 @@ for i, line in enumerate(lines):
     draw.text(((W - lw) // 2, y_start + i * 38), line, fill=color, font=font_desc)
 
 # Play Store badge area
-ps_text = "Free on Google Play"
+ps_text = "Free on All Platforms"
 ps_bbox = draw.textbbox((0, 0), ps_text, font=font_badge)
 psw = ps_bbox[2] - ps_bbox[0] + 40
 psx = (W - psw) // 2

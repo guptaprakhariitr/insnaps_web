@@ -15,7 +15,8 @@ The old domain `https://www.credibletechnologies.in/a/<token>` also continues to
 3. `a/index.html` decodes the token and:
    - **Android**: Uses intent URL to open the app, falls back to Play Store
    - **iOS (iPhone/iPad)**: Uses universal link scheme to open the app, falls back to App Store
-   - **Other (desktop, Mac, etc.)**: Shows app info page with direct article link and store buttons
+   - **Mac**: Uses universal link scheme to open the app, falls back to App Store
+   - **Other (Windows, Linux, etc.)**: Shows app info page with direct article link and store buttons
 
 ## Token format
 

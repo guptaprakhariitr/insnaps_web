@@ -2,7 +2,7 @@
   'use strict';
 
   var PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN';
-  var APP_STORE = 'https://apps.apple.com/us/app/insnaps-world-news-cards-app/id6762338049';
+  var APP_STORE = 'https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049';
 
   // ========================================
   // RSS FEED CONFIGURATION — Google News
@@ -96,14 +96,24 @@
   var ua = navigator.userAgent || '';
   var isIOS = /iPhone|iPad|iPod/i.test(ua);
   var isAndroid = /Android/i.test(ua);
+  var isMac = /Macintosh/i.test(ua);
   var isMobile = isIOS || isAndroid;
 
-  // --- Theme Toggle ---
+  // --- Theme Toggle (auto by time of day, manual override) ---
   var html = document.documentElement;
   var toggle = document.getElementById('themeToggle');
+
+  function autoTheme() {
+    var h = new Date().getHours();
+    return (h >= 7 && h < 19) ? 'light' : 'dark';
+  }
+
   var stored = localStorage.getItem('insnaps-theme');
-  if (stored) html.setAttribute('data-theme', stored);
-  else if (window.matchMedia('(prefers-color-scheme: light)').matches) html.setAttribute('data-theme', 'light');
+  if (stored) {
+    html.setAttribute('data-theme', stored);
+  } else {
+    html.setAttribute('data-theme', autoTheme());
+  }
 
   if (toggle) toggle.addEventListener('click', function () {
     var current = html.getAttribute('data-theme');
@@ -153,7 +163,7 @@
       window.open(PLAY_STORE, '_blank');
       return;
     }
-    if (isIOS) {
+    if (isIOS || isMac) {
       window.open(APP_STORE, '_blank');
       return;
     }

@@ -16,51 +16,51 @@ from datetime import datetime, timezone
 
 SITE_URL = "https://insnaps.app"
 PLAY_STORE = "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN"
-APP_STORE = "https://apps.apple.com/us/app/insnaps-world-news-cards-app/id6762338049"
+APP_STORE = "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049"
 BLOG_DIR = "blog"
 YEAR = datetime.now().year
-APP_NAME = "InSnaps : World News Cards App"
+APP_NAME = "InSnaps : Swipe & Share Global News"
 NAV_WORDMARK = "InSnaps"
 
 RSS_FEEDS = {
     "global-conflicts": {
         "title": "Global Conflicts & Wars — Weekly Roundup",
-        "seo_title": "Global Conflicts Update — Wars & Crisis News This Week | InSnaps : World News Cards App",
+        "seo_title": "Global Conflicts Update — Wars & Crisis News This Week | InSnaps : Swipe & Share Global News",
         "description": "Latest updates on active conflicts, wars, and humanitarian crises around the world. Curated from top news sources.",
         "keywords": "global conflicts update, wars this week, conflict news, humanitarian crisis, world wars update",
         "url": "https://news.google.com/rss/search?q=global+conflicts+wars+crisis&hl=en-US&gl=US&ceid=US:en",
     },
     "ukraine-russia-war": {
         "title": "Ukraine-Russia War — Latest Developments",
-        "seo_title": "Ukraine-Russia War Update — Latest News & Analysis | InSnaps : World News Cards App",
+        "seo_title": "Ukraine-Russia War Update — Latest News & Analysis | InSnaps : Swipe & Share Global News",
         "description": "The latest developments in the Russia-Ukraine war, including frontline updates, diplomacy, and international response.",
         "keywords": "ukraine war update, russia ukraine news, ukraine conflict latest, ukraine war 2026",
         "url": "https://news.google.com/rss/search?q=ukraine+russia+war&hl=en-US&gl=US&ceid=US:en",
     },
     "middle-east-conflict": {
         "title": "Middle East Conflicts — Latest Updates",
-        "seo_title": "Middle East Conflict Update — Gaza, Yemen, Iran News | InSnaps : World News Cards App",
+        "seo_title": "Middle East Conflict Update — Gaza, Yemen, Iran News | InSnaps : Swipe & Share Global News",
         "description": "Latest news from Middle East conflicts including Israel-Palestine, Yemen, Iran tensions, and regional security.",
         "keywords": "middle east conflict, gaza war, yemen houthi, iran tensions, israel palestine update",
         "url": "https://news.google.com/rss/search?q=middle+east+conflict+war&hl=en-US&gl=US&ceid=US:en",
     },
     "geopolitics-sanctions": {
         "title": "Geopolitics & Sanctions — This Week",
-        "seo_title": "Geopolitics & Sanctions Update — Global Political News | InSnaps : World News Cards App",
+        "seo_title": "Geopolitics & Sanctions Update — Global Political News | InSnaps : Swipe & Share Global News",
         "description": "Key geopolitical developments, sanctions updates, and international relations news from around the world.",
         "keywords": "geopolitics news, sanctions update, international relations, global politics, diplomacy news",
         "url": "https://news.google.com/rss/search?q=geopolitics+sanctions+diplomacy&hl=en-US&gl=US&ceid=US:en",
     },
     "africa-conflicts": {
         "title": "Africa Conflicts — Overlooked Crises Update",
-        "seo_title": "Africa Conflicts Update — Sudan, Congo, Sahel Crisis News | InSnaps : World News Cards App",
+        "seo_title": "Africa Conflicts Update — Sudan, Congo, Sahel Crisis News | InSnaps : Swipe & Share Global News",
         "description": "Updates on Africa's overlooked conflicts: Sudan civil war, DR Congo, Sahel crisis, and more.",
         "keywords": "africa conflicts, sudan war, congo crisis, sahel conflict, africa war update",
         "url": "https://news.google.com/rss/search?q=africa+conflict+war+crisis+sudan+congo&hl=en-US&gl=US&ceid=US:en",
     },
     "military-defense-news": {
         "title": "Military & Defense — Global Updates",
-        "seo_title": "Military & Defense News — Arms, Operations & Analysis | InSnaps : World News Cards App",
+        "seo_title": "Military & Defense News — Arms, Operations & Analysis | InSnaps : Swipe & Share Global News",
         "description": "Latest military and defense news: arms deals, military operations, defense budgets, and strategic developments.",
         "keywords": "military news, defense news, arms deals, military operations, defense budget",
         "url": "https://news.google.com/rss/search?q=military+defense+news+arms&hl=en-US&gl=US&ceid=US:en",
@@ -192,6 +192,7 @@ def generate_blog_post(slug, config, articles):
         <a href="/#features">Features</a>
         <a href="/conflicts/">Conflicts</a>
         <a href="/blog/">Blog</a>
+        <a href="/partner/">Partner</a>
         <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
@@ -242,9 +243,10 @@ def generate_blog_post(slug, config, articles):
   <script>
     (function(){{
       var html=document.documentElement,t=document.getElementById('themeToggle');
+      function autoTheme(){{var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
-      else if(window.matchMedia('(prefers-color-scheme:light)').matches)html.setAttribute('data-theme','light');
+      else html.setAttribute('data-theme',autoTheme());
       t.addEventListener('click',function(){{var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n)}});
       var h=document.getElementById('navHamburger'),nl=document.getElementById('navLinks');
       h.addEventListener('click',function(){{h.classList.toggle('open');nl.classList.toggle('open');document.body.style.overflow=nl.classList.contains('open')?'hidden':''}});
@@ -306,6 +308,7 @@ def generate_blog_index(posts_meta):
         <a href="/#features">Features</a>
         <a href="/conflicts/">Conflicts</a>
         <a href="/blog/">Blog</a>
+        <a href="/partner/">Partner</a>
         <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
@@ -349,9 +352,10 @@ def generate_blog_index(posts_meta):
   <script>
     (function(){{
       var html=document.documentElement,t=document.getElementById('themeToggle');
+      function autoTheme(){{var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
-      else if(window.matchMedia('(prefers-color-scheme:light)').matches)html.setAttribute('data-theme','light');
+      else html.setAttribute('data-theme',autoTheme());
       t.addEventListener('click',function(){{var c=html.getAttribute('data-theme');var n=c==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n)}});
       var h=document.getElementById('navHamburger'),nl=document.getElementById('navLinks');
       h.addEventListener('click',function(){{h.classList.toggle('open');nl.classList.toggle('open');document.body.style.overflow=nl.classList.contains('open')?'hidden':''}});
