@@ -197,7 +197,7 @@
     });
   }
 
-  // --- iOS Form Toggle inside modal (legacy, kept for backwards compat) ---
+  // --- Optional iOS modal form toggle (if present in markup) ---
   var iosModalToggle = document.getElementById('iosModalFormToggle');
   var iosModalEmbed = document.getElementById('iosModalFormEmbed');
   if (iosModalToggle && iosModalEmbed) {
@@ -336,11 +336,11 @@
   }
 
   // ========================================
-  // DOWNLOAD COUNTER — rolls to 1000
+  // DOWNLOAD COUNTER — rolls to 1500
   // ========================================
   var dlCounter = document.getElementById('downloadCounter');
   if (dlCounter) {
-    var milestones = [1,5,10,25,50,100,150,200,300,400,500,600,700,800,900,950,1000];
+    var milestones = [1,10,50,100,200,400,600,800,1000,1100,1200,1300,1400,1450,1500];
     var dlStarted = false;
     var dlObserver = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting && !dlStarted) {

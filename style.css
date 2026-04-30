@@ -1185,6 +1185,10 @@ a:hover { color: var(--accent-light); }
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
   transition: transform 0.4s, box-shadow 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
 }
 .gallery-item:hover {
   transform: translateY(-8px) scale(1.02);
@@ -1192,7 +1196,8 @@ a:hover { color: var(--accent-light); }
 }
 .gallery-item img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   display: block;
 }
 
@@ -2453,8 +2458,16 @@ a:hover { color: var(--accent-light); }
   color: var(--fg-secondary);
   font-size: 0.8rem;
 }
-.news-ticker-track span {
+.news-ticker-track span,
+.news-ticker-track a {
   margin-right: 2.5rem;
+  color: var(--fg-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.news-ticker-track a:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 @keyframes tickerScroll {
   0% { transform: translateX(0); }
@@ -2504,6 +2517,41 @@ a:hover { color: var(--accent-light); }
 }
 
 /* --- Pricing Section --- */
+/* --- Cross-Platform Section --- */
+.platforms-section { padding: 5rem 0; }
+.platform-group { margin-bottom: 3rem; }
+.platform-label {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg-secondary);
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.platform-images {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.platform-images img {
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  object-fit: contain;
+}
+.platform-images--phone img { max-width: 180px; max-height: 380px; }
+.platform-images--tablet img { max-width: 420px; max-height: 320px; width: 100%; }
+.platform-images--desktop img { max-width: 520px; max-height: 340px; width: 100%; }
+@media (max-width: 768px) {
+  .platform-images--tablet img { max-width: 100%; }
+  .platform-images--desktop img { max-width: 100%; }
+}
+
 .pricing { padding: 5rem 0; }
 .pricing-grid {
   display: grid;
