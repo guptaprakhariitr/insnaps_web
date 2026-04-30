@@ -400,50 +400,22 @@
   }
 
   // ========================================
-  // LIVE REDDIT FEED
+  // X (Twitter) EMBED + FALLBACK
   // ========================================
-  (function loadRedditFeed() {
-    var container = document.getElementById('redditPosts');
-    var header = document.querySelector('#redditFeed .reddit-preview-header span:last-child');
-    if (!container) return;
+  (function initXTimelineEmbed() {
+    var feed = document.getElementById('xFeed');
+    var timeline = document.getElementById('xTimeline');
+    var fallback = document.getElementById('xFallback');
+    if (!feed || !timeline || !fallback) return;
 
-    fetch('https://www.reddit.com/r/WorldNewsSnaps.json?limit=6&raw_json=1', { headers: { 'Accept': 'application/json' } })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (data) {
-        var posts = data.data.children;
-        if (!posts.length) { showFallback(); return; }
-        if (header) header.textContent = 'Live from r/WorldNewsSnaps';
-        container.innerHTML = '';
-        posts.forEach(function (child) {
-          var p = child.data;
-          var item = document.createElement('a');
-          item.href = 'https://www.reddit.com' + p.permalink;
-          item.target = '_blank'; item.rel = 'noopener';
-          item.className = 'reddit-preview-item reddit-preview-item--live';
-          var thumb = p.thumbnail && p.thumbnail.startsWith('http') ? p.thumbnail : '';
-          item.innerHTML =
-            '<div class="reddit-vote"><span class="reddit-arrow">\u25B2</span><span class="reddit-score">' + (p.score||0) + '</span></div>' +
-            (thumb ? '<img class="reddit-thumb" src="' + thumb + '" alt="" />' : '') +
-            '<div class="reddit-item-body"><p class="reddit-item-title">' + escapeHtml(p.title) + '</p>' +
-            '<span class="reddit-item-meta">' + (p.link_flair_text ? '<span class="reddit-flair">' + escapeHtml(p.link_flair_text) + '</span> \u00b7 ' : '') +
-            timeAgo(p.created_utc) + ' \u00b7 ' + (p.num_comments||0) + ' comments</span></div>';
-          container.appendChild(item);
-        });
-      }).catch(showFallback);
+    var currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    timeline.setAttribute('data-theme', currentTheme);
 
-    function showFallback() {
-      if (header) header.textContent = 'Live discussions & geopolitics updates';
-      container.innerHTML = '<a href="https://www.reddit.com/r/WorldNewsSnaps/" target="_blank" rel="noopener" class="reddit-preview-item"><div class="reddit-vote"><span class="reddit-arrow">\u25B2</span></div><div class="reddit-item-body"><p class="reddit-item-title">Visit r/WorldNewsSnaps for live geopolitics discussions and community analysis.</p><span class="reddit-item-meta">Community \u00b7 Join the conversation</span></div></a>';
-    }
-    function escapeHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-    function timeAgo(epoch) {
-      var diff = Math.floor(Date.now() / 1000) - epoch;
-      if (diff < 60) return 'just now';
-      if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
-      if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
-      if (diff < 604800) return Math.floor(diff / 86400) + 'd ago';
-      return Math.floor(diff / 604800) + 'w ago';
-    }
+    // If embed script is blocked (privacy/adblock), show themed fallback.
+    setTimeout(function () {
+      var iframe = feed.querySelector('iframe');
+      if (!iframe) fallback.hidden = false;
+    }, 4500);
   })();
 
   // ========================================

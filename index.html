@@ -797,9 +797,12 @@
               </div>
               <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener" class="community-follow-btn">Follow</a>
             </div>
-            <div class="community-embed-body">
-              <a class="twitter-timeline" data-height="400" data-theme="dark" href="https://twitter.com/BuildWtPrakhar">Posts by @BuildWtPrakhar</a>
-              <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div class="community-embed-body" id="xFeed">
+              <a class="twitter-timeline" id="xTimeline" data-height="400" href="https://twitter.com/BuildWtPrakhar">Posts by @BuildWtPrakhar</a>
+              <div class="x-fallback" id="xFallback" hidden>
+                <p>Live timeline is unavailable in this browser session.</p>
+                <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">View latest posts on X →</a>
+              </div>
             </div>
           </div>
         </div>
@@ -829,41 +832,6 @@
           <div class="gallery-item"><img src="assets/share-card-10.png" alt="InSnaps shareable news card — LNG pipeline" loading="lazy" /></div>
           <div class="gallery-item"><img src="assets/share-card-11.png" alt="InSnaps shareable news card — Germany birth rate" loading="lazy" /></div>
           <div class="gallery-item"><img src="assets/share-card-12.png" alt="InSnaps shareable news card — Yemen energy" loading="lazy" /></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======= CROSS-PLATFORM ======= -->
-    <section class="platforms-section" id="platforms">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Everywhere</span>
-          <h2 class="section-title">One app. Every device.</h2>
-          <p class="section-desc">Your feed syncs seamlessly across all platforms.</p>
-        </div>
-
-        <div class="platform-group reveal">
-          <h3 class="platform-label">iPhone</h3>
-          <div class="platform-images platform-images--phone">
-            <img src="assets/Red_Modern_Animated_Mobil_News_App_Promotion_Instagram_Story_images.jpg" alt="InSnaps on iPhone — feed view" loading="lazy" />
-            <img src="assets/Red_Modern_Animated_Mobil_News_App_Promotion_Instagram_Story_images%20(2).jpg" alt="InSnaps on iPhone — explore" loading="lazy" />
-          </div>
-        </div>
-
-        <div class="platform-group reveal">
-          <h3 class="platform-label">iPad</h3>
-          <div class="platform-images platform-images--tablet">
-            <img src="assets/ipad-explore.png" alt="InSnaps on iPad — explore view" loading="lazy" />
-            <img src="assets/ipad-feed.png" alt="InSnaps on iPad — feed view" loading="lazy" />
-          </div>
-        </div>
-
-        <div class="platform-group reveal">
-          <h3 class="platform-label">Mac</h3>
-          <div class="platform-images platform-images--desktop">
-            <img src="assets/macos-home.png" alt="InSnaps on Mac — home view" loading="lazy" />
-            <img src="assets/macos-feed.png" alt="InSnaps on Mac — feed view" loading="lazy" />
-          </div>
         </div>
       </div>
     </section>
@@ -1105,5 +1073,6 @@
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
   <script src="script.js"></script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
