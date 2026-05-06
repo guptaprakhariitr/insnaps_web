@@ -792,7 +792,7 @@ a:hover { color: var(--accent-light); }
 .showcase-phone {
   position: relative;
   z-index: 1;
-  width: 270px;
+  width: 248px;
   border-radius: 20px;
   overflow: hidden;
   border: 2px solid var(--border-strong);
@@ -1868,6 +1868,14 @@ a:hover { color: var(--accent-light); }
   background: var(--accent-glow);
   transform: translateY(-2px);
 }
+
+.threads-icon {
+  display: block;
+  object-fit: contain;
+}
+.threads-icon-dark { display: none; }
+[data-theme="dark"] .threads-icon-light { display: none; }
+[data-theme="dark"] .threads-icon-dark { display: block; }
 .hero-badge {
   text-decoration: none;
   cursor: pointer;
