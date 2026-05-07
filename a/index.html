@@ -288,6 +288,12 @@
       var playStore = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree';
       var ENCODING_KEY = 'WcM_Art_Lnk_2025_Sec';
 
+      // --- GA4 Analytics helper ---
+      function track(eventName, params) {
+        if (window.gtag) gtag('event', eventName, params || {});
+      }
+
+      // --- Token decode ---
       function base64UrlDecode(str) {
         var pad = str.length % 4;
         if (pad) str += '==='.slice(0, 4 - pad);
@@ -323,6 +329,7 @@
         }
       }
 
+      // --- Publisher extraction ---
       var PUBLISHER_NAMES = {
         'theguardian': 'The Guardian',
         'nytimes': 'The New York Times',
@@ -392,6 +399,7 @@
         }
       }
 
+      // --- Parse token ---
       var path = window.location.pathname || '';
       var q = new URLSearchParams(window.location.search || '');
       var token = '';
@@ -402,6 +410,7 @@
         if (idx !== -1) token = path.slice(idx + 3).split('/')[0].split('?')[0];
       }
 
+      // --- DOM refs ---
       var mainView = document.getElementById('mainView');
       var appleDl = document.getElementById('appleDl');
       var playDl = document.getElementById('playDl');
@@ -413,10 +422,12 @@
 
       mainView.style.display = 'flex';
 
+      // --- Platform detection ---
       var ua = navigator.userAgent || '';
       var isAndroid = /Android/i.test(ua);
       var isIOS = /iPhone|iPad|iPod/i.test(ua);
       var isMac = /Macintosh/i.test(ua);
+      var platform = isAndroid ? 'android' : isIOS ? 'ios' : isMac ? 'mac' : 'desktop';
 
       if (isAndroid) {
         appleDl.style.display = 'none';
@@ -424,14 +435,40 @@
         playDl.style.display = 'none';
       }
 
+      // --- Decode article URL and publisher ---
+      var realUrl = token ? decodeArticleToken(token) : null;
+      var publisher = realUrl ? (extractPublisher(realUrl) || 'unknown') : 'unknown';
+
+      // ====== GA4: Page loaded ======
+      track('deeplink_page_view', {
+        platform: platform,
+        has_token: !!token,
+        publisher: publisher,
+        article_url: realUrl || 'none'
+      });
+
       if (!token) return;
 
-      var currentPageUrl = window.location.href;
+      // --- Show Open in App button on mobile/tablet/mac ---
+      if (isAndroid || isIOS || isMac) {
+        openInApp.style.display = 'inline-flex';
+        storeLabel.style.display = 'block';
+      }
+
+      // --- Auto deep link attempt (once per session per token) ---
       var dlKey = 'insnaps_dl_tried_' + token.slice(0, 12);
       var alreadyTried = sessionStorage.getItem(dlKey);
 
       if (!alreadyTried) {
         sessionStorage.setItem(dlKey, '1');
+
+        // ====== GA4: Auto open attempt ======
+        track('deeplink_auto_open', {
+          platform: platform,
+          publisher: publisher,
+          method: isAndroid ? 'intent' : 'custom_scheme'
+        });
+
         if (isAndroid) {
           window.location.href =
             'intent://article/' + token +
@@ -441,18 +478,34 @@
         }
       }
 
-      if (isAndroid || isIOS || isMac) {
-        openInApp.style.display = 'inline-flex';
-        storeLabel.style.display = 'block';
-      }
+      // --- Detect if app opened (page becomes hidden) ---
+      var appOpenedTimeout = setTimeout(function () {
+        // ====== GA4: App did NOT open (user still on page after 3s) ======
+        track('deeplink_app_not_opened', {
+          platform: platform,
+          publisher: publisher
+        });
+      }, 3000);
 
-      openInApp.addEventListener('click', function () {
-        if (window.gtag) {
-          gtag('event', 'open_in_app_click', {
-            'event_category': 'deep_link',
-            'event_label': 'insnaps_article'
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          clearTimeout(appOpenedTimeout);
+          // ====== GA4: App opened successfully (page went to background) ======
+          track('deeplink_app_opened', {
+            platform: platform,
+            publisher: publisher
           });
         }
+      });
+
+      // --- "Open in InSnaps" button click ---
+      openInApp.addEventListener('click', function () {
+        // ====== GA4: Open in App button clicked ======
+        track('deeplink_open_in_app_click', {
+          platform: platform,
+          publisher: publisher
+        });
+
         if (isAndroid) {
           window.location.href =
             'intent://article/' + token +
@@ -466,27 +519,51 @@
         }
       });
 
-      if (window.gtag) {
-        gtag('event', 'article_deep_link', {
-          'event_category': 'deep_link',
-          'event_label': 'insnaps_article'
+      // --- App Store button click ---
+      appleDl.addEventListener('click', function () {
+        // ====== GA4: App Store download clicked ======
+        track('deeplink_store_click', {
+          platform: platform,
+          store: 'app_store',
+          publisher: publisher
         });
-      }
+      });
 
-      var realUrl = decodeArticleToken(token);
+      // --- Play Store button click ---
+      playDl.addEventListener('click', function () {
+        // ====== GA4: Play Store download clicked ======
+        track('deeplink_store_click', {
+          platform: platform,
+          store: 'play_store',
+          publisher: publisher
+        });
+      });
+
+      // --- Show article fallback link ---
       if (realUrl) {
-        var publisher = extractPublisher(realUrl);
         articleDirectLink.href = realUrl;
-        publisherName.textContent = publisher || 'the source';
+        publisherName.textContent = publisher;
         articleFallback.style.display = 'block';
 
         articleDirectLink.addEventListener('click', function () {
-          if (window.gtag) {
-            gtag('event', 'article_read_in_browser', {
-              'event_category': 'deep_link',
-              'event_label': realUrl
-            });
-          }
+          // ====== GA4: Read in browser clicked ======
+          track('deeplink_read_in_browser', {
+            platform: platform,
+            publisher: publisher,
+            article_url: realUrl
+          });
+        });
+      }
+
+      // --- Explore InSnaps link ---
+      var exploreLink = document.querySelector('.explore-link');
+      if (exploreLink) {
+        exploreLink.addEventListener('click', function () {
+          // ====== GA4: Explore InSnaps clicked ======
+          track('deeplink_explore_click', {
+            platform: platform,
+            publisher: publisher
+          });
         });
       }
     })();
