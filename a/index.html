@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
   <script>
@@ -125,6 +125,24 @@
 
     .store-buttons { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; margin-top: 1.25rem; width: 100%; }
 
+    .btn-open-app {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--accent); color: white !important; padding: 0.9rem 2rem;
+      border-radius: 999px; font-weight: 700; font-size: 1rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(20, 184, 166, 0.35);
+      width: 100%; max-width: 300px; margin-bottom: 0.25rem;
+      text-decoration: none; cursor: pointer; border: none;
+      font-family: var(--font-body);
+    }
+    .btn-open-app:hover {
+      background: var(--accent-light); color: white !important;
+      transform: translateY(-2px); box-shadow: 0 6px 30px rgba(20, 184, 166, 0.45);
+    }
+    .btn-open-app svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .store-label { font-size: 0.8rem; color: var(--fg-muted); margin-top: 0.75rem; margin-bottom: 0.25rem; }
+
     .btn-primary-dl {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
       background: var(--accent); color: white !important; padding: 0.8rem 1.8rem;
@@ -182,7 +200,7 @@
     @media (max-width: 480px) {
       .redirect-page { padding: 5rem 1rem 2rem; }
       .redirect-page h1 { font-size: 1.35rem; }
-      .btn-primary-dl { max-width: 100%; }
+      .btn-open-app, .btn-primary-dl { max-width: 100%; }
     }
   </style>
 </head>
@@ -208,6 +226,13 @@
     <h1>This article was shared via InSnaps</h1>
     <p class="subtitle">Your City. Your Country. Your World.</p>
     <p class="desc">Get <strong>InSnaps</strong> for a personalized news feed — swipe through local &amp; global stories, save articles, and share with one tap.</p>
+
+    <button id="openInApp" class="btn-open-app" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/></svg>
+      Open in InSnaps
+    </button>
+
+    <p class="store-label" id="storeLabel" style="display:none">Don't have the app yet?</p>
 
     <div class="store-buttons">
       <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" id="appleDl" class="btn-primary-dl apple-btn">
@@ -249,10 +274,9 @@
     (function () {
       var html = document.documentElement;
       var toggle = document.getElementById('themeToggle');
-      function autoTheme() { var h = new Date().getHours(); return (h >= 7 && h < 19) ? 'light' : 'dark'; }
       var stored = localStorage.getItem('insnaps-theme');
       if (stored) html.setAttribute('data-theme', stored);
-      else html.setAttribute('data-theme', autoTheme());
+      else html.setAttribute('data-theme', 'light');
       toggle.addEventListener('click', function () {
         var c = html.getAttribute('data-theme');
         var n = c === 'dark' ? 'light' : 'dark';
@@ -381,6 +405,8 @@
       var mainView = document.getElementById('mainView');
       var appleDl = document.getElementById('appleDl');
       var playDl = document.getElementById('playDl');
+      var openInApp = document.getElementById('openInApp');
+      var storeLabel = document.getElementById('storeLabel');
       var articleFallback = document.getElementById('articleFallback');
       var articleDirectLink = document.getElementById('articleDirectLink');
       var publisherName = document.getElementById('publisherName');
@@ -399,6 +425,30 @@
       }
 
       if (!token) return;
+
+      if (isAndroid || isIOS || isMac) {
+        openInApp.style.display = 'inline-flex';
+        storeLabel.style.display = 'block';
+      }
+
+      var currentPageUrl = window.location.href;
+
+      openInApp.addEventListener('click', function () {
+        if (window.gtag) {
+          gtag('event', 'open_in_app_click', {
+            'event_category': 'deep_link',
+            'event_label': 'insnaps_article'
+          });
+        }
+        if (isAndroid) {
+          window.location.href =
+            'intent://article/' + token +
+            '#Intent;scheme=worldconflicts;package=com.prakshaappthree.appthree;' +
+            'S.browser_fallback_url=' + encodeURIComponent(currentPageUrl) + ';end';
+        } else if (isIOS || isMac) {
+          window.location.href = 'worldconflicts://article/' + token;
+        }
+      });
 
       if (window.gtag) {
         gtag('event', 'article_deep_link', {
