@@ -427,14 +427,18 @@
       if (!token) return;
 
       var currentPageUrl = window.location.href;
+      var dlKey = 'insnaps_dl_tried_' + token.slice(0, 12);
+      var alreadyTried = sessionStorage.getItem(dlKey);
 
-      if (isAndroid) {
-        window.location.href =
-          'intent://article/' + token +
-          '#Intent;scheme=worldconflicts;package=com.prakshaappthree.appthree;' +
-          'S.browser_fallback_url=' + encodeURIComponent(currentPageUrl) + ';end';
-      } else if (isIOS || isMac) {
-        window.location.href = 'worldconflicts://article/' + token;
+      if (!alreadyTried) {
+        sessionStorage.setItem(dlKey, '1');
+        if (isAndroid) {
+          window.location.href =
+            'intent://article/' + token +
+            '#Intent;scheme=worldconflicts;package=com.prakshaappthree.appthree;end';
+        } else if (isIOS || isMac) {
+          window.location.href = 'worldconflicts://article/' + token;
+        }
       }
 
       if (isAndroid || isIOS || isMac) {
