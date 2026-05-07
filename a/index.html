@@ -426,12 +426,21 @@
 
       if (!token) return;
 
+      var currentPageUrl = window.location.href;
+
+      if (isAndroid) {
+        window.location.href =
+          'intent://article/' + token +
+          '#Intent;scheme=worldconflicts;package=com.prakshaappthree.appthree;' +
+          'S.browser_fallback_url=' + encodeURIComponent(currentPageUrl) + ';end';
+      } else if (isIOS || isMac) {
+        window.location.href = 'worldconflicts://article/' + token;
+      }
+
       if (isAndroid || isIOS || isMac) {
         openInApp.style.display = 'inline-flex';
         storeLabel.style.display = 'block';
       }
-
-      var currentPageUrl = window.location.href;
 
       openInApp.addEventListener('click', function () {
         if (window.gtag) {
