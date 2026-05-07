@@ -453,9 +453,12 @@
           window.location.href =
             'intent://article/' + token +
             '#Intent;scheme=worldconflicts;package=com.prakshaappthree.appthree;' +
-            'S.browser_fallback_url=' + encodeURIComponent(currentPageUrl) + ';end';
+            'S.browser_fallback_url=' + encodeURIComponent(playStore) + ';end';
         } else if (isIOS || isMac) {
           window.location.href = 'worldconflicts://article/' + token;
+          setTimeout(function () {
+            window.location.href = appStore;
+          }, 1500);
         }
       });
 
