@@ -5,6 +5,8 @@
 Article deep links use the format:
 - `https://insnaps.app/a/<token>` — Clean URL (handled by 404.html redirect)
 - `https://insnaps.app/a/?t=<token>` — Query parameter URL (handled by a/index.html)
+- `https://insnaps.app/celebmonitor/a/<token>` — CelebMonitor clean URL (handled by 404.html redirect)
+- `https://insnaps.app/celebmonitor/a/?t=<token>` — CelebMonitor query URL (handled by celebmonitor/a/index.html)
 
 The old domain `https://www.credibletechnologies.in/a/<token>` also continues to work.
 
@@ -17,6 +19,9 @@ The old domain `https://www.credibletechnologies.in/a/<token>` also continues to
    - **iOS (iPhone/iPad)**: Uses universal link scheme to open the app, falls back to App Store
    - **Mac**: Uses universal link scheme to open the app, falls back to App Store
    - **Other (Windows, Linux, etc.)**: Shows app info page with direct article link and store buttons
+
+CelebMonitor links follow the same token redirect format but use the custom scheme base:
+- `insnaps://celebmonitor/a/<token>`
 
 ## Token format
 

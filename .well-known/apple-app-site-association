@@ -1,9 +1,19 @@
 {
   "applinks": {
     "apps": [],
-    "details": [{
-      "appID": "KCKVLTK944.com.prakshaappthree.appthree",
-      "paths": ["/a/*"]
-    }]
+    "details": [
+      {
+        "appID": "86F7TVY8RD.com.prakshaappthree.appthree",
+        "paths": [
+          "/a/*"
+        ]
+      },
+      {
+        "appID": "86F7TVY8RD.com.prakshatech.appsix.appsix",
+        "paths": [
+          "/celebmonitor/a/*"
+        ]
+      }
+    ]
   }
 }

@@ -10,5 +10,17 @@
         "19:D5:8D:67:EE:F3:1B:27:EA:C8:E2:49:66:2E:A3:76:B7:9F:D9:F3:F3:8A:74:BE:7C:A1:E6:33:5E:9F:C4:45"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.prakshatech.appsix.appsix",
+      "sha256_cert_fingerprints": [
+        "A4:36:29:56:D6:F0:95:81:AE:33:83:54:FF:EA:71:2F:3C:14:F5:FB:08:48:C9:8B:C8:F4:CE:C5:48:41:6F:1C"
+      ]
+    }
   }
 ]

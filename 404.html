@@ -11,13 +11,37 @@
   <script>
     (function () {
       var path = location.pathname.replace(/\/$/, '');
-      var idx = path.indexOf('/a/');
-      if (idx !== -1) {
-        var token = path.slice(idx + 3).split('/')[0].split('?')[0];
-        if (token) {
-          location.replace('/a/?t=' + encodeURIComponent(token));
+      var search = new URLSearchParams(location.search || '');
+      var token = '';
+      var redirectBase = '';
+
+      var celebIdx = path.indexOf('/celebmonitor/a/');
+      if (celebIdx !== -1) {
+        token = path.slice(celebIdx + '/celebmonitor/a/'.length).split('/')[0].split('?')[0];
+        redirectBase = '/celebmonitor/a/';
+      } else {
+        var idx = path.indexOf('/a/');
+        if (idx !== -1) {
+          token = path.slice(idx + 3).split('/')[0].split('?')[0];
+          redirectBase = '/a/';
+        }
+      }
+
+      if (token) {
+        if (redirectBase) {
+          location.replace(redirectBase + '?t=' + encodeURIComponent(token));
           return;
         }
+      }
+
+      if (path === '/celebmonitor/a') {
+        location.replace('/celebmonitor/a/' + (search.get('t') ? '?t=' + encodeURIComponent(search.get('t')) : ''));
+        return;
+      }
+
+      if (path === '/a') {
+        location.replace('/a/' + (search.get('t') ? '?t=' + encodeURIComponent(search.get('t')) : ''));
+        return;
       }
       location.replace('/');
     })();
