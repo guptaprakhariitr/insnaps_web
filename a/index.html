@@ -113,43 +113,67 @@
 
     .redirect-rail {
       display: none;
-      text-align: left;
-      max-width: 280px;
-    }
-    .redirect-rail h2 {
-      font-family: var(--font-display);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--fg-muted);
-      margin-bottom: 1rem;
+      text-align: center;
+      max-width: 260px;
+      width: 100%;
     }
 
-    .rail-feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-strong);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 0.75rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .rail-feature-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-    }
-    [data-theme="dark"] .rail-feature-card:hover {
-      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
-    }
-    .rail-feature-card img {
-      display: block;
+    .rail-carousel {
+      position: relative;
       width: 100%;
-      height: auto;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      background: var(--bg-card);
+      aspect-ratio: 9/19.5;
     }
-    .rail-feature-card .rail-card-body {
-      padding: 0.6rem 0.75rem 0.7rem;
+    [data-theme="dark"] .rail-carousel {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
     }
-    .rail-feature-card .rail-tag {
+    .rail-carousel img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .rail-carousel img.active { opacity: 1; }
+
+    .rail-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 0.65rem;
+    }
+    .rail-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border-strong);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .rail-dots span.active {
+      background: var(--accent);
+      transform: scale(1.35);
+    }
+
+    .rail-caption-box {
+      margin-top: 0.6rem;
+      min-height: 3rem;
+      position: relative;
+    }
+    .rail-caption-box .rail-caption-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      text-align: center;
+    }
+    .rail-caption-box .rail-caption-slide.active { opacity: 1; position: relative; }
+    .rail-caption-slide .rail-tag {
       display: inline-block;
       font-size: 0.68rem;
       font-weight: 700;
@@ -159,40 +183,24 @@
       border: 1px solid rgba(20, 184, 166, 0.2);
       padding: 0.15rem 0.5rem;
       border-radius: 999px;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
     }
-    .rail-feature-card h3 {
+    .rail-caption-slide h3 {
       font-family: var(--font-display);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--fg);
       margin: 0;
       line-height: 1.3;
-    }
-    .rail-feature-card p {
-      font-size: 0.78rem;
-      color: var(--fg-secondary);
-      line-height: 1.45;
-      margin: 0.2rem 0 0;
     }
 
     .redirect-rail .rail-link {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      margin-top: 0.35rem;
-    }
-    .redirect-rail .rail-cta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      margin-top: 0.35rem;
-    }
-    .redirect-rail .rail-cta-row a {
-      font-size: 0.82rem;
-      font-weight: 500;
+      margin-top: 0.65rem;
     }
 
     @media (min-width: 1100px) {
@@ -347,24 +355,22 @@
   </nav>
 
   <div class="redirect-shell" id="redirectShell" aria-hidden="true">
-    <aside class="redirect-rail redirect-rail--left" aria-label="Why InSnaps">
-      <h2>Why InSnaps</h2>
-      <a href="/#features" class="rail-feature-card" data-rail="left" data-rail-dest="features-city">
-        <img src="/pic_1.jpg" alt="City-first personalized feed" width="560" height="1214" loading="lazy" decoding="async">
-        <div class="rail-card-body">
-          <span class="rail-tag">City-First Setup</span>
-          <h3>Your City, Country, World</h3>
-          <p>Set your city and get local, national, and global coverage in one balanced feed.</p>
-        </div>
-      </a>
-      <a href="/#features" class="rail-feature-card" data-rail="left" data-rail-dest="features-topics">
-        <img src="/pic_2.jpg" alt="41+ topic domains" width="560" height="1214" loading="lazy" decoding="async">
-        <div class="rail-card-body">
-          <span class="rail-tag">41+ Domains</span>
-          <h3>Personalized News Mix</h3>
-          <p>Follow geopolitics, business, tech, health, culture and more without clutter.</p>
-        </div>
-      </a>
+    <aside class="redirect-rail redirect-rail--left" aria-label="App preview">
+      <div class="rail-carousel" id="carouselLeft">
+        <img src="/pic_1.jpg" alt="City-first personalized feed" class="active" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="41+ topic domains" loading="lazy" decoding="async">
+        <img src="/pic_3.jpg" alt="Swipe, save and share" loading="lazy" decoding="async">
+        <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
+      </div>
+      <div class="rail-dots" id="dotsLeft">
+        <span class="active"></span><span></span><span></span><span></span>
+      </div>
+      <div class="rail-caption-box" id="captionLeft">
+        <div class="rail-caption-slide active"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
+      </div>
       <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
     </aside>
 
@@ -416,29 +422,23 @@
     </div>
     </div>
 
-    <aside class="redirect-rail redirect-rail--right" aria-label="More features">
-      <h2>More to explore</h2>
-      <a href="/#features" class="rail-feature-card" data-rail="right" data-rail-dest="features-swipe">
-        <img src="/pic_3.jpg" alt="Swipe, save and share" width="560" height="1214" loading="lazy" decoding="async">
-        <div class="rail-card-body">
-          <span class="rail-tag">Fast Reading</span>
-          <h3>Swipe, Save, Share</h3>
-          <p>Move through headlines quickly, bookmark stories, and share in one tap.</p>
-        </div>
-      </a>
-      <a href="/#features" class="rail-feature-card" data-rail="right" data-rail-dest="features-explore">
-        <img src="/pic_4.jpg" alt="Topic hubs and conflict map" width="560" height="1214" loading="lazy" decoding="async">
-        <div class="rail-card-body">
-          <span class="rail-tag">Explore More</span>
-          <h3>Hubs, Maps, Context</h3>
-          <p>Go deeper with topic hubs, conflict maps, and cross-device continuity.</p>
-        </div>
-      </a>
-      <div class="rail-cta-row">
-        <a href="/" data-rail="right" data-rail-dest="home">Visit full site &rarr;</a>
-        <a href="/conflicts/" data-rail="right" data-rail-dest="conflicts">Live conflict map</a>
-        <a href="/blog/" data-rail="right" data-rail-dest="blog">Blog &amp; updates</a>
+    <aside class="redirect-rail redirect-rail--right" aria-label="App preview">
+      <div class="rail-carousel" id="carouselRight">
+        <img src="/pic_3.jpg" alt="Swipe, save and share" class="active" loading="lazy" decoding="async">
+        <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
+        <img src="/pic_1.jpg" alt="City-first personalized feed" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="41+ topic domains" loading="lazy" decoding="async">
       </div>
+      <div class="rail-dots" id="dotsRight">
+        <span class="active"></span><span></span><span></span><span></span>
+      </div>
+      <div class="rail-caption-box" id="captionRight">
+        <div class="rail-caption-slide active"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+      </div>
+      <a href="/" class="rail-link" data-rail="right" data-rail-dest="home">Explore InSnaps &rarr;</a>
     </aside>
   </div>
 
@@ -635,6 +635,28 @@
           });
         })(railLinks[ri]);
       }
+
+      function initCarousel(carouselId, dotsId, captionId, interval) {
+        var carousel = document.getElementById(carouselId);
+        var dots = document.getElementById(dotsId);
+        var captions = document.getElementById(captionId);
+        if (!carousel) return;
+        var imgs = carousel.querySelectorAll('img');
+        var dotEls = dots ? dots.querySelectorAll('span') : [];
+        var capEls = captions ? captions.querySelectorAll('.rail-caption-slide') : [];
+        var cur = 0;
+        setInterval(function () {
+          imgs[cur].classList.remove('active');
+          if (dotEls[cur]) dotEls[cur].classList.remove('active');
+          if (capEls[cur]) capEls[cur].classList.remove('active');
+          cur = (cur + 1) % imgs.length;
+          imgs[cur].classList.add('active');
+          if (dotEls[cur]) dotEls[cur].classList.add('active');
+          if (capEls[cur]) capEls[cur].classList.add('active');
+        }, interval);
+      }
+      initCarousel('carouselLeft', 'dotsLeft', 'captionLeft', 3000);
+      initCarousel('carouselRight', 'dotsRight', 'captionRight', 4000);
 
       if (!token) return;
 
