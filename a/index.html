@@ -95,11 +95,130 @@
     [data-theme="light"] .icon-sun { display: none; }
     [data-theme="light"] .icon-moon { display: block; }
 
+    /* Desktop: use side rails for marketing; mobile: single column */
+    .redirect-shell {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      padding: 6rem 1.25rem 3rem;
+      box-sizing: border-box;
+    }
+    .redirect-shell.is-ready {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .redirect-rail {
+      display: none;
+      text-align: left;
+      max-width: 320px;
+    }
+    .redirect-rail h2 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin-bottom: 0.65rem;
+    }
+    .redirect-rail ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+    }
+    .redirect-rail li {
+      font-size: 0.85rem;
+      color: var(--fg-secondary);
+      padding: 0.45rem 0;
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.45;
+      border-bottom: 1px solid var(--border);
+    }
+    .redirect-rail li:last-child { border-bottom: none; }
+    .redirect-rail li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .redirect-rail .rail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+    .redirect-rail .rail-visual {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      margin-bottom: 0.75rem;
+      background: var(--bg-card);
+    }
+    [data-theme="dark"] .redirect-rail .rail-visual {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    }
+    .redirect-rail .rail-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .redirect-rail .rail-caption {
+      font-size: 0.8rem;
+      color: var(--fg-muted);
+      line-height: 1.45;
+      margin-bottom: 0.85rem;
+    }
+    .redirect-rail .rail-cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .redirect-rail .rail-cta-row a {
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    @media (min-width: 1100px) {
+      .redirect-shell.is-ready {
+        display: grid;
+        grid-template-columns: minmax(200px, 1fr) minmax(300px, 520px) minmax(200px, 1fr);
+        gap: 2rem 2.5rem;
+        align-items: center;
+        justify-content: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .redirect-rail { display: block; }
+      .redirect-rail--left { justify-self: end; padding-top: 0.5rem; }
+      .redirect-rail--right { justify-self: start; padding-top: 0.5rem; }
+      .redirect-page {
+        margin: 0;
+        max-width: none;
+        width: 100%;
+        justify-self: center;
+      }
+    }
+
     .redirect-page {
-      min-height: 100vh; display: flex; flex-direction: column;
+      min-height: 0;
+      display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 6rem 1.5rem 3rem; text-align: center;
+      padding: 0; text-align: center;
       max-width: 540px; margin: 0 auto;
+      width: 100%;
     }
 
     .app-icon {
@@ -198,7 +317,7 @@
     .mini-footer a { color: var(--fg-secondary); }
 
     @media (max-width: 480px) {
-      .redirect-page { padding: 5rem 1rem 2rem; }
+      .redirect-shell { padding: 5rem 1rem 2rem; }
       .redirect-page h1 { font-size: 1.35rem; }
       .btn-open-app, .btn-primary-dl { max-width: 100%; }
     }
@@ -221,7 +340,19 @@
     </div>
   </nav>
 
-  <div class="redirect-page" id="mainView" style="display:none">
+  <div class="redirect-shell" id="redirectShell" aria-hidden="true">
+    <aside class="redirect-rail redirect-rail--left" aria-label="Why InSnaps">
+      <h2>Built for speed readers</h2>
+      <ul>
+        <li>City-first personalization: tune local, national, and world coverage in one feed.</li>
+        <li>41+ topic domains so you can shape what matters to you.</li>
+        <li>Vertical swipe feed, save for later, and one-tap sharing.</li>
+        <li>Cross-device sync when you sign in (optional).</li>
+      </ul>
+      <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features on insnaps.app &rarr;</a>
+    </aside>
+
+    <div class="redirect-page" id="mainView">
     <img src="/logo.png" alt="InSnaps" class="app-icon" width="88" height="88">
     <h1>This article was shared via InSnaps</h1>
     <p class="subtitle">Your City. Your Country. Your World.</p>
@@ -267,6 +398,20 @@
     <div class="mini-footer">
       <p>&copy; 2026 <a href="/">InSnaps</a> &middot; <a href="/conflicts/">Conflicts</a> &middot; <a href="/blog/">Blog</a></p>
     </div>
+    </div>
+
+    <aside class="redirect-rail redirect-rail--right" aria-label="Explore InSnaps">
+      <h2>See the app in action</h2>
+      <div class="rail-visual">
+        <img src="/insnaps_og.png" alt="InSnaps app preview" width="1200" height="630" loading="lazy" decoding="async">
+      </div>
+      <p class="rail-caption">Same story as the homepage: swipe fast through local and global headlines, then save or share in a tap.</p>
+      <div class="rail-cta-row">
+        <a href="/" data-rail="right" data-rail-dest="home">Visit full site &rarr;</a>
+        <a href="/conflicts/" data-rail="right" data-rail-dest="conflicts">Live conflict map</a>
+        <a href="/blog/" data-rail="right" data-rail-dest="blog">Blog &amp; updates</a>
+      </div>
+    </aside>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js" crossorigin="anonymous"></script>
@@ -411,6 +556,7 @@
       }
 
       // --- DOM refs ---
+      var redirectShell = document.getElementById('redirectShell');
       var mainView = document.getElementById('mainView');
       var appleDl = document.getElementById('appleDl');
       var playDl = document.getElementById('playDl');
@@ -420,7 +566,8 @@
       var articleDirectLink = document.getElementById('articleDirectLink');
       var publisherName = document.getElementById('publisherName');
 
-      mainView.style.display = 'flex';
+      redirectShell.classList.add('is-ready');
+      redirectShell.removeAttribute('aria-hidden');
 
       // --- Platform detection ---
       var ua = navigator.userAgent || '';
@@ -446,6 +593,20 @@
         publisher: publisher,
         article_url: realUrl || 'none'
       });
+
+      var railLinks = document.querySelectorAll('[data-rail]');
+      for (var ri = 0; ri < railLinks.length; ri++) {
+        (function (el) {
+          el.addEventListener('click', function () {
+            track('deeplink_side_rail_click', {
+              platform: platform,
+              rail: el.getAttribute('data-rail'),
+              dest: el.getAttribute('data-rail-dest') || 'unknown',
+              publisher: publisher
+            });
+          });
+        })(railLinks[ri]);
+      }
 
       if (!token) return;
 
