@@ -72,8 +72,7 @@
     }
     .nav-container {
       max-width: 1200px; margin: 0 auto; padding: 0.85rem 1.5rem;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
+      display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { display: flex; align-items: center; gap: 0.6rem; color: var(--fg); font-weight: 700; font-size: 1.15rem; }
     .nav-logo:hover { color: var(--fg); }
@@ -81,7 +80,6 @@
     .nav-logo-text { font-family: var(--font-display); letter-spacing: -0.02em; }
     .nav-right {
       display: flex; align-items: center; gap: 0.75rem;
-      position: absolute; right: 1.5rem;
     }
     .theme-toggle {
       background: none; border: 1px solid var(--border-strong); border-radius: 50%;
@@ -114,22 +112,22 @@
     .redirect-rail {
       display: none;
       text-align: center;
-      max-width: 260px;
+      max-width: 240px;
       width: 100%;
     }
 
     .rail-carousel {
       position: relative;
       width: 100%;
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
       border: 1px solid var(--border-strong);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
       background: var(--bg-card);
       aspect-ratio: 9/19.5;
     }
     [data-theme="dark"] .rail-carousel {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
     }
     .rail-carousel img {
       position: absolute;
@@ -138,52 +136,52 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 0.8s ease;
+      transition: opacity 1s ease;
     }
     .rail-carousel img.active { opacity: 1; }
 
     .rail-dots {
       display: flex;
       justify-content: center;
-      gap: 6px;
-      margin-top: 0.65rem;
+      gap: 7px;
+      margin-top: 0.85rem;
     }
     .rail-dots span {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: var(--border-strong);
-      transition: background 0.3s, transform 0.3s;
+      transition: background 0.4s, transform 0.4s;
     }
     .rail-dots span.active {
       background: var(--accent);
-      transform: scale(1.35);
+      transform: scale(1.4);
     }
 
     .rail-caption-box {
-      margin-top: 0.6rem;
-      min-height: 3rem;
+      margin-top: 0.7rem;
+      min-height: 2.8rem;
       position: relative;
     }
     .rail-caption-box .rail-caption-slide {
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.6s ease;
       text-align: center;
     }
     .rail-caption-box .rail-caption-slide.active { opacity: 1; position: relative; }
     .rail-caption-slide .rail-tag {
       display: inline-block;
-      font-size: 0.68rem;
+      font-size: 0.67rem;
       font-weight: 700;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       color: var(--accent);
       background: var(--accent-glow);
-      border: 1px solid rgba(20, 184, 166, 0.2);
-      padding: 0.15rem 0.5rem;
+      border: 1px solid rgba(20, 184, 166, 0.18);
+      padding: 0.15rem 0.55rem;
       border-radius: 999px;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.25rem;
     }
     .rail-caption-slide h3 {
       font-family: var(--font-display);
@@ -200,20 +198,20 @@
       gap: 0.25rem;
       font-size: 0.8rem;
       font-weight: 600;
-      margin-top: 0.65rem;
+      margin-top: 0.85rem;
     }
 
     @media (min-width: 1100px) {
       .redirect-shell.is-ready {
         display: grid;
-        grid-template-columns: minmax(200px, 280px) minmax(300px, 520px) minmax(200px, 280px);
-        gap: 0 2.5rem;
+        grid-template-columns: minmax(180px, 240px) minmax(340px, 500px) minmax(180px, 240px);
+        gap: 0 3rem;
         align-items: center;
         justify-content: center;
-        max-width: 1280px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
       }
       .redirect-rail { display: block; }
       .redirect-rail--left { justify-self: end; }
@@ -236,27 +234,27 @@
     }
 
     .app-icon {
-      width: 88px; height: 88px; border-radius: 22px;
-      margin: 0 auto 1.25rem; display: block;
-      object-fit: contain; box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      width: 80px; height: 80px; border-radius: 20px;
+      margin: 0 auto 1rem; display: block;
+      object-fit: contain; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
       border: 2px solid var(--border-strong);
     }
 
     .redirect-page h1 {
       font-family: var(--font-display);
-      font-size: 1.6rem; font-weight: 700;
-      letter-spacing: -0.02em; margin-bottom: 0.5rem;
+      font-size: 1.5rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 0.35rem;
     }
     .redirect-page .subtitle {
       color: var(--accent); font-weight: 600;
-      font-size: 0.9rem; margin-bottom: 0.75rem;
+      font-size: 0.88rem; margin-bottom: 0.6rem;
     }
     .redirect-page .desc {
-      color: var(--fg-secondary); margin: 0.4rem 0; line-height: 1.65; font-size: 0.95rem;
-      max-width: 420px;
+      color: var(--fg-secondary); margin: 0 0 0.25rem; line-height: 1.6; font-size: 0.92rem;
+      max-width: 400px;
     }
 
-    .store-buttons { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; margin-top: 1.25rem; width: 100%; }
+    .store-buttons { display: flex; flex-direction: column; align-items: center; gap: 0.55rem; margin-top: 1.1rem; width: 100%; }
 
     .btn-open-app {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -274,7 +272,7 @@
     }
     .btn-open-app svg { width: 20px; height: 20px; flex-shrink: 0; }
 
-    .store-label { font-size: 0.8rem; color: var(--fg-muted); margin-top: 0.75rem; margin-bottom: 0.25rem; }
+    .store-label { font-size: 0.78rem; color: var(--fg-muted); margin-top: 0.65rem; margin-bottom: 0.15rem; }
 
     .btn-primary-dl {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -293,7 +291,7 @@
     .btn-primary-dl.apple-btn:hover { background: #1a1a1a; box-shadow: 0 6px 30px rgba(0,0,0,0.4); }
     [data-theme="light"] .btn-primary-dl.apple-btn { border: 1px solid var(--border-strong); }
 
-    .divider { width: 100%; height: 1px; background: var(--border-strong); margin: 1.5rem 0; }
+    .divider { width: 100%; height: 1px; background: var(--border-strong); margin: 1.2rem 0; }
 
     .article-fallback { width: 100%; text-align: center; }
     .article-fallback p { font-size: 0.88rem; color: var(--fg-muted); margin-bottom: 0.4rem; }
@@ -306,8 +304,8 @@
     .article-fallback .publisher-name { color: var(--fg); font-weight: 600; }
 
     .feature-pills {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
-      margin-top: 1.5rem;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem;
+      margin-top: 1.15rem;
     }
     .pill {
       font-size: 0.75rem; font-weight: 600; color: var(--accent);
@@ -317,13 +315,13 @@
 
     .explore-link {
       display: inline-flex; align-items: center; gap: 0.3rem;
-      margin-top: 1.25rem; font-size: 0.88rem; font-weight: 500;
+      margin-top: 1rem; font-size: 0.85rem; font-weight: 500;
       color: var(--fg-secondary); transition: color 0.2s;
     }
     .explore-link:hover { color: var(--accent); }
 
     .mini-footer {
-      margin-top: 2.5rem; padding-top: 1.5rem;
+      margin-top: 1.75rem; padding-top: 1.15rem;
       border-top: 1px solid var(--border);
       width: 100%; text-align: center;
     }
@@ -655,8 +653,10 @@
           if (capEls[cur]) capEls[cur].classList.add('active');
         }, interval);
       }
-      initCarousel('carouselLeft', 'dotsLeft', 'captionLeft', 3000);
-      initCarousel('carouselRight', 'dotsRight', 'captionRight', 4000);
+      initCarousel('carouselLeft', 'dotsLeft', 'captionLeft', 4000);
+      setTimeout(function () {
+        initCarousel('carouselRight', 'dotsRight', 'captionRight', 5000);
+      }, 2000);
 
       if (!token) return;
 
