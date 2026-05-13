@@ -114,75 +114,81 @@
     .redirect-rail {
       display: none;
       text-align: left;
-      max-width: 320px;
+      max-width: 280px;
     }
     .redirect-rail h2 {
       font-family: var(--font-display);
-      font-size: 0.95rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--fg);
-      margin-bottom: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: 1rem;
     }
-    .redirect-rail ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 1rem;
+
+    .rail-feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .redirect-rail li {
+    .rail-feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+    }
+    [data-theme="dark"] .rail-feature-card:hover {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    }
+    .rail-feature-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .rail-feature-card .rail-card-body {
+      padding: 0.6rem 0.75rem 0.7rem;
+    }
+    .rail-feature-card .rail-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid rgba(20, 184, 166, 0.2);
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-bottom: 0.3rem;
+    }
+    .rail-feature-card h3 {
+      font-family: var(--font-display);
       font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 0;
+      line-height: 1.3;
+    }
+    .rail-feature-card p {
+      font-size: 0.78rem;
       color: var(--fg-secondary);
-      padding: 0.45rem 0;
-      padding-left: 1.1rem;
-      position: relative;
       line-height: 1.45;
-      border-bottom: 1px solid var(--border);
+      margin: 0.2rem 0 0;
     }
-    .redirect-rail li:last-child { border-bottom: none; }
-    .redirect-rail li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.65rem;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
+
     .redirect-rail .rail-link {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
       font-size: 0.82rem;
       font-weight: 600;
-      margin-top: 0.25rem;
-    }
-    .redirect-rail .rail-visual {
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border-strong);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-      margin-bottom: 0.75rem;
-      background: var(--bg-card);
-    }
-    [data-theme="dark"] .redirect-rail .rail-visual {
-      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
-    }
-    .redirect-rail .rail-visual img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-    .redirect-rail .rail-caption {
-      font-size: 0.8rem;
-      color: var(--fg-muted);
-      line-height: 1.45;
-      margin-bottom: 0.85rem;
+      margin-top: 0.35rem;
     }
     .redirect-rail .rail-cta-row {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
     }
     .redirect-rail .rail-cta-row a {
       font-size: 0.82rem;
@@ -192,8 +198,8 @@
     @media (min-width: 1100px) {
       .redirect-shell.is-ready {
         display: grid;
-        grid-template-columns: minmax(200px, 1fr) minmax(300px, 520px) minmax(200px, 1fr);
-        gap: 2rem 2.5rem;
+        grid-template-columns: minmax(200px, 280px) minmax(300px, 520px) minmax(200px, 280px);
+        gap: 0 2.5rem;
         align-items: center;
         justify-content: center;
         max-width: 1280px;
@@ -202,8 +208,8 @@
         padding-right: 1.5rem;
       }
       .redirect-rail { display: block; }
-      .redirect-rail--left { justify-self: end; padding-top: 0.5rem; }
-      .redirect-rail--right { justify-self: start; padding-top: 0.5rem; }
+      .redirect-rail--left { justify-self: end; }
+      .redirect-rail--right { justify-self: start; }
       .redirect-page {
         margin: 0;
         max-width: none;
@@ -342,14 +348,24 @@
 
   <div class="redirect-shell" id="redirectShell" aria-hidden="true">
     <aside class="redirect-rail redirect-rail--left" aria-label="Why InSnaps">
-      <h2>Built for speed readers</h2>
-      <ul>
-        <li>City-first personalization: tune local, national, and world coverage in one feed.</li>
-        <li>41+ topic domains so you can shape what matters to you.</li>
-        <li>Vertical swipe feed, save for later, and one-tap sharing.</li>
-        <li>Cross-device sync when you sign in (optional).</li>
-      </ul>
-      <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features on insnaps.app &rarr;</a>
+      <h2>Why InSnaps</h2>
+      <a href="/#features" class="rail-feature-card" data-rail="left" data-rail-dest="features-city">
+        <img src="/pic_1.jpg" alt="City-first personalized feed" width="560" height="1214" loading="lazy" decoding="async">
+        <div class="rail-card-body">
+          <span class="rail-tag">City-First Setup</span>
+          <h3>Your City, Country, World</h3>
+          <p>Set your city and get local, national, and global coverage in one balanced feed.</p>
+        </div>
+      </a>
+      <a href="/#features" class="rail-feature-card" data-rail="left" data-rail-dest="features-topics">
+        <img src="/pic_2.jpg" alt="41+ topic domains" width="560" height="1214" loading="lazy" decoding="async">
+        <div class="rail-card-body">
+          <span class="rail-tag">41+ Domains</span>
+          <h3>Personalized News Mix</h3>
+          <p>Follow geopolitics, business, tech, health, culture and more without clutter.</p>
+        </div>
+      </a>
+      <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
     </aside>
 
     <div class="redirect-page" id="mainView">
@@ -400,12 +416,24 @@
     </div>
     </div>
 
-    <aside class="redirect-rail redirect-rail--right" aria-label="Explore InSnaps">
-      <h2>See the app in action</h2>
-      <div class="rail-visual">
-        <img src="/insnaps_og.png" alt="InSnaps app preview" width="1200" height="630" loading="lazy" decoding="async">
-      </div>
-      <p class="rail-caption">Same story as the homepage: swipe fast through local and global headlines, then save or share in a tap.</p>
+    <aside class="redirect-rail redirect-rail--right" aria-label="More features">
+      <h2>More to explore</h2>
+      <a href="/#features" class="rail-feature-card" data-rail="right" data-rail-dest="features-swipe">
+        <img src="/pic_3.jpg" alt="Swipe, save and share" width="560" height="1214" loading="lazy" decoding="async">
+        <div class="rail-card-body">
+          <span class="rail-tag">Fast Reading</span>
+          <h3>Swipe, Save, Share</h3>
+          <p>Move through headlines quickly, bookmark stories, and share in one tap.</p>
+        </div>
+      </a>
+      <a href="/#features" class="rail-feature-card" data-rail="right" data-rail-dest="features-explore">
+        <img src="/pic_4.jpg" alt="Topic hubs and conflict map" width="560" height="1214" loading="lazy" decoding="async">
+        <div class="rail-card-body">
+          <span class="rail-tag">Explore More</span>
+          <h3>Hubs, Maps, Context</h3>
+          <p>Go deeper with topic hubs, conflict maps, and cross-device continuity.</p>
+        </div>
+      </a>
       <div class="rail-cta-row">
         <a href="/" data-rail="right" data-rail-dest="home">Visit full site &rarr;</a>
         <a href="/conflicts/" data-rail="right" data-rail-dest="conflicts">Live conflict map</a>
