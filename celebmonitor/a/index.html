@@ -88,8 +88,9 @@
 
   <script>
     (function () {
+      var androidPackage = 'com.prakshatech.appsix.appsix';
       var appStore = 'https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049';
-      var playStore = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree';
+      var playStore = 'https://play.google.com/store/apps/details?id=' + androidPackage;
       var search = new URLSearchParams(window.location.search || '');
       var token = search.get('t') || '';
       if (!token) {
@@ -109,7 +110,7 @@
       var deeplinkPath = token ? '/a/' + encodeURIComponent(token) : '';
       var customUrl = 'insnaps://celebmonitor' + deeplinkPath;
       var androidIntent = 'intent://celebmonitor' + deeplinkPath +
-        '#Intent;scheme=insnaps;package=com.prakshaappthree.appthree;S.browser_fallback_url=' +
+        '#Intent;scheme=insnaps;package=' + androidPackage + ';S.browser_fallback_url=' +
         encodeURIComponent(playStore) + ';end';
 
       if (isAndroid) {

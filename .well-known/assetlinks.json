@@ -1,8 +1,6 @@
 [
   {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
+    "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
       "package_name": "com.prakshaappthree.appthree",
@@ -12,14 +10,13 @@
     }
   },
   {
-    "relation": [
-      "delegate_permission/common.handle_all_urls"
-    ],
+    "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
       "package_name": "com.prakshatech.appsix.appsix",
       "sha256_cert_fingerprints": [
-        "A4:36:29:56:D6:F0:95:81:AE:33:83:54:FF:EA:71:2F:3C:14:F5:FB:08:48:C9:8B:C8:F4:CE:C5:48:41:6F:1C"
+        "A4:36:29:56:D6:F0:95:81:AE:33:83:54:FF:EA:71:2F:3C:14:F5:FB:08:48:C9:8B:C8:F4:CE:C5:48:41:6F:1C",
+        "77:7E:65:9D:09:B6:BC:CE:EE:DC:30:AF:8F:7D:A7:1A:57:6C:68:EE:D7:ED:87:18:CF:FB:DF:41:C8:57:36:1A"
       ]
     }
   }
