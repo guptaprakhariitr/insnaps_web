@@ -1,0 +1,25 @@
+# InSnaps
+
+> InSnaps is a personalized local + global news app for iPhone, iPad, Mac and Android. Set your city once and get a vertical swipe feed that balances local, national and world news — including geopolitics, conflicts, business and 32 topic domains — curated in English from sources including Reuters, BBC, Al Jazeera and NPR. Its signature feature is an interactive conflict map of active wars and crises built on UCDP (Uppsala Conflict Data Program) data.
+
+InSnaps is built by indie founder Prakhar Gupta. Taglines: "Your City. Your Country. Your World." and "Signal over noise."
+
+## Key facts
+
+- Pricing: Free tier ($0 — personalized feed, 13 news domains, monthly swipe allowance). InSnaps Pro: $2.99/month, $24.99/year, or $149.99 lifetime — unlimited swipes, ad-free, cross-device sync, unlimited article audio.
+- Platforms: iPhone, iPad, Mac (App Store), Android (Google Play).
+- Topic domains: 32 user-selectable, including Geopolitics, Conflicts, Defense, Energy, World, Local, Business, Crypto, Tech, AI, Science, Health, Sports and Travel.
+- Interface languages: English plus 10 more (Hindi, Spanish, French, German, Portuguese, Arabic, Hebrew, Chinese, Japanese, Russian). News articles are in English.
+- Conflict data sources: UCDP, ReliefWeb, Crisis Group, CFR.
+
+## Pages
+
+- [Home](https://insnaps.app/): what InSnaps is, features, pricing, FAQ
+- [Conflict tracker](https://insnaps.app/conflicts/): live index of active conflicts with a detail page per conflict
+- [Blog](https://insnaps.app/blog/): auto-updated category news roundups
+- [Support](https://insnaps.app/support/): help and contact
+
+## Download
+
+- [App Store (iPhone, iPad, Mac)](https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049)
+- [Google Play (Android)](https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree)
