@@ -74,15 +74,8 @@
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
-        @media (prefers-color-scheme: dark) {
-            body { background: #0f0f1a; color: #e0e0e0; }
-            h1, h2 { color: #f0f0f0; }
-            p, li { color: #ccc; }
-            th { background: #1a1a2e; }
-            th, td { border-color: #2a2a3e; }
-            .highlight { background: #1a1a2e; border-left-color: #5b86e5; }
-            .subtitle { color: #999; }
-        }
+        /* Light by default — no OS-driven dark override (site-wide light default). */
+        :root { color-scheme: light; }
     </style>
 </head>
 <body>

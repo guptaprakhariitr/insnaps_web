@@ -138,7 +138,7 @@ def generate_blog_post(slug, config, articles):
         </div>'''
 
     page = f'''<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
@@ -243,7 +243,7 @@ def generate_blog_post(slug, config, articles):
   <script>
     (function(){{
       var html=document.documentElement,t=document.getElementById('themeToggle');
-      function autoTheme(){{var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}}
+      function autoTheme(){{return 'light';}}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
       else html.setAttribute('data-theme',autoTheme());
@@ -272,7 +272,7 @@ def generate_blog_index(posts_meta):
       </a>'''
 
     page = f'''<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
@@ -352,7 +352,7 @@ def generate_blog_index(posts_meta):
   <script>
     (function(){{
       var html=document.documentElement,t=document.getElementById('themeToggle');
-      function autoTheme(){{var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}}
+      function autoTheme(){{return 'light';}}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
       else html.setAttribute('data-theme',autoTheme());

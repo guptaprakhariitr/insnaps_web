@@ -99,13 +99,12 @@
   var isMac = /Macintosh/i.test(ua);
   var isMobile = isIOS || isAndroid;
 
-  // --- Theme Toggle (auto by time of day, manual override) ---
+  // --- Theme Toggle (light by default, manual override persists) ---
   var html = document.documentElement;
   var toggle = document.getElementById('themeToggle');
 
   function autoTheme() {
-    var h = new Date().getHours();
-    return (h >= 7 && h < 19) ? 'light' : 'dark';
+    return 'light';
   }
 
   var stored = localStorage.getItem('insnaps-theme');
