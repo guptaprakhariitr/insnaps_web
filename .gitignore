@@ -1,2 +1,35 @@
+# --- OS / editor noise ---
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# --- Local envs / deps ---
+.venv*/
+venv/
+__pycache__/
+*.pyc
+node_modules/
+
+# --- Secrets & credentials: never commit ---
+.env
+.env.*
+!.env.example
+.mcp.json
+*.pem
+*.key
+*.p8
+AuthKey_*.p8
+*.p12
+*.cer
+*.keychain
+*.mobileprovision
+*-service-account*.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+ga4-*.json
+
+# --- Local scratch / unreferenced working files ---
 img.png
-Trade_Compliance_Screener_Plan.md
