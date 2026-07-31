@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HQQCZ7SLN5');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open a topic in InSnaps — Personalized News Feed</title>
+  <meta name="description" content="A topic was shared via InSnaps. Follow it in the app for a personalized local + global news feed — swipe to read, save articles, and share stories instantly.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/png" href="/logo.png">
+  <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
+  <meta name="apple-itunes-app" content="app-id=6762338049">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/redirect-page.css">
+  <style>
+    /* Topic-specific additions on top of the shared redirect styles. */
+    .topic-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px; margin-bottom: 18px;
+      border-radius: 999px; border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+      font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+      font-size: 0.9rem; letter-spacing: 0.01em;
+    }
+    .topic-chip svg { width: 15px; height: 15px; opacity: 0.75; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="InSnaps" class="nav-logo-icon" width="32" height="32">
+        <span class="nav-logo-text">InSnaps</span>
+      </a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="redirect-shell" id="redirectShell" aria-hidden="true">
+    <aside class="redirect-rail redirect-rail--left" aria-label="App preview">
+      <div class="rail-carousel" id="carouselLeft">
+        <img src="/pic_2.jpg" alt="41+ topic domains" class="active" loading="lazy" decoding="async">
+        <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
+        <img src="/pic_1.jpg" alt="City-first personalized feed" loading="lazy" decoding="async">
+        <img src="/pic_3.jpg" alt="Swipe, save and share" loading="lazy" decoding="async">
+      </div>
+      <div class="rail-dots" id="dotsLeft">
+        <span class="active"></span><span></span><span></span><span></span>
+      </div>
+      <div class="rail-caption-box" id="captionLeft">
+        <div class="rail-caption-slide active"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
+      </div>
+      <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
+    </aside>
+
+    <div class="redirect-page" id="mainView">
+    <img src="/logo.png" alt="InSnaps" class="app-icon" width="88" height="88">
+
+    <div class="topic-chip" id="topicChip" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      <span id="topicLabel"></span>
+    </div>
+
+    <h1 id="headline">A topic was shared via InSnaps</h1>
+    <p class="subtitle">Your City. Your Country. Your World.</p>
+    <p class="desc">Get <strong>InSnaps</strong> to follow this topic in a personalized news feed — swipe through local &amp; global stories, save articles, and share with one tap.</p>
+
+    <button id="openInApp" class="btn-open-app" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/></svg>
+      Open in InSnaps
+    </button>
+
+    <p class="store-label" id="storeLabel" style="display:none">Don't have the app yet?</p>
+
+    <div class="store-buttons">
+      <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" id="appleDl" class="btn-primary-dl apple-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" id="playDl" class="btn-primary-dl">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
+        Get it on Google Play
+      </a>
+    </div>
+
+    <div id="topicFallback" class="article-fallback" style="display:none">
+      <div class="divider"></div>
+      <p id="fallbackLabel">or keep reading on the web</p>
+      <a href="/conflicts/" id="topicWebLink" class="article-url">
+        <span id="topicWebLabel" class="publisher-name"></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+
+    <div class="feature-pills">
+      <span class="pill">Swipe to Read</span>
+      <span class="pill">41+ Topics</span>
+      <span class="pill">iPhone · iPad · Mac</span>
+      <span class="pill">Android · Tablet</span>
+      <span class="pill">Save &amp; Share</span>
+    </div>
+
+    <a href="/" class="explore-link">Explore InSnaps &rarr;</a>
+
+    <div class="mini-footer">
+      <p>&copy; 2026 <a href="/">InSnaps</a> &middot; <a href="/conflicts/">Conflicts</a> &middot; <a href="/blog/">Blog</a></p>
+    </div>
+    </div>
+
+    <aside class="redirect-rail redirect-rail--right" aria-label="App preview">
+      <div class="rail-carousel" id="carouselRight">
+        <img src="/pic_3.jpg" alt="Swipe, save and share" class="active" loading="lazy" decoding="async">
+        <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
+        <img src="/pic_1.jpg" alt="City-first personalized feed" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="41+ topic domains" loading="lazy" decoding="async">
+      </div>
+      <div class="rail-dots" id="dotsRight">
+        <span class="active"></span><span></span><span></span><span></span>
+      </div>
+      <div class="rail-caption-box" id="captionRight">
+        <div class="rail-caption-slide active"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+      </div>
+      <a href="/" class="rail-link" data-rail="right" data-rail-dest="home">Explore InSnaps &rarr;</a>
+    </aside>
+  </div>
+
+  <script>
+    (function () {
+      // ---------------------------------------------------------------
+      // Theme (light by default, saved choice wins)
+      // ---------------------------------------------------------------
+      var html = document.documentElement;
+      var toggle = document.getElementById('themeToggle');
+      var stored = localStorage.getItem('insnaps-theme');
+      html.setAttribute('data-theme', (stored === 'light' || stored === 'dark') ? stored : 'light');
+      toggle.addEventListener('click', function () {
+        var n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', n);
+        localStorage.setItem('insnaps-theme', n);
+      });
+
+      var appStore = 'https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049';
+      var playStore = 'https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree';
+      var SCHEME = 'insnaps';
+      var ANDROID_PKG = 'com.prakshaappthree.appthree';
+
+      function track(eventName, params) {
+        if (window.gtag) gtag('event', eventName, params || {});
+      }
+
+      // ---------------------------------------------------------------
+      // Topic slug: /t/<slug>, /t/?topic=<slug>, or /t/?t=<slug>
+      // Slugs are plain text (not encrypted like article tokens) so the
+      // links stay human-readable and shareable.
+      // ---------------------------------------------------------------
+      function normalizeSlug(raw) {
+        if (!raw) return '';
+        try { raw = decodeURIComponent(raw); } catch (_) {}
+        return String(raw)
+          .toLowerCase()
+          .replace(/[\s_]+/g, '-')       // spaces / underscores -> hyphen
+          .replace(/[^a-z0-9-]/g, '')    // drop anything else (also blocks injection)
+          .replace(/-{2,}/g, '-')
+          .replace(/^-|-$/g, '')
+          .slice(0, 64);
+      }
+
+      var path = window.location.pathname || '';
+      var q = new URLSearchParams(window.location.search || '');
+      var rawSlug = q.get('topic') || q.get('t') || '';
+      if (!rawSlug) {
+        var idx = path.indexOf('/t/');
+        if (idx !== -1) rawSlug = path.slice(idx + 3).split('/')[0].split('?')[0];
+      }
+      var slug = normalizeSlug(rawSlug);
+
+      // Known topic domains -> display names. Unknown slugs fall back to
+      // title-casing, so a new app-side topic still renders sensibly.
+      var TOPIC_NAMES = {
+        'geopolitics': 'Geopolitics', 'conflicts': 'Conflicts & War',
+        'military': 'Military & Defence', 'diplomacy': 'Diplomacy',
+        'world': 'World', 'politics': 'Politics', 'elections': 'Elections',
+        'business': 'Business', 'economy': 'Economy', 'markets': 'Markets',
+        'finance': 'Finance', 'startups': 'Startups', 'crypto': 'Crypto',
+        'energy': 'Energy', 'trade': 'Trade & Supply Chains',
+        'technology': 'Technology', 'tech': 'Technology', 'ai': 'AI',
+        'science': 'Science', 'space': 'Space', 'climate': 'Climate',
+        'environment': 'Environment', 'health': 'Health',
+        'society': 'Society', 'education': 'Education', 'culture': 'Culture',
+        'sports': 'Sports', 'entertainment': 'Entertainment',
+        'lifestyle': 'Lifestyle', 'travel': 'Travel', 'food': 'Food',
+        'crime': 'Crime & Justice', 'law': 'Law', 'human-rights': 'Human Rights',
+        'migration': 'Migration', 'disasters': 'Disasters',
+        'local': 'Local News', 'national': 'National News',
+        'cities': 'Cities', 'opinion': 'Opinion', 'media': 'Media'
+      };
+
+      // Conflict hubs that already exist on the site: slug -> display title.
+      // Powers both the nicer headline and the web fallback link.
+      // Regenerated from _data/conflicts.json by build.sh — do not hand-edit.
+      /* CONFLICT_TOPICS:start */
+      var CONFLICT_TOPICS = {
+        "ukraine-russia": "Ukraine-Russia War",
+        "israel-palestine": "Israel-Palestine Conflict",
+        "sudan-civil-war": "Sudan Civil War",
+        "myanmar-civil-war": "Myanmar Civil War",
+        "yemen-war": "Yemen War",
+        "ethiopia-tigray": "Ethiopia Conflict",
+        "dr-congo": "DR Congo Conflict",
+        "syria-civil-war": "Syria Civil War",
+        "india-pakistan": "India-Pakistan Tensions",
+        "taiwan-strait": "Taiwan Strait Tensions",
+        "south-china-sea": "South China Sea Dispute",
+        "north-korea": "North Korea Tensions",
+        "somalia": "Somalia Conflict",
+        "libya": "Libya Conflict",
+        "iraq": "Iraq Security Situation",
+        "armenia-azerbaijan": "Armenia-Azerbaijan Conflict",
+        "haiti": "Haiti Crisis",
+        "central-african-republic": "Central African Republic Conflict",
+        "south-sudan": "South Sudan Conflict",
+        "afghanistan": "Afghanistan Under Taliban",
+        "lebanon": "Lebanon Conflict",
+        "iran-tensions": "Iran Tensions",
+        "sahel-crisis": "Sahel Crisis",
+        "cameroon-anglophone": "Cameroon Anglophone Crisis",
+        "mozambique-cabo-delgado": "Mozambique Insurgency",
+        "colombia": "Colombia Peace Process",
+        "mexico-drug-war": "Mexico Drug War",
+        "kashmir": "Kashmir Conflict",
+        "nagorno-karabakh": "Nagorno-Karabakh",
+        "west-papua": "West Papua Independence Movement"
+      };
+      /* CONFLICT_TOPICS:end */
+
+      function titleCase(s) {
+        return s.split('-').map(function (w) {
+          return w ? w.charAt(0).toUpperCase() + w.slice(1) : w;
+        }).join(' ');
+      }
+
+      function displayName(s) {
+        return CONFLICT_TOPICS[s] || TOPIC_NAMES[s] || titleCase(s);
+      }
+
+      // ---------------------------------------------------------------
+      // Platform detection
+      // ---------------------------------------------------------------
+      var ua = navigator.userAgent || '';
+      var isAndroid = /Android/i.test(ua);
+      // iPadOS 13+ reports as Macintosh; separate it via touch support.
+      var isIPadOS = /Macintosh/i.test(ua) && navigator.maxTouchPoints > 1;
+      var isIOS = /iPhone|iPad|iPod/i.test(ua) || isIPadOS;
+      var isMac = /Macintosh/i.test(ua) && !isIPadOS;
+      var canOpenApp = isAndroid || isIOS || isMac;
+      var platform = isAndroid ? 'android' : isIPadOS ? 'ipados' : isIOS ? 'ios' : isMac ? 'mac' : 'desktop';
+
+      // ---------------------------------------------------------------
+      // DOM refs + render
+      // ---------------------------------------------------------------
+      var redirectShell = document.getElementById('redirectShell');
+      var appleDl = document.getElementById('appleDl');
+      var playDl = document.getElementById('playDl');
+      var openInApp = document.getElementById('openInApp');
+      var storeLabel = document.getElementById('storeLabel');
+      var headline = document.getElementById('headline');
+      var topicChip = document.getElementById('topicChip');
+      var topicLabel = document.getElementById('topicLabel');
+      var topicFallback = document.getElementById('topicFallback');
+      var topicWebLink = document.getElementById('topicWebLink');
+      var topicWebLabel = document.getElementById('topicWebLabel');
+      var fallbackLabel = document.getElementById('fallbackLabel');
+
+      redirectShell.classList.add('is-ready');
+      redirectShell.removeAttribute('aria-hidden');
+
+      // Show only the store that matches the device.
+      if (isAndroid) appleDl.style.display = 'none';
+      else if (isIOS || isMac) playDl.style.display = 'none';
+
+      var name = slug ? displayName(slug) : '';
+      if (slug) {
+        topicLabel.textContent = name;          // textContent: never inject markup
+        topicChip.style.display = 'inline-flex';
+        headline.textContent = name + ' on InSnaps';
+        document.title = name + ' — Open in InSnaps';
+      } else {
+        headline.textContent = 'Explore topics on InSnaps';
+      }
+
+      // Web fallback — always offered, so a user with no app (or a
+      // desktop browser that can't deep link) still has somewhere to go.
+      var isConflict = !!(slug && CONFLICT_TOPICS[slug]);
+      if (isConflict) {
+        topicWebLink.setAttribute('href', '/conflicts/' + slug + '/');
+        topicWebLabel.textContent = name + ' live hub';
+        fallbackLabel.textContent = 'or read the web hub';
+      } else {
+        topicWebLink.setAttribute('href', '/conflicts/');
+        topicWebLabel.textContent = 'Browse all topics & conflicts';
+        fallbackLabel.textContent = 'or keep reading on the web';
+      }
+      topicFallback.style.display = 'block';
+
+      track('topic_deeplink_page_view', {
+        platform: platform,
+        has_topic: !!slug,
+        topic: slug || 'none',
+        known_topic: !!(TOPIC_NAMES[slug] || CONFLICT_TOPICS[slug]),
+        has_web_hub: !!isConflict
+      });
+
+      var railLinks = document.querySelectorAll('[data-rail]');
+      for (var ri = 0; ri < railLinks.length; ri++) {
+        (function (el) {
+          el.addEventListener('click', function () {
+            track('topic_deeplink_side_rail_click', {
+              platform: platform,
+              rail: el.getAttribute('data-rail'),
+              dest: el.getAttribute('data-rail-dest') || 'unknown',
+              topic: slug || 'none'
+            });
+          });
+        })(railLinks[ri]);
+      }
+
+      function initCarousel(carouselId, dotsId, captionId, interval) {
+        var carousel = document.getElementById(carouselId);
+        var dots = document.getElementById(dotsId);
+        var captions = document.getElementById(captionId);
+        if (!carousel) return;
+        var imgs = carousel.querySelectorAll('img');
+        var dotEls = dots ? dots.querySelectorAll('span') : [];
+        var capEls = captions ? captions.querySelectorAll('.rail-caption-slide') : [];
+        var cur = 0;
+        setInterval(function () {
+          imgs[cur].classList.remove('active');
+          if (dotEls[cur]) dotEls[cur].classList.remove('active');
+          if (capEls[cur]) capEls[cur].classList.remove('active');
+          cur = (cur + 1) % imgs.length;
+          imgs[cur].classList.add('active');
+          if (dotEls[cur]) dotEls[cur].classList.add('active');
+          if (capEls[cur]) capEls[cur].classList.add('active');
+        }, interval);
+      }
+      initCarousel('carouselLeft', 'dotsLeft', 'captionLeft', 4000);
+      setTimeout(function () {
+        initCarousel('carouselRight', 'dotsRight', 'captionRight', 5000);
+      }, 2000);
+
+      // No slug -> nothing to deep link into; the page stays a plain
+      // "get the app / browse the web" landing.
+      if (!slug) return;
+
+      // ---------------------------------------------------------------
+      // Deep link targets
+      // ---------------------------------------------------------------
+      function androidIntent(withFallback) {
+        return 'intent://topic/' + encodeURIComponent(slug) +
+          '#Intent;scheme=' + SCHEME + ';package=' + ANDROID_PKG + ';' +
+          (withFallback ? 'S.browser_fallback_url=' + encodeURIComponent(playStore) + ';' : '') +
+          'end';
+      }
+      function customScheme() {
+        return SCHEME + '://topic/' + encodeURIComponent(slug);
+      }
+
+      if (canOpenApp) {
+        openInApp.style.display = 'inline-flex';
+        storeLabel.style.display = 'block';
+      }
+
+      // Auto-attempt once per session per topic, so a back-navigation
+      // doesn't re-trigger the app switch and trap the user.
+      var dlKey = 'insnaps_topic_dl_tried_' + slug;
+      if (canOpenApp && !sessionStorage.getItem(dlKey)) {
+        sessionStorage.setItem(dlKey, '1');
+        track('topic_deeplink_auto_open', {
+          platform: platform,
+          topic: slug,
+          method: isAndroid ? 'intent' : 'custom_scheme'
+        });
+        window.location.href = isAndroid ? androidIntent(false) : customScheme();
+      }
+
+      // App-installed detection: if the app takes over, the page is
+      // backgrounded before this fires. If it fires, the app is absent
+      // (or the scheme is unregistered) — the store buttons are already
+      // on screen, so there is nothing further to do but record it.
+      var appOpenedTimeout = setTimeout(function () {
+        track('topic_deeplink_app_not_opened', { platform: platform, topic: slug });
+      }, 3000);
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+          clearTimeout(appOpenedTimeout);
+          track('topic_deeplink_app_opened', { platform: platform, topic: slug });
+        }
+      });
+
+      openInApp.addEventListener('click', function () {
+        track('topic_deeplink_open_in_app_click', { platform: platform, topic: slug });
+        if (isAndroid) {
+          // Chrome falls back to the Play Store itself when the app is missing.
+          window.location.href = androidIntent(true);
+        } else if (isIOS || isMac) {
+          window.location.href = customScheme();
+          // No app registered for the scheme -> nothing happens, so send
+          // the user to the store after a beat.
+          setTimeout(function () { window.location.href = appStore; }, 1500);
+        }
+      });
+
+      appleDl.addEventListener('click', function () {
+        track('topic_deeplink_store_click', { platform: platform, store: 'app_store', topic: slug });
+      });
+      playDl.addEventListener('click', function () {
+        track('topic_deeplink_store_click', { platform: platform, store: 'play_store', topic: slug });
+      });
+
+      topicWebLink.addEventListener('click', function () {
+        track('topic_deeplink_web_fallback_click', { platform: platform, topic: slug, has_web_hub: !!isConflict });
+      });
+    })();
+  </script>
+</body>
+</html>

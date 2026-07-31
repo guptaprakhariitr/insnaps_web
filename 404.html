@@ -15,23 +15,29 @@
       var token = '';
       var redirectBase = '';
 
+      // Topic hubs use a readable slug (?topic=), articles use an opaque token (?t=).
+      var queryKey = 't';
+
       var celebIdx = path.indexOf('/celebmonitor/a/');
       if (celebIdx !== -1) {
         token = path.slice(celebIdx + '/celebmonitor/a/'.length).split('/')[0].split('?')[0];
         redirectBase = '/celebmonitor/a/';
       } else {
+        var topicIdx = path.indexOf('/t/');
         var idx = path.indexOf('/a/');
-        if (idx !== -1) {
+        if (topicIdx !== -1) {
+          token = path.slice(topicIdx + 3).split('/')[0].split('?')[0];
+          redirectBase = '/t/';
+          queryKey = 'topic';
+        } else if (idx !== -1) {
           token = path.slice(idx + 3).split('/')[0].split('?')[0];
           redirectBase = '/a/';
         }
       }
 
-      if (token) {
-        if (redirectBase) {
-          location.replace(redirectBase + '?t=' + encodeURIComponent(token));
-          return;
-        }
+      if (token && redirectBase) {
+        location.replace(redirectBase + '?' + queryKey + '=' + encodeURIComponent(token));
+        return;
       }
 
       if (path === '/celebmonitor/a') {
@@ -41,6 +47,12 @@
 
       if (path === '/a') {
         location.replace('/a/' + (search.get('t') ? '?t=' + encodeURIComponent(search.get('t')) : ''));
+        return;
+      }
+
+      if (path === '/t') {
+        var slug = search.get('topic') || search.get('t');
+        location.replace('/t/' + (slug ? '?topic=' + encodeURIComponent(slug) : ''));
         return;
       }
       location.replace('/');

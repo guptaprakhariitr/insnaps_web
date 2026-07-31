@@ -5,7 +5,8 @@
       {
         "appID": "86F7TVY8RD.com.prakshaappthree.appthree",
         "paths": [
-          "/a/*"
+          "/a/*",
+          "/t/*"
         ]
       },
       {

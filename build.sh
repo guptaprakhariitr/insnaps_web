@@ -32,7 +32,7 @@ for c in conflicts:
     esc = lambda s: html.escape(str(s))
 
     page = f'''<!DOCTYPE html>
-<html lang=\"en\" data-theme=\"dark\">
+<html lang=\"en\" data-theme=\"light\">
 <head>
   <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5\"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
@@ -157,7 +157,7 @@ for c in conflicts:
   <script>
     (function(){{
       var html=document.documentElement,t=document.getElementById('themeToggle');
-      function autoTheme(){{var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}}
+      function autoTheme(){{return 'light';}}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
       else html.setAttribute('data-theme',autoTheme());
@@ -201,7 +201,7 @@ for c in sorted(conflicts, key=lambda x: {'critical':0,'significant':1,'limited'
       </a>'''
 
 page = f'''<!DOCTYPE html>
-<html lang=\"en\" data-theme=\"dark\">
+<html lang=\"en\" data-theme=\"light\">
 <head>
   <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5\"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
@@ -287,7 +287,7 @@ page = f'''<!DOCTYPE html>
   <script>
     (function(){{
       var html=document.documentElement,t=document.getElementById('themeToggle');
-      function autoTheme(){{var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}}
+      function autoTheme(){{return 'light';}}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
       else html.setAttribute('data-theme',autoTheme());
@@ -310,7 +310,7 @@ echo "==> Building blog index..."
 mkdir -p blog
 cat > blog/index.html << 'BLOGEOF'
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
@@ -383,7 +383,7 @@ cat > blog/index.html << 'BLOGEOF'
   <script>
     (function(){
       var html=document.documentElement,t=document.getElementById('themeToggle');
-      function autoTheme(){var h=new Date().getHours();return(h>=7&&h<19)?'light':'dark';}
+      function autoTheme(){return 'light';}
       var s=localStorage.getItem('insnaps-theme');
       if(s)html.setAttribute('data-theme',s);
       else html.setAttribute('data-theme',autoTheme());
@@ -429,6 +429,35 @@ print(f'  Generated sitemap with {len(urls)} URLs')
 
 echo "==> Building blog posts from RSS..."
 python3 _scripts/generate_blog.py
+
+echo "==> Syncing conflict topics into the topic redirect page..."
+python3 -c "
+import json, re
+
+with open('$DATA_FILE') as f:
+    topics = {c['slug']: c['title'] for c in json.load(f)}
+
+path = 't/index.html'
+with open(path) as f:
+    page = f.read()
+
+body = ',\n'.join(f'        {json.dumps(k)}: {json.dumps(v)}' for k, v in topics.items())
+new_block = '      var CONFLICT_TOPICS = {\n' + body + '\n      };'
+pattern = re.compile(r'(/\* CONFLICT_TOPICS:start \*/\n).*?(\n\s*/\* CONFLICT_TOPICS:end \*/)', re.S)
+if not pattern.search(page):
+    raise SystemExit('  ! CONFLICT_TOPICS markers missing in ' + path)
+updated = pattern.sub(lambda m: m.group(1) + new_block + m.group(2), page)
+if updated != page:
+    with open(path, 'w') as f:
+        f.write(updated)
+    print(f'  Updated {path} with {len(topics)} conflict topics')
+else:
+    print(f'  {path} already in sync ({len(topics)} topics)')
+"
+
+echo "==> Refreshing GitHub snapshot for /products..."
+GH_TOKEN="${GH_TOKEN:-$(security find-generic-password -s decant-gh-release-pat -w 2>/dev/null || true)}" \
+  python3 _scripts/gen_gh_cache.py || echo "  (skipped — kept existing products/gh-cache.json)"
 
 echo "==> Build complete!"
 echo "    - $(ls conflicts/*/index.html 2>/dev/null | wc -l | tr -d ' ') conflict pages"

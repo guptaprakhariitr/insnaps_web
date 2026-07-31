@@ -40,7 +40,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add conflicts/ blog/ sitemap.xml insnaps_og.png
+          # t/index.html and products/gh-cache.json are also rewritten by build.sh.
+          git add conflicts/ blog/ sitemap.xml insnaps_og.png t/index.html products/gh-cache.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
