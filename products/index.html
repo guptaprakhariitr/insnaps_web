@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prakhar Gupta — software I've built &amp; shipped</title>
+  <meta name="description" content="Apps and developer tools I've designed, built, and shipped end to end — Vigil, Decant, AIConnect Figma MCP, MatteShot, Twinned, Caliper, Tray, InSnaps. Mostly open-source; a couple on the App Store.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://insnaps.app/products/">
+  <link rel="icon" type="image/png" href="/logo.png">
+  <meta property="og:title" content="Prakhar Gupta — software I've built &amp; shipped">
+  <meta property="og:description" content="Apps and developer tools, designed and built end to end. Mostly open-source; a couple on the App Store.">
+  <meta property="og:url" content="https://insnaps.app/products/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://insnaps.app/insnaps_og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prakhar Gupta — software I've built &amp; shipped">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    [data-theme="dark"]{
+      --bg:#0e0d0b; --bg-2:#16140f; --fg:#ECE7DF; --fg-2:#8c857a;
+      --line:rgba(236,231,223,0.12); --line-2:rgba(236,231,223,0.32);
+      --accent:#F5B842; --accent-2:#ffd479; --on-accent:#1a1408;
+    }
+    [data-theme="light"]{
+      --bg:#ffffff; --bg-2:#f7f5f1; --fg:#16130d; --fg-2:#6f685c;
+      --line:rgba(20,16,8,0.14); --line-2:#16130d;
+      --accent:#C2410C; --accent-2:#9a3412; --on-accent:#ffffff;
+    }
+    *{box-sizing:border-box;}
+    html{-webkit-text-size-adjust:100%;}
+    body{margin:0; background:var(--bg); color:var(--fg); font-family:'Inter',system-ui,-apple-system,sans-serif; font-feature-settings:"cv05","ss01"; -webkit-font-smoothing:antialiased; transition:background .25s,color .25s;}
+    a{color:inherit; text-decoration:none;}
+    ::selection{background:var(--accent); color:var(--on-accent);}
+    .wrap{max-width:980px; margin:0 auto; padding:0 28px;}
+
+    .bar{display:flex; align-items:center; justify-content:space-between; padding:26px 0 0;}
+    .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:15px; letter-spacing:-0.01em;}
+    .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--accent);}
+    .bar-right{display:flex; align-items:center; gap:22px;}
+    .bar-right a{font-size:13px; font-weight:500; color:var(--fg-2);}
+    .bar-right a:hover{color:var(--fg);}
+    .tgl{display:inline-flex; width:34px; height:34px; align-items:center; justify-content:center; border:1px solid var(--line); background:transparent; color:var(--fg-2); cursor:pointer; padding:0;}
+    .tgl:hover{color:var(--fg); border-color:var(--line-2);}
+    .tgl svg{width:16px; height:16px;}
+    [data-theme="dark"] .tgl .i-sun{display:none;}
+    [data-theme="light"] .tgl .i-moon{display:none;}
+
+    .hero{padding:60px 0 14px;}
+    .eyebrows{display:flex; justify-content:space-between; font-size:11px; font-weight:700; letter-spacing:0.14em; color:var(--fg-2); margin-bottom:18px;}
+    .rule{height:2px; background:var(--fg);}
+    h1{font-size:clamp(2.3rem, 6vw, 3.7rem); font-weight:800; letter-spacing:-0.04em; line-height:1.0; margin:30px 0 0;}
+    .proof{margin:20px 0 0; font-size:1.02rem; color:var(--fg-2); font-weight:500; max-width:42rem; line-height:1.55;}
+    .proof b{color:var(--fg); font-weight:600;}
+    .contacts{display:flex; flex-wrap:wrap; gap:0 18px; margin:24px 0 0; font-size:14px; font-weight:600;}
+    .contacts a{display:inline-flex; align-items:center; gap:7px; padding:4px 0; border-bottom:1.5px solid transparent;}
+    .contacts a:hover{border-bottom-color:var(--accent); color:var(--accent);}
+    .contacts svg{width:15px; height:15px;}
+
+    .work{padding:54px 0 0;}
+    .work-head{display:flex; justify-content:space-between; align-items:baseline; font-size:11px; font-weight:700; letter-spacing:0.14em; color:var(--fg-2); padding-bottom:16px; border-bottom:2px solid var(--fg); margin-bottom:22px;}
+    .cards{display:flex; flex-direction:column; gap:22px;}
+
+    .card{display:flex; gap:30px; align-items:center; border:1px solid var(--line); background:var(--bg-2); padding:22px; transition:border-color .18s;}
+    .card:hover{border-color:var(--line-2);}
+    .card:nth-child(even){flex-direction:row-reverse;}
+
+    /* video slot */
+    .card-media{flex:0 0 48%; max-width:48%;}
+    .video{position:relative; width:100%; aspect-ratio:16/9; background:#0a0a0a; border:1px solid var(--line); overflow:hidden; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+    .video iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+    .yt-play{width:64px; height:46px; background:#ff0000; border-radius:13px; display:flex; align-items:center; justify-content:center; transition:transform .15s;}
+    .video:hover .yt-play{transform:scale(1.06);}
+    .yt-play svg{width:24px; height:24px; fill:#fff; margin-left:2px;}
+    .video .vlabel{position:absolute; bottom:10px; left:12px; font-size:10.5px; letter-spacing:0.12em; color:rgba(255,255,255,0.45); font-weight:600;}
+    .video.empty{cursor:default;}
+    .video.empty .yt-play{opacity:.55;}
+
+    /* info side */
+    .card-info{flex:1 1 auto; min-width:0;}
+    .c-top{display:flex; align-items:center; gap:12px; margin-bottom:12px;}
+    .c-num{color:var(--accent); font-weight:700; font-size:13px; font-variant-numeric:tabular-nums;}
+    .c-tag{font-size:10px; font-weight:700; letter-spacing:0.1em; color:var(--fg-2); border:1px solid var(--line); padding:4px 8px;}
+    .c-name{font-size:1.55rem; font-weight:700; letter-spacing:-0.025em; margin:0 0 8px;}
+    .c-desc{color:var(--fg-2); font-size:0.97rem; line-height:1.55; margin:0 0 16px;}
+    .c-acts{display:flex; flex-wrap:wrap; gap:10px;}
+    .act{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; padding:9px 15px; border:1px solid var(--line-2); color:var(--fg);}
+    .act:hover{background:var(--fg); color:var(--bg);}
+    .act.primary{background:var(--accent); color:var(--on-accent); border-color:var(--accent);}
+    .act.primary:hover{background:var(--accent-2); border-color:var(--accent-2);}
+    .more{display:none;} /* details now shown inline, no toggle */
+    .more-d{margin-top:14px;}
+    .c-meta{display:flex; flex-wrap:wrap; gap:8px;}
+    .chip{font-size:11px; font-weight:600; color:var(--fg-2); border:1px solid var(--line); padding:5px 9px;}
+    .c-rel{margin-top:10px; font-size:12.5px; color:var(--fg-2);}
+    .c-rel b{color:var(--accent); font-weight:700;}
+
+    footer{padding:60px 0 56px; margin-top:46px; border-top:1px solid var(--line);}
+    .foot{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--fg-2);}
+    .foot .links{display:flex; gap:18px;}
+    .foot a{font-weight:600; color:var(--fg-2);}
+    .foot a:hover{color:var(--accent);}
+
+    @media (max-width:760px){
+      .card, .card:nth-child(even){flex-direction:column; align-items:stretch; gap:18px;}
+      .card-media{flex:none; max-width:100%;}
+    }
+  </style>
+</head>
+<body>
+  <!-- VIDEO: set data-yt="VIDEO_ID" on each .video (click-to-load facade), or drop your own <iframe> inside .video. -->
+  <div class="wrap">
+
+    <header class="bar">
+      <a class="brand" href="#top"><span class="dot"></span>Prakhar Gupta</a>
+      <nav class="bar-right">
+        <a href="#work">Work</a>
+        <a href="mailto:prakhar.cognizance@gmail.com?subject=Hi%20Prakhar">Contact</a>
+        <button class="tgl" id="themeToggle" aria-label="Toggle theme">
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="eyebrows"><span>SELECTED WORK</span><span>SOFTWARE MAKER</span></div>
+      <div class="rule"></div>
+      <h1>Things I've built &amp; shipped.</h1>
+      <p class="proof">Apps and developer tools, designed and built end to end. Mostly open-source, a couple on the App Store. <b>Each one has a short demo</b> — and the live release &amp; source are a click away.</p>
+      <div class="contacts">
+        <a href="mailto:prakhar.cognizance@gmail.com?subject=Hi%20Prakhar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16"/><path d="M22 4L12 13 2 4"/></svg>Email</a>
+        <a href="https://github.com/guptaprakhariitr" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.7c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5.1 18.3 5.1c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/prakhar-gupta-0601161a3/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.27c-.97 0-1.75-.79-1.75-1.76s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.76-1.75 1.76zm13.5 12.27h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.89v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59v6.47z"/></svg>LinkedIn</a>
+        <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.967 6.817H1.677l7.73-8.835L1.254 2.25h6.83l4.713 6.231 5.447-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>X</a>
+      </div>
+    </section>
+
+    <section class="work" id="work">
+      <div class="work-head"><span>PRODUCTS</span><span>08 SHIPPED</span></div>
+      <div class="cards">
+
+        <!-- 01 InSnaps -->
+        <article class="card">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">01</span><span class="c-tag">iOS · MAC · ANDROID</span></div>
+            <h2 class="c-name">InSnaps</h2>
+            <p class="c-desc">World news as swipeable, shareable cards — across 13 domains and four platforms.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" target="_blank" rel="noopener">App Store ↗</a>
+              <a class="act" href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener">Google Play ↗</a>
+              <a class="act" href="/">Site ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 Vigil -->
+        <article class="card" data-repo="guptaprakhariitr/vigil">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">02</span><span class="c-tag">DEV TOOL · OSS</span></div>
+            <h2 class="c-name">Vigil</h2>
+            <p class="c-desc">A self-hosted on-call engineer — point it at your logs, it finds the cited root cause and (if you let it) opens a fix PR. Your infra, your engine, your autonomy dial.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://github.com/guptaprakhariitr/vigil/releases" target="_blank" rel="noopener">Releases ↗</a>
+              <a class="act" href="https://guptaprakhariitr.github.io/vigil/" target="_blank" rel="noopener">Landing ↗</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/vigil" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+        <!-- 03 Decant -->
+        <article class="card" data-repo="guptaprakhariitr/decant">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">03</span><span class="c-tag">MACOS · OSS</span></div>
+            <h2 class="c-name">Decant</h2>
+            <p class="c-desc">Turn local documents into structured data using your own Claude or Cursor — zero inference cost, fully local.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://github.com/guptaprakhariitr/decant/releases/latest" target="_blank" rel="noopener">Download (.dmg) ↓</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/decant" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+        <!-- 04 AIConnect Figma MCP -->
+        <article class="card" data-repo="guptaprakhariitr/aiconnect-figma-mcp">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">04</span><span class="c-tag">MCP · OSS</span></div>
+            <h2 class="c-name">AIConnect Figma MCP</h2>
+            <p class="c-desc">An open-source, local MCP server + Figma plugin that lets any AI agent drive Figma — build whole pages in a single call.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://github.com/guptaprakhariitr/aiconnect-figma-mcp" target="_blank" rel="noopener">View on GitHub ↗</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/aiconnect-figma-mcp#readme" target="_blank" rel="noopener">Setup guide ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+        <!-- 05 MatteShot -->
+        <article class="card" data-repo="guptaprakhariitr/glaze">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">05</span><span class="c-tag">APP STORE · OSS</span></div>
+            <h2 class="c-name">MatteShot</h2>
+            <p class="c-desc">Beautiful screenshots in seconds — a free, open-source replacement for paid screenshot beautifiers.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://apps.apple.com/in/app/matteshot/id6781582997?mt=12" target="_blank" rel="noopener">Mac App Store ↗</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/glaze/releases/latest" target="_blank" rel="noopener">Download (.dmg) ↓</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/glaze" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+        <!-- 06 Twinned -->
+        <article class="card" data-repo="guptaprakhariitr/twinned">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">06</span><span class="c-tag">MACOS · OSS</span></div>
+            <h2 class="c-name">Twinned</h2>
+            <p class="c-desc">A fast, native duplicate-file finder for macOS — a free replacement for subscription dedupe apps.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://github.com/guptaprakhariitr/twinned/releases/latest" target="_blank" rel="noopener">Download (.dmg) ↓</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/twinned" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+        <!-- 07 Caliper -->
+        <article class="card" data-repo="guptaprakhariitr/caliper">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">07</span><span class="c-tag">MACOS · OSS</span></div>
+            <h2 class="c-name">Caliper</h2>
+            <p class="c-desc">On-screen pixel ruler, loupe &amp; color picker with automatic edge-snap.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://github.com/guptaprakhariitr/caliper/releases/latest" target="_blank" rel="noopener">Download (.dmg) ↓</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/caliper" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+        <!-- 08 Tray -->
+        <article class="card" data-repo="guptaprakhariitr/tray-mac">
+          <div class="card-media"><div class="video" data-yt=""><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vlabel">DEMO</span></div></div>
+          <div class="card-info">
+            <div class="c-top"><span class="c-num">08</span><span class="c-tag">MACOS · OSS</span></div>
+            <h2 class="c-name">Tray</h2>
+            <p class="c-desc">Clipboard history, a file shelf &amp; quick notes — all in one edge drawer.</p>
+            <div class="c-acts">
+              <a class="act primary" href="https://github.com/guptaprakhariitr/tray-mac/releases/latest" target="_blank" rel="noopener">Download (.dmg) ↓</a>
+              <a class="act" href="https://github.com/guptaprakhariitr/tray-mac" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <button class="more" type="button"><span class="more-lbl">Latest release &amp; stars</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="more-d" hidden></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">
+        <span>&copy; 2026 Prakhar Gupta</span>
+        <span class="links">
+          <a href="mailto:prakhar.cognizance@gmail.com">Email</a>
+          <a href="https://github.com/guptaprakhariitr" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/prakhar-gupta-0601161a3/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">X</a>
+        </span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      // Theme — default LIGHT; respect a saved choice only.
+      var html=document.documentElement, t=document.getElementById('themeToggle');
+      var saved=localStorage.getItem('insnaps-theme');
+      html.setAttribute('data-theme', (saved==='light'||saved==='dark') ? saved : 'light');
+      if(t) t.addEventListener('click',function(){var n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('insnaps-theme',n);});
+
+      // Video slots: data-yt set → click loads iframe; empty → inert placeholder.
+      document.querySelectorAll('.video').forEach(function(v){
+        var id=v.getAttribute('data-yt');
+        if(!id){ v.classList.add('empty'); return; }
+        v.addEventListener('click',function(){
+          v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="Demo" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+        });
+      });
+
+      // Live repo data comes from a static snapshot (products/gh-cache.json) built
+      // at deploy time — the browser makes ZERO GitHub API calls, so it can't trip
+      // rate/abuse limits. A repo missing from the snapshot just shows no extra
+      // line (no error text).
+      function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+      function ago(iso){try{var d=new Date(iso);if(isNaN(d))return '';var days=Math.floor((Date.now()-d.getTime())/86400000);if(days<=0)return 'today';if(days===1)return 'yesterday';if(days<30)return days+' days ago';if(days<365)return Math.floor(days/30)+' months ago';return Math.floor(days/365)+' years ago';}catch(e){return '';}}
+      function renderCache(e){
+        var chips=[];
+        if(typeof e.stars==='number'&&e.stars>0) chips.push('★ '+e.stars);
+        if(e.language) chips.push(esc(e.language));
+        if(e.license) chips.push(esc(e.license));
+        if(e.pushed_at){var u=ago(e.pushed_at); if(u) chips.push('Updated '+u);}
+        var h='';
+        if(chips.length) h+='<div class="c-meta">'+chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join('')+'</div>';
+        if(e.release&&e.release.tag){var w=e.release.published_at?ago(e.release.published_at):''; h+='<p class="c-rel">Latest: <b>'+esc(e.release.tag)+'</b>'+(w?' · released '+w:'')+'</p>';}
+        return h;
+      }
+      (async function build(){
+        var data=null;
+        try{ var r=await fetch('gh-cache.json',{cache:'no-cache'}); if(r.ok) data=await r.json(); }catch(e){}
+        var repos=(data&&data.repos)||{};
+        var wrap=document.querySelector('.cards');
+        var cards=Array.prototype.slice.call(document.querySelectorAll('.cards .card'));
+        var floor=Date.now()-31536000000; // ~1-year window for random placement
+        cards.forEach(function(c){
+          var repo=c.getAttribute('data-repo');
+          if(!repo){ c._key=floor+Math.random()*(Date.now()-floor); return; } // InSnaps → anywhere
+          var e=repos[repo];
+          if(e){
+            c._key=e.pushed_at?new Date(e.pushed_at).getTime():-1;
+            var box=c.querySelector('.more-d');
+            if(box){ var h=renderCache(e); if(h){ box.innerHTML=h; box.hidden=false; } }
+          } else { c._key=-1; }
+        });
+        if(cards.some(function(c){return c.getAttribute('data-repo') && c._key>0;})){
+          cards.slice().sort(function(a,b){return (b._key||0)-(a._key||0);}).forEach(function(c){wrap.appendChild(c);});
+          var i=1; document.querySelectorAll('.cards .card .c-num').forEach(function(el){el.textContent=(i<10?'0':'')+i; i++;});
+        }
+      })();
+    })();
+  </script>
+</body>
+</html>
