@@ -387,6 +387,9 @@ cat > blog/index.html << 'BLOGEOF'
 BLOGEOF
 echo "  Generated blog index"
 
+echo "==> Checking slug fold-table parity (website <-> app)..."
+python3 _scripts/check_slug_parity.py || { echo "  ! slug tables diverged — shared deep links would break"; exit 1; }
+
 echo "==> Rendering /answers/ pages from buzz content..."
 python3 _scripts/gen_answers.py || echo "  (skipped — kept existing /answers pages)"
 

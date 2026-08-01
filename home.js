@@ -20,19 +20,9 @@
 
   function $(sel, root) { return (root || document).querySelector(sel); }
 
-  /* Fold accents to ASCII before looking up pre-baked data. The shared
-     slugify() (which the app's topicSlug() must match character for character)
-     simply drops non-[a-z0-9-], so "Tromsø" becomes "troms" and misses
-     tromso.json. Deep links keep using slugify(); only data lookup folds. */
-  var FOLD = { 'ø': 'o', 'Ø': 'o', 'æ': 'ae', 'Æ': 'ae', 'ß': 'ss', 'đ': 'd',
-               'ð': 'd', 'þ': 'th', 'ł': 'l', 'ı': 'i', 'œ': 'oe', 'Œ': 'oe' };
-
-  function asciiSlug(text) {
-    var t = String(text || '');
-    t = t.replace(/[øØæÆßđðþłıœŒ]/g, function (c) { return FOLD[c] || c; });
-    if (t.normalize) t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    return window.InSnapsPulse.slugify(t);
-  }
+  /* slugify() now folds accents itself (shared table with the app), so the
+     pre-baked lookup can use it directly. */
+  function asciiSlug(text) { return window.InSnapsPulse.slugify(text); }
 
   function debounce(fn, ms) {
     var t = null;

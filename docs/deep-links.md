@@ -55,9 +55,28 @@ The unused `deepLink` field in `_data/conflicts.json` still says
 Topic slugs are plain text, not encrypted, so links stay readable and shareable
 (`/t/geopolitics`, `/t/ukraine-russia`).
 
-- **Slug normalization** (`t/index.html`): lowercased, spaces/underscores → hyphens,
-  everything outside `[a-z0-9-]` dropped, collapsed hyphens, capped at 64 chars.
-  Values are written with `textContent`, never `innerHTML`.
+- **Slug normalization** (`t/index.html`): lowercased, **accents folded to ASCII**,
+  spaces/underscores → hyphens, everything outside `[a-z0-9-]` dropped, collapsed
+  hyphens, capped at 64 chars. Values are written with `textContent`, never
+  `innerHTML`.
+
+  The fold step matters: without it the `[a-z0-9-]` strip *deletes* accented
+  letters instead of folding them, so `Tromsø` became `troms`, `Zürich` became
+  `zrich`, and `Łódź` collapsed to `d`. Dart has no built-in NFD normalisation,
+  so both sides carry an identical explicit 261-entry table (generated from
+  Unicode decompositions plus the letters that have none — ø, æ, ß, đ, ð, þ, ł,
+  ı, œ). It also covers Vietnamese, so `Đà Nẵng` → `da-nang`.
+
+  Four copies exist on the website because the files load independently
+  (`pulse.js`, `viewbar.js`, `t/index.html`, `live/index.html`) plus the app's
+  `topicSlug()`. `_scripts/check_slug_parity.py` runs in `build.sh` and **fails
+  the build** if any of them drift; it compares parsed tables, so Dart/JS
+  formatting differences do not matter.
+
+  **Backwards compatible.** Links shared by older builds (`/t/troms`, `/t/kln`)
+  still resolve: the redirect page renders any slug and the app turns it back
+  into a search query. They simply search the truncated word; newly shared links
+  carry the correct one. Verified for both forms.
 - **Display names**: `TOPIC_NAMES` maps known domains to labels; unknown slugs are
   title-cased, so a topic added app-side still renders sensibly without a site deploy.
 - **Web fallback**: if the slug matches a conflict hub that exists on the site, the page
