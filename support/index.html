@@ -25,11 +25,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/city.css">
+  <script defer src="/city.js"></script>
   <link rel="stylesheet" href="/conflict-page.css">
   <link rel="stylesheet" href="/blog.css">
   <style>
     .support-lead { color: var(--fg-secondary); font-size: 1.05rem; line-height: 1.7; max-width: 42rem; margin-bottom: 2rem; }
-    .support-mail-cta { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; font-weight: 600; }
+    /* The address is long enough to push the page sideways on a 320px screen,
+       so let it wrap inside the button instead. */
+    .support-mail-cta { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; font-weight: 600; max-width: 100%; text-align: center; word-break: break-word; white-space: normal; }
     .support-directions { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem 1.75rem; margin-bottom: 2.5rem; }
     .support-directions h2 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
     .support-directions ul { margin: 0; padding-left: 1.25rem; color: var(--fg-secondary); font-size: 0.92rem; line-height: 1.65; }
@@ -46,10 +50,10 @@
         <span class="nav-logo-text">InSnaps</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="/#features">Features</a>
-        <a href="/conflicts/">Conflicts</a>
+        <a href="/#blend">How it works</a>
+        <a href="/live/">Live</a>
+        <a href="/answers/">Answers</a>
         <a href="/blog/">Blog</a>
-        <a href="/partner/">Partner</a>
         <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">

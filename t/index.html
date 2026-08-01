@@ -31,6 +31,37 @@
       font-size: 0.9rem; letter-spacing: 0.01em;
     }
     .topic-chip svg { width: 15px; height: 15px; opacity: 0.75; }
+
+    /* Headlines for the current topic. Hidden until we actually have cards —
+       an empty box here would just look broken. */
+    .topic-heads { width: 100%; text-align: left; margin-top: 1.4rem; }
+    .topic-heads .divider { margin: 1.2rem 0 0.9rem; }
+    .topic-heads-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--fg-muted);
+      text-align: center; margin-bottom: 0.7rem;
+    }
+    .topic-heads-list { list-style: none; margin: 0; padding: 0; }
+    .topic-heads-list li { border-top: 1px solid var(--border); }
+    .topic-heads-list li:first-child { border-top: 0; }
+    .topic-head {
+      display: block; padding: 0.65rem 0.1rem;
+      color: var(--fg); transition: color 0.2s;
+    }
+    .topic-head:hover { color: var(--accent); }
+    .topic-head .th-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem; font-weight: 600; line-height: 1.35;
+      overflow-wrap: anywhere; display: block;
+    }
+    .topic-head .th-meta {
+      display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;
+      margin-top: 0.25rem; font-size: 0.72rem; color: var(--fg-muted);
+    }
+    .topic-head .th-source { font-weight: 600; color: var(--fg-secondary); overflow-wrap: anywhere; }
+    .topic-head .th-sep { opacity: 0.5; }
+    .topic-heads-note { font-size: 0.7rem; color: var(--fg-muted); text-align: center; margin-top: 0.7rem; }
+    .topic-heads-note a { color: var(--fg-secondary); }
   </style>
 </head>
 <body>
@@ -53,7 +84,7 @@
   <div class="redirect-shell" id="redirectShell" aria-hidden="true">
     <aside class="redirect-rail redirect-rail--left" aria-label="App preview">
       <div class="rail-carousel" id="carouselLeft">
-        <img src="/pic_2.jpg" alt="41+ topic domains" class="active" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="32 topic domains" class="active" loading="lazy" decoding="async">
         <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
         <img src="/pic_1.jpg" alt="City-first personalized feed" loading="lazy" decoding="async">
         <img src="/pic_3.jpg" alt="Swipe, save and share" loading="lazy" decoding="async">
@@ -62,12 +93,12 @@
         <span class="active"></span><span></span><span></span><span></span>
       </div>
       <div class="rail-caption-box" id="captionLeft">
-        <div class="rail-caption-slide active"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+        <div class="rail-caption-slide active"><span class="rail-tag">32 Domains</span><h3>Personalized News Mix</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
       </div>
-      <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
+      <a href="/#blend" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
     </aside>
 
     <div class="redirect-page" id="mainView">
@@ -109,9 +140,16 @@
       </a>
     </div>
 
+    <section id="topicHeads" class="topic-heads" style="display:none" aria-label="Latest headlines for this topic">
+      <div class="divider"></div>
+      <p class="topic-heads-label" id="topicHeadsLabel">Latest headlines</p>
+      <ul class="topic-heads-list" id="topicHeadsList"></ul>
+      <p class="topic-heads-note">Headlines link to the publisher. Full feed in the app &middot; <a href="/live/">see the live wall</a></p>
+    </section>
+
     <div class="feature-pills">
       <span class="pill">Swipe to Read</span>
-      <span class="pill">41+ Topics</span>
+      <span class="pill">32 Topics</span>
       <span class="pill">iPhone · iPad · Mac</span>
       <span class="pill">Android · Tablet</span>
       <span class="pill">Save &amp; Share</span>
@@ -129,7 +167,7 @@
         <img src="/pic_3.jpg" alt="Swipe, save and share" class="active" loading="lazy" decoding="async">
         <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
         <img src="/pic_1.jpg" alt="City-first personalized feed" loading="lazy" decoding="async">
-        <img src="/pic_2.jpg" alt="41+ topic domains" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="32 topic domains" loading="lazy" decoding="async">
       </div>
       <div class="rail-dots" id="dotsRight">
         <span class="active"></span><span></span><span></span><span></span>
@@ -138,7 +176,7 @@
         <div class="rail-caption-slide active"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
-        <div class="rail-caption-slide"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">32 Domains</span><h3>Personalized News Mix</h3></div>
       </div>
       <a href="/" class="rail-link" data-rail="right" data-rail-dest="home">Explore InSnaps &rarr;</a>
     </aside>
@@ -441,6 +479,162 @@
       topicWebLink.addEventListener('click', function () {
         track('topic_deeplink_web_fallback_click', { platform: platform, topic: slug, has_web_hub: !!isConflict });
       });
+
+      // ---------------------------------------------------------------
+      // Headlines for this topic (build-time snapshot in /_data/live).
+      // Town file first, then a trending topic with a matching slug.
+      // Purely additive: if neither has anything, the section stays hidden.
+      // Headlines only — never article bodies.
+      // ---------------------------------------------------------------
+      (function topicHeadlines() {
+        var MAX = 8;
+        var section = document.getElementById('topicHeads');
+        var list = document.getElementById('topicHeadsList');
+        var label = document.getElementById('topicHeadsLabel');
+        if (!section || !list) return;
+
+        function relativeTime(iso) {
+          if (!iso) return '';
+          var then = Date.parse(iso);
+          if (isNaN(then)) return '';
+          var mins = Math.max(0, Math.round((Date.now() - then) / 60000));
+          if (mins < 1) return 'just now';
+          if (mins < 60) return mins + 'm ago';
+          var h = Math.round(mins / 60);
+          if (h < 24) return h + 'h ago';
+          return Math.round(h / 24) + 'd ago';
+        }
+
+        function httpUrl(u) {
+          var s = String(u || '');
+          return /^https?:\/\//i.test(s) ? s : '';
+        }
+
+        function getJson(p) {
+          return fetch(p, { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error(String(r.status));
+            return r.json();
+          });
+        }
+
+        // towns-index says which town files exist, so we never fire a request
+        // we already know will 404.
+        function fromTown() {
+          return getJson('/_data/live/towns-index.json')
+            .then(function (idx) {
+              var t = idx && idx.towns ? idx.towns[slug] : null;
+              if (!t || !t.n) return null;
+              return getJson('/_data/live/towns/' + encodeURIComponent(slug) + '.json');
+            })
+            .then(function (d) {
+              if (!d || !d.cards || !d.cards.length) return null;
+              return { source: 'town', name: d.name || name, items: d.cards };
+            })
+            .catch(function () { return null; });
+        }
+
+        function fromTrending() {
+          return getJson('/_data/live/trending.json')
+            .then(function (d) {
+              if (!d || !d.geos) return null;
+              var geos = Object.keys(d.geos);
+              for (var i = 0; i < geos.length; i++) {
+                var cards = d.geos[geos[i]] || [];
+                for (var j = 0; j < cards.length; j++) {
+                  var c = cards[j];
+                  if (!c || !c.slug || c.slug !== slug) continue;
+                  var items = [{
+                    title: c.title, url: c.url,
+                    source: c.source, publishedAt: c.publishedAt
+                  }];
+                  (c.headlines || []).forEach(function (h) {
+                    items.push({
+                      title: h.title, url: h.url,
+                      source: h.source, publishedAt: h.publishedAt || c.publishedAt
+                    });
+                  });
+                  return { source: 'trending', name: c.topic || name, items: items };
+                }
+              }
+              return null;
+            })
+            .catch(function () { return null; });
+        }
+
+        function render(found) {
+          if (!found) return;
+          var seen = {}, rows = [];
+          for (var i = 0; i < found.items.length && rows.length < MAX; i++) {
+            var it = found.items[i] || {};
+            var url = httpUrl(it.url);
+            if (!it.title || !url || seen[url]) continue;
+            seen[url] = 1;
+            rows.push({ title: String(it.title), url: url, source: it.source || '', publishedAt: it.publishedAt || '' });
+          }
+          if (!rows.length) return;
+
+          // Built with textContent, so a publisher headline can never inject markup.
+          rows.forEach(function (r) {
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.className = 'topic-head';
+            a.href = r.url;
+            a.target = '_blank';
+            a.rel = 'noopener nofollow';
+
+            var t = document.createElement('span');
+            t.className = 'th-title';
+            t.textContent = r.title;
+            a.appendChild(t);
+
+            var meta = document.createElement('span');
+            meta.className = 'th-meta';
+            if (r.source) {
+              var s = document.createElement('span');
+              s.className = 'th-source';
+              s.textContent = r.source;
+              meta.appendChild(s);
+            }
+            var rel = relativeTime(r.publishedAt);
+            if (r.source && rel) {
+              var sep = document.createElement('span');
+              sep.className = 'th-sep';
+              sep.setAttribute('aria-hidden', 'true');
+              sep.textContent = '·';
+              meta.appendChild(sep);
+            }
+            if (rel) {
+              var tm = document.createElement('span');
+              tm.textContent = rel;
+              meta.appendChild(tm);
+            }
+            if (meta.childNodes.length) a.appendChild(meta);
+
+            a.addEventListener('click', function () {
+              track('topic_deeplink_headline_click', {
+                platform: platform,
+                topic: slug,
+                feed: found.source,
+                publisher: r.source || 'unknown'
+              });
+            });
+
+            li.appendChild(a);
+            list.appendChild(li);
+          });
+
+          if (label) label.textContent = 'Latest in ' + (found.name || name);
+          section.style.display = 'block';
+          track('topic_deeplink_headlines_shown', {
+            platform: platform, topic: slug, feed: found.source, count: rows.length
+          });
+        }
+
+        fromTown()
+          .then(function (found) { return found || fromTrending(); })
+          .then(render)
+          .catch(function () { /* additive section: silence is the empty state */ });
+      })();
     })();
   </script>
 </body>

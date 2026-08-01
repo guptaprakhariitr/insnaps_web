@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How InSnaps handles your data: what is stored on your device, what syncs when you sign in, and the third-party services involved.">
+    <link rel="canonical" href="https://insnaps.app/privacy/">
     <title>Privacy Policy — InSnaps : Swipe & Share Global News</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,16 +53,24 @@
             margin-bottom: 16px;
         }
         li { margin-bottom: 6px; }
+        /* Tables have to scroll inside their own box, or the whole page scrolls
+           sideways on a phone (this page was 513px wide on a 390px viewport). */
         table {
+            display: block;
             width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border-collapse: collapse;
             margin: 16px 0;
             font-size: 14px;
         }
+        table tbody, table thead { display: table; width: 100%; min-width: 460px; }
         th, td {
             padding: 10px 14px;
             text-align: left;
             border: 1px solid #e0e0e0;
+            word-break: break-word;
         }
         th {
             background: #f0f0f0;

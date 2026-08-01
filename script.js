@@ -220,25 +220,44 @@
 
   (function loadLiveTicker() {
     if (!tickerTrack) return;
-    var picks = shuffleArray(RSS_FEEDS.slice()).slice(0, 6);
-    fetchMultipleFeeds(picks).then(function(articles) {
-      if (!articles.length) return;
-      var headlines = articles.slice(0, 16);
+
+    function paint(items, stamp) {
+      if (!items.length) return false;
       var html = '';
-      headlines.forEach(function(a) {
-        var short = a.title.length > 120 ? a.title.substring(0, 117) + '...' : a.title;
-        html += '<span>' + a.feedLabel + ': ' + short + '</span>';
+      items.slice(0, 16).forEach(function (a) {
+        var t = a.title || '';
+        var short = t.length > 120 ? t.substring(0, 117) + '...' : t;
+        var label = a.label ? a.label + ': ' : '';
+        html += '<span>' + escapeHtml(label) + escapeHtml(short) + '</span>';
       });
       tickerTrack.innerHTML = html + html;
-      if (lastUpdateEl) {
-        lastUpdateEl.textContent = 'just now';
-      }
-    }).catch(function() {
-      if (lastUpdateEl) {
-        var mins = Math.floor(Math.random() * 8) + 2;
-        lastUpdateEl.textContent = mins + ' minutes ago';
-      }
-    });
+      if (lastUpdateEl) lastUpdateEl.textContent = stamp;
+      return true;
+    }
+
+    // Prefer the build-time snapshot: same origin, one request, always available.
+    // The third-party RSS proxy used to be called 6x on every page load, which
+    // hit its free-tier rate limit (HTTP 429) — that both broke the ticker and
+    // burned the quota the town search needs for places we have not pre-baked.
+    fetch('/_data/live/world.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        var cards = (d && d.cards) || [];
+        var items = shuffleArray(cards.slice()).map(function (c) {
+          return { title: c.title, label: c.source };
+        });
+        if (!paint(items, 'just now')) throw new Error('empty snapshot');
+      })
+      .catch(function () {
+        // Last resort only: two feeds, not six.
+        var picks = shuffleArray(RSS_FEEDS.slice()).slice(0, 2);
+        fetchMultipleFeeds(picks).then(function (articles) {
+          var items = articles.map(function (a) { return { title: a.title, label: a.feedLabel }; });
+          if (!paint(items, 'just now') && lastUpdateEl) lastUpdateEl.textContent = 'a few minutes ago';
+        }).catch(function () {
+          if (lastUpdateEl) lastUpdateEl.textContent = 'a few minutes ago';
+        });
+      });
   })();
 
   if (lastUpdateEl && !tickerTrack) {
@@ -249,16 +268,30 @@
   // ========================================
   // STICKY BANNER — auto-dismiss after 8s
   // ========================================
+  // Keep --banner-h in sync with the banner's real height so the fixed navbar
+  // and the ticker shift down rather than being covered by it (the banner is
+  // two rows tall under 480px, which used to hide the whole nav).
+  function syncBannerOffset(el) {
+    var visible = el && el.classList.contains('visible') && !el.classList.contains('hidden');
+    var h = visible ? Math.round(el.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--banner-h', h + 'px');
+  }
+
   var appBanner = document.getElementById('appBanner');
   var bannerClose = document.getElementById('appBannerClose');
+  if (appBanner) {
+    window.addEventListener('resize', function () { syncBannerOffset(appBanner); }, { passive: true });
+  }
   if (appBanner && bannerClose) {
     var bannerDismissed = sessionStorage.getItem('insnaps-banner-dismissed');
     var bannerTimer;
     if (!bannerDismissed) {
       setTimeout(function () {
         appBanner.classList.add('visible');
+        syncBannerOffset(appBanner);
         bannerTimer = setTimeout(function () {
           appBanner.classList.remove('visible');
+          syncBannerOffset(appBanner);
         }, 8000);
       }, 3000);
     }
@@ -266,6 +299,7 @@
       clearTimeout(bannerTimer);
       appBanner.classList.remove('visible');
       appBanner.classList.add('hidden');
+      syncBannerOffset(appBanner);
       sessionStorage.setItem('insnaps-banner-dismissed', '1');
     });
   }
@@ -439,7 +473,7 @@
   // ========================================
   // D3 ORTHOGRAPHIC GLOBE — SVG world map with conflict markers
   // ========================================
-  (function initGlobe() {
+  function initGlobe() {
     var container = document.getElementById('globeViz');
     if (!container || typeof d3 === 'undefined') return;
 
@@ -607,7 +641,9 @@
       sphere.attr('cx', width / 2).attr('cy', height / 2).attr('r', radius);
       renderAll();
     });
-  })();
+  }
+  window.__insnapsInitGlobe = initGlobe;
+  initGlobe();   // no-op unless d3 is already present
 
   // ========================================
   // ENGAGEMENT: MID-SCROLL CTA

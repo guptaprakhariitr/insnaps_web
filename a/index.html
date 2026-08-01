@@ -11,6 +11,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Read in InSnaps — Personalized News Feed</title>
+  <meta name="robots" content="noindex, follow">
   <meta name="description" content="This article was shared via InSnaps. Get personalized local + global news, swipe to read, save articles, and share stories instantly.">
   <link rel="icon" type="image/png" href="/logo.png">
   <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
@@ -41,7 +42,7 @@
     <aside class="redirect-rail redirect-rail--left" aria-label="App preview">
       <div class="rail-carousel" id="carouselLeft">
         <img src="/pic_1.jpg" alt="City-first personalized feed" class="active" loading="lazy" decoding="async">
-        <img src="/pic_2.jpg" alt="41+ topic domains" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="32 topic domains" loading="lazy" decoding="async">
         <img src="/pic_3.jpg" alt="Swipe, save and share" loading="lazy" decoding="async">
         <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
       </div>
@@ -50,11 +51,11 @@
       </div>
       <div class="rail-caption-box" id="captionLeft">
         <div class="rail-caption-slide active"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
-        <div class="rail-caption-slide"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">32 Domains</span><h3>Personalized News Mix</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
       </div>
-      <a href="/#features" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
+      <a href="/#blend" class="rail-link" data-rail="left" data-rail-dest="features">See all features &rarr;</a>
     </aside>
 
     <div class="redirect-page" id="mainView">
@@ -92,7 +93,7 @@
 
     <div class="feature-pills">
       <span class="pill">Swipe to Read</span>
-      <span class="pill">41+ Topics</span>
+      <span class="pill">32 Topics</span>
       <span class="pill">iPhone · iPad · Mac</span>
       <span class="pill">Android · Tablet</span>
       <span class="pill">Save &amp; Share</span>
@@ -110,7 +111,7 @@
         <img src="/pic_3.jpg" alt="Swipe, save and share" class="active" loading="lazy" decoding="async">
         <img src="/pic_4.jpg" alt="Topic hubs and conflict map" loading="lazy" decoding="async">
         <img src="/pic_1.jpg" alt="City-first personalized feed" loading="lazy" decoding="async">
-        <img src="/pic_2.jpg" alt="41+ topic domains" loading="lazy" decoding="async">
+        <img src="/pic_2.jpg" alt="32 topic domains" loading="lazy" decoding="async">
       </div>
       <div class="rail-dots" id="dotsRight">
         <span class="active"></span><span></span><span></span><span></span>
@@ -119,7 +120,7 @@
         <div class="rail-caption-slide active"><span class="rail-tag">Fast Reading</span><h3>Swipe, Save, Share</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">Explore</span><h3>Hubs, Maps, Context</h3></div>
         <div class="rail-caption-slide"><span class="rail-tag">City-First</span><h3>Your City, Country, World</h3></div>
-        <div class="rail-caption-slide"><span class="rail-tag">41+ Domains</span><h3>Personalized News Mix</h3></div>
+        <div class="rail-caption-slide"><span class="rail-tag">32 Domains</span><h3>Personalized News Mix</h3></div>
       </div>
       <a href="/" class="rail-link" data-rail="right" data-rail-dest="home">Explore InSnaps &rarr;</a>
     </aside>
@@ -355,7 +356,12 @@
       var dlKey = 'insnaps_dl_tried_' + token.slice(0, 12);
       var alreadyTried = sessionStorage.getItem(dlKey);
 
-      if (!alreadyTried) {
+      // Only mark the attempt and log it on a platform that can actually open
+      // the app; desktop has nothing to open, and counting it here inflated
+      // deeplink_auto_open. (/t/ already gates on canOpenApp the same way.)
+      var canOpenApp = isAndroid || isIOS || isMac;
+
+      if (!alreadyTried && canOpenApp) {
         sessionStorage.setItem(dlKey, '1');
 
         // ====== GA4: Auto open attempt ======
