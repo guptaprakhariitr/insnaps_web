@@ -190,6 +190,9 @@
     this.paused = false;
     this.ended = false;
     this.limit = this.opts.limit || DEFAULT_LIMIT;
+    // Something may need to hold playback back (the first-run city gate hides
+    // the page with opacity, which does not stop a reel from running).
+    this.autoplay = this.opts.autoplay === undefined ? true : !!this.opts.autoplay;
     this.typed = 0;
     this.timers = [];
     this.typeTimer = null;
@@ -263,7 +266,7 @@
     if ('IntersectionObserver' in window) {
       this.io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
-          if (!en.isIntersecting && !self.paused && !self.ended) self._pause(true);
+          if (!en.isIntersecting && !self.paused && !self.ended && self.autoplay) self._pause(true);
         });
       }, { threshold: 0.35 });
       this.io.observe(r);
@@ -368,7 +371,7 @@
     this._renderSlides();
     this._renderProgress();
     this.root.classList.add('is-ready');
-    this.play();
+    if (this.autoplay) this.play();
     this._prefetch();
   };
 
@@ -442,6 +445,15 @@
   };
 
   // ── playback ─────────────────────────────────────────────────────
+
+  /** Begin playing a deck that was loaded with autoplay off. */
+  Pulse.prototype.start = function () {
+    this.autoplay = true;
+    if (this.ended || !this.cards.length) return;
+    this.paused = false;
+    this.root.classList.remove('is-paused');
+    this._startReel(this.index);
+  };
 
   Pulse.prototype.play = function () {
     this.paused = false;

@@ -32,6 +32,8 @@
   var RANK = { city: 0, town: 1, borough: 1, municipality: 2, village: 3, hamlet: 4, suburb: 5 };
 
   var listeners = [];
+  var gateListeners = [];
+  var gateIsOpen = false;
   var cache = {};
 
   function esc(s) {
@@ -380,8 +382,11 @@
       '</div>';
     document.body.appendChild(cover);
     document.documentElement.classList.add('city-gated');
+    gateIsOpen = true;
 
     function dismiss() {
+      gateIsOpen = false;
+      gateListeners.forEach(function (fn) { try { fn(); } catch (_) {} });
       cover.classList.remove('is-shown');
       document.documentElement.classList.remove('city-gated');
       document.documentElement.classList.add('city-gate-done');
@@ -410,10 +415,20 @@
     renderChip();
     if (gateEligible()) openGate();
   }
+
+  // Set synchronously at parse time so a consumer that initialises before
+  // DOMContentLoaded still sees the gate coming.
+  gateIsOpen = gateEligible();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 
   window.InSnapsCity = {
+    /* The gate hides the page with opacity, which does not stop anything
+       running behind it — the Pulse reel kept autoplaying (and, once narration
+       defaulted to on, started talking the moment a key was pressed in the gate
+       input). Consumers use these to hold off until the gate is answered. */
+    gateOpen: function () { return gateIsOpen; },
+    onGateClose: function (fn) { if (typeof fn === 'function') gateListeners.push(fn); },
     get: get,
     set: set,
     clear: clear,

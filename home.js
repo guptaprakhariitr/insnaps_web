@@ -86,8 +86,13 @@
 
     store.cc = detectCountry();
 
+    // The gate hides the page with opacity but does not stop anything behind
+    // it, so hold playback until a city has been chosen.
+    var gated = !!(window.InSnapsCity && window.InSnapsCity.gateOpen && window.InSnapsCity.gateOpen());
+
     pulse = window.InSnapsPulse.mount(stageEl, {
       limit: 4,
+      autoplay: !gated,
       emptyText: 'Live stories are refreshing — check back in a minute.',
       onReel: function (ctx) {
         track('pulse_reel_view', { index: ctx.index, topic: ctx.slug || 'none', place: store.place || 'none' });
@@ -125,6 +130,15 @@
         });
       }
     });
+
+    if (window.InSnapsCity && window.InSnapsCity.onGateClose) {
+      window.InSnapsCity.onGateClose(function () {
+        // A city pick reloads the deck via onChange; this covers the case where
+        // the deck is already loaded and just needs to begin.
+        if (pulse && !pulse.cards.length) return;
+        pulse.start();
+      });
+    }
 
     if (window.InSnapsViewBar) {
       window.InSnapsViewBar.mount({
