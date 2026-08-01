@@ -1,0 +1,228 @@
+/* /answers/ — pages built to be cited by AI answer engines.
+   Reading-first: one column, generous measure, the opening answer emphasised. */
+
+.ans-page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 104px 24px 72px;
+}
+
+.ans-crumb {
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  margin-bottom: 18px;
+}
+.ans-crumb a { color: var(--fg-secondary); text-decoration: none; }
+.ans-crumb a:hover { color: var(--accent); }
+
+.ans-article h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4.6vw, 2.5rem);
+  line-height: 1.14;
+  letter-spacing: -0.024em;
+  color: var(--fg);
+  margin: 0 0 10px;
+}
+.ans-meta {
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  margin: 0 0 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* The opening paragraph is the answer an engine lifts — make it read that way. */
+.ans-lead {
+  font-size: 1.09rem;
+  line-height: 1.66;
+  color: var(--fg);
+  padding: 17px 19px;
+  margin: 0 0 30px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--accent-glow);
+}
+.ans-lead strong { color: var(--fg); }
+
+.ans-article h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.24rem, 3vw, 1.55rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+  margin: 42px 0 14px;
+}
+.ans-article h3 {
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 28px 0 8px;
+}
+.ans-article h4 {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  margin: 20px 0 6px;
+}
+
+.ans-article p {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--fg-secondary);
+  margin: 0 0 17px;
+}
+.ans-article strong { color: var(--fg); font-weight: 600; }
+
+.ans-article a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-glow-strong);
+}
+.ans-article a:hover { border-bottom-color: var(--accent); }
+
+.ans-article ul,
+.ans-article ol {
+  margin: 0 0 20px;
+  padding-left: 1.35rem;
+  color: var(--fg-secondary);
+}
+.ans-article li { margin-bottom: 9px; line-height: 1.66; }
+
+/* Content is authored markdown, so a bare unbroken URL is always possible —
+   in a Sources list one was widening the page to 542px on a 390px screen.
+   Let long tokens break rather than push the document sideways. */
+.ans-article p,
+.ans-article li,
+.ans-article td,
+.ans-article h1,
+.ans-article h2,
+.ans-article h3 {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ans-article blockquote {
+  margin: 0 0 20px;
+  padding: 2px 0 2px 17px;
+  border-left: 3px solid var(--border-strong);
+  color: var(--fg-secondary);
+  font-style: italic;
+}
+
+.ans-article code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: var(--bg-secondary);
+  color: var(--fg);
+}
+
+/* Comparison tables must scroll in their own box, never the page. */
+.ans-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.ans-article table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.ans-article th,
+.ans-article td {
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-secondary);
+  vertical-align: top;
+}
+.ans-article th {
+  background: var(--bg-secondary);
+  color: var(--fg);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ans-article tbody tr:last-child td { border-bottom: 0; }
+
+/* CTA */
+.ans-cta {
+  margin: 48px 0 0;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-card);
+}
+.ans-cta h2 { margin: 0 0 8px; font-size: 1.2rem; }
+.ans-cta p { margin: 0 0 16px; font-size: 0.94rem; }
+.ans-cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* footer */
+.ans-footer {
+  border-top: 1px solid var(--border);
+  padding: 26px 24px;
+  background: var(--bg-secondary);
+}
+.ans-footer-inner { max-width: 780px; margin: 0 auto; }
+.ans-footer p { margin: 0; font-size: 0.82rem; color: var(--fg-muted); }
+.ans-footer a { color: var(--fg-secondary); text-decoration: none; }
+.ans-footer a:hover { color: var(--accent); }
+
+/* index */
+.ans-index h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  letter-spacing: -0.025em;
+  color: var(--fg);
+  margin: 0 0 12px;
+}
+.ans-index-lede {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--fg-secondary);
+  margin: 0 0 34px;
+  max-width: 58ch;
+}
+.ans-grid { display: grid; gap: 14px; }
+.ans-card {
+  display: block;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.ans-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-card);
+}
+.ans-card h2 {
+  margin: 0 0 7px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--fg);
+}
+.ans-card p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--fg-secondary);
+}
+.ans-card-q {
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 520px) {
+  .ans-page { padding-top: 88px; }
+  .ans-lead { padding: 15px 16px; }
+}

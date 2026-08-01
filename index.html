@@ -135,6 +135,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/livecards.css">
+  <link rel="stylesheet" href="/city.css">
+  <script defer src="/livecards.js"></script>
+  <script defer src="/city.js"></script>
+  <link rel="stylesheet" href="pulse.css">
+  <link rel="stylesheet" href="home.css">
   <script type="application/json" id="conflictsGeoData">[{"slug":"ukraine-russia","title":"Ukraine-Russia War","status":"Active War","severity":"critical","lat":50.45,"lng":30.52},{"slug":"israel-palestine","title":"Israel-Palestine Conflict","status":"Active Conflict","severity":"critical","lat":31.50,"lng":34.47},{"slug":"sudan-civil-war","title":"Sudan Civil War","status":"Active War","severity":"critical","lat":15.50,"lng":32.56},{"slug":"myanmar-civil-war","title":"Myanmar Civil War","status":"Active War","severity":"critical","lat":19.75,"lng":96.12},{"slug":"yemen-war","title":"Yemen War","status":"Active Conflict","severity":"significant","lat":15.37,"lng":44.19},{"slug":"ethiopia-tigray","title":"Ethiopia Tigray","status":"Post-Ceasefire","severity":"significant","lat":13.50,"lng":39.48},{"slug":"dr-congo","title":"DR Congo Conflict","status":"Active Conflict","severity":"critical","lat":-1.68,"lng":29.22},{"slug":"syria-civil-war","title":"Syria Civil War","status":"Active Conflict","severity":"significant","lat":33.51,"lng":36.28},{"slug":"india-pakistan","title":"India-Pakistan Tensions","status":"Tensions","severity":"significant","lat":34.5,"lng":74.5},{"slug":"taiwan-strait","title":"Taiwan Strait","status":"Tensions","severity":"significant","lat":24.5,"lng":119.5},{"slug":"south-china-sea","title":"South China Sea","status":"Dispute","severity":"significant","lat":9.5,"lng":114.0},{"slug":"north-korea","title":"North Korea","status":"Tensions","severity":"significant","lat":39.04,"lng":125.76},{"slug":"somalia","title":"Somalia","status":"Active Conflict","severity":"significant","lat":2.05,"lng":45.32},{"slug":"libya","title":"Libya","status":"Political Crisis","severity":"limited","lat":32.89,"lng":13.19},{"slug":"iraq","title":"Iraq","status":"Post-Conflict","severity":"limited","lat":33.32,"lng":44.37},{"slug":"armenia-azerbaijan","title":"Armenia-Azerbaijan","status":"Post-War","severity":"limited","lat":39.8,"lng":46.7},{"slug":"haiti","title":"Haiti Crisis","status":"State Collapse","severity":"critical","lat":18.59,"lng":-72.31},{"slug":"central-african-republic","title":"Central African Republic","status":"Active Conflict","severity":"limited","lat":4.39,"lng":18.56},{"slug":"south-sudan","title":"South Sudan","status":"Active Conflict","severity":"significant","lat":4.86,"lng":31.57},{"slug":"afghanistan","title":"Afghanistan","status":"Taliban Rule","severity":"significant","lat":34.56,"lng":69.21},{"slug":"lebanon","title":"Lebanon","status":"Active Conflict","severity":"significant","lat":33.89,"lng":35.50},{"slug":"iran-tensions","title":"Iran Tensions","status":"Tensions","severity":"significant","lat":35.69,"lng":51.39},{"slug":"sahel-crisis","title":"Sahel Crisis","status":"Active Conflict","severity":"critical","lat":12.64,"lng":-8.0},{"slug":"cameroon-anglophone","title":"Cameroon Crisis","status":"Active Conflict","severity":"limited","lat":4.15,"lng":9.24},{"slug":"mozambique-cabo-delgado","title":"Mozambique","status":"Insurgency","severity":"limited","lat":-11.5,"lng":39.5},{"slug":"colombia","title":"Colombia","status":"Peace Process","severity":"limited","lat":4.71,"lng":-74.07},{"slug":"mexico-drug-war","title":"Mexico Drug War","status":"Active Conflict","severity":"significant","lat":19.43,"lng":-99.13},{"slug":"kashmir","title":"Kashmir","status":"Active Conflict","severity":"limited","lat":34.08,"lng":74.80},{"slug":"nagorno-karabakh","title":"Nagorno-Karabakh","status":"Post-Conflict","severity":"limited","lat":39.82,"lng":46.75},{"slug":"west-papua","title":"West Papua","status":"Insurgency","severity":"limited","lat":-2.53,"lng":140.72}]</script>
 </head>
 <body>
@@ -147,15 +153,10 @@
         <span class="nav-logo-text">InSnaps</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#features">Features</a>
-        <a href="#whats-new">What's New</a>
-        <a href="#audience">Who It's For</a>
-        <a href="/conflicts/">Conflicts</a>
+        <a href="#blend">How it works</a>
+        <a href="/live/">Live</a>
+        <a href="/answers/">Answers</a>
         <a href="/blog/">Blog</a>
-        <a href="/products/">Products</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#privacy">Privacy</a>
-        <a href="/partner/">Partner</a>
         <a href="#" class="nav-cta dl-btn">Download Free</a>
       </div>
       <div class="nav-right">
@@ -211,74 +212,120 @@
   <main>
 
     <!-- ======= HERO ======= -->
-    <section class="hero" id="hero">
-      <div class="hero-bg">
-        <div class="hero-glow"></div>
-        <div class="hero-grid-pattern"></div>
-      </div>
-      <div class="hero-container">
-        <div class="hero-content">
-          <a href="/conflicts/" class="hero-badge anim-fade" style="--delay:0s">
-            <span class="hero-badge-dot"></span>
-            Your City. Your Country. Your World.
-          </a>
-          <h1 class="hero-title anim-fade" style="--delay:0.15s">Personalized Local + Global News</h1>
-          <p class="hero-tagline anim-fade" style="--delay:0.3s">Swipe fast, save articles, and share stories instantly.</p>
-          <p class="hero-desc anim-fade" style="--delay:0.45s">
-            Stay informed faster with InSnaps. Set your city, tune your news mix, and follow what matters most.<br class="hide-mobile">
-            Local updates, national headlines, and global stories - one clean feed with 32 topic domains.<br>
-            <strong>Built for less clutter, faster discovery, and better context.</strong>
+    <!-- ── Hero: the product, running ───────────────────────────── -->
+    <section class="hp" id="hero">
+      <div class="hp-grid">
+        <div class="hp-left">
+          <div class="hp-eyebrow">
+            <span class="hp-live-dot"></span>
+            <span id="hpUpdated">Live</span>
+          </div>
+
+          <h1 class="hp-title">Global apps miss your street.<br>Local apps miss <em>the world.</em></h1>
+          <p class="hp-lede">
+            InSnaps gives you both — narrated, visual, and mixed the way you want it.
+            Type any town on earth and watch it work.
           </p>
-          <div class="hero-actions anim-fade" style="--delay:0.6s">
-            <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="store-badge">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
-              <span><small>GET IT ON</small><strong>Google Play</strong></span>
-            </a>
-            <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" target="_blank" rel="noopener" class="store-badge store-badge-apple">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-              <span><small>DOWNLOAD ON</small><strong>App Store</strong></span>
-            </a>
-          </div>
-          <p class="hero-platforms anim-fade" style="--delay:0.7s;color:var(--fg-muted);font-size:0.82rem;margin-top:0.75rem;">Available on iPhone · iPad · Mac · Android</p>
-          <div class="hero-socials anim-fade" style="--delay:0.85s">
-            <a href="https://www.instagram.com/insnapsofficial/" target="_blank" rel="noopener" aria-label="Instagram" class="hero-social-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener" aria-label="X (Twitter)" class="hero-social-link">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.threads.com/@insnapsofficial" target="_blank" rel="noopener" aria-label="Threads" class="hero-social-link">
-              <img src="threads_logo.webp" alt="Threads" width="16" height="16" class="threads-icon threads-icon-light" />
-              <img src="thread_lit.webp" alt="Threads" width="16" height="16" class="threads-icon threads-icon-dark" />
-            </a>
-          </div>
-          <div class="hero-meta anim-fade" style="--delay:0.75s">
-            <div class="hero-meta-item">
-              <span class="hero-meta-value">41+</span>
-              <span class="hero-meta-label">Topic Domains</span>
+
+          <form class="hp-town" id="hpTownForm" autocomplete="off">
+            <div class="hp-town-row">
+              <div class="hp-town-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <input id="hpTownInput" type="text" name="town" placeholder="Your city — try Bhilwara, Wagga Wagga…"
+                       aria-label="Search for your city" autocomplete="off" spellcheck="false"
+                       role="combobox" aria-expanded="false" aria-controls="hpTownList" aria-autocomplete="list">
+                <ul class="hp-ac" id="hpTownList" role="listbox" aria-label="City suggestions" hidden></ul>
+              </div>
+              <button id="hpTownBtn" type="submit">Show me</button>
             </div>
-            <div class="hero-meta-divider"></div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-value">4</span>
-              <span class="hero-meta-label">Platforms</span>
+          </form>
+          <p class="hp-town-hint" id="hpTownHint">
+            Not just capitals. Small towns most apps have never heard of.
+          </p>
+
+          <div class="hp-proof">
+            <div class="hp-proof-tile">
+              <strong>Two sliders, one feed</strong>
+              <span>Set how local and how deep. The mix is yours, not an editor's.</span>
             </div>
-            <div class="hero-meta-divider"></div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-value"><span class="download-counter" id="downloadCounter">1500</span>+</span>
-              <span class="hero-meta-label">Downloads</span>
+            <div class="hp-proof-tile">
+              <strong>Your city, 3× higher</strong>
+              <span>Local stories are weighted up, so world news never buries home.</span>
+            </div>
+            <div class="hp-proof-tile">
+              <strong>Listen, don't read</strong>
+              <span>Pulse narrates the news as swipeable, visual cards.</span>
             </div>
           </div>
+
+          <div class="hp-actions">
+            <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" class="btn-primary" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              App Store
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&amp;hl=en_IN" class="btn-secondary" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.893 9.478l2.809-2.81-12.49-7.14 9.681 9.95zm-9.681 9.95l12.49-7.14-2.809-2.81-9.681 9.95zM20.16 11.18l-3.274-1.874-2.96 2.96 2.96 2.96 3.274-1.874c.86-.49.86-1.682 0-2.172z"/></svg>
+              Google Play
+            </a>
+          </div>
+          <p class="hp-platforms">Free · iPhone · iPad · Mac · Android</p>
         </div>
-        <div class="hero-visual anim-fade" style="--delay:0.5s">
-          <div class="hero-phone-glow"></div>
-          <div class="hero-phone">
-            <img src="assets/Red_Modern_Animated_Mobil_News_App_Promotion_Instagram_Story_images%20(2).jpg" alt="InSnaps : Swipe & Share Global News — explore screen showing conflicts, military, diplomacy topics and interactive stories" loading="eager" />
+
+        <div class="hp-right">
+          <div class="hp-stage-wrap">
+            <div id="pulseStage"></div>
+            <p class="hp-stage-caption">
+              <b>Pulse</b> — the news, narrated. Tap to pause, unmute for voice.
+            </p>
           </div>
         </div>
       </div>
-      <div class="hero-scroll-hint anim-fade" style="--delay:1.2s">
-        <div class="scroll-line"></div>
-        <span>Scroll to explore</span>
+    </section>
+
+    <!-- ── The blend, made visible ───────────────────────────────── -->
+    <section class="hp-blend" id="blend">
+      <div class="hp-blend-inner">
+        <div class="hp-blend-head">
+          <h2>Move the slider. Watch the feed change.</h2>
+          <p>
+            This is the same control the app gives you on day one — how local, and how deep.
+            Local stories carry a 3× weight, so your town stays in the mix even at full global.
+          </p>
+        </div>
+
+        <div class="hp-controls">
+          <div>
+            <div class="hp-slider-label">
+              <label for="hpScope">How local?</label>
+              <span class="hp-slider-value" id="hpScopeValue">Balanced</span>
+            </div>
+            <input type="range" id="hpScope" min="0" max="1" step="0.01" value="0.5" aria-label="How local should the feed be">
+            <div class="hp-scale"><span>My city</span><span>The world</span></div>
+          </div>
+          <div>
+            <div class="hp-slider-label">
+              <label for="hpDepth">How deep?</label>
+              <span class="hp-slider-value" id="hpDepthValue">Balanced</span>
+            </div>
+            <input type="range" id="hpDepth" min="0" max="1" step="0.01" value="0.5" aria-label="How deep should the stories be">
+            <div class="hp-scale"><span>Quick bites</span><span>Deep dive</span></div>
+          </div>
+        </div>
+
+        <div class="hp-mix">
+          <div class="hp-mix-bar" id="hpMixBar" role="img" aria-label="Current feed mix">
+            <i class="hp-mix-local"></i><i class="hp-mix-national"></i><i class="hp-mix-world"></i>
+          </div>
+          <span id="hpMixRead">50% local · 30% national · 20% world</span>
+          <span class="hp-mix-legend">
+            <span id="hpLegendLocal" hidden><i class="hp-mix-local"></i>Local</span>
+            <span><i class="hp-mix-national"></i>National (<span id="hpCountry">your country</span>)</span>
+            <span><i class="hp-mix-world"></i>World</span>
+          </span>
+        </div>
+
+        <div class="live-wall hp-wall-cards" id="hpWall"></div>
+        <p class="hp-local-prompt" id="hpLocalPrompt" hidden></p>
       </div>
     </section>
 
@@ -328,18 +375,6 @@
     </section>
 
     <!-- ======= VISION ======= -->
-    <section class="vision" id="vision">
-      <div class="container">
-        <h2 class="vision-title reveal">
-          Built for clarity.<br>Signal over noise.
-        </h2>
-        <p class="vision-desc reveal">
-          InSnaps is designed for people who want less clutter, faster discovery, and better context.
-          Whether you prefer quick updates or deeper reading sessions, the app adapts to how you follow the news.
-        </p>
-        <p class="vision-highlight reveal">Your feed, your control.</p>
-      </div>
-    </section>
 
     <!-- ======= 3D CONFLICT GLOBE ======= -->
     <section class="globe-section" id="globe">
@@ -368,361 +403,19 @@
     </section>
 
     <!-- ======= FEATURE SHOWCASE (Sticky Scroll) ======= -->
-    <section class="showcase" id="features">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Why InSnaps</span>
-          <h2 class="section-title">Personalized by city.<br>Balanced for the world.</h2>
-        </div>
-      </div>
-      <div class="showcase-track">
-        <div class="showcase-sticky">
-          <div class="showcase-layout">
-            <div class="showcase-text-col">
-              <div class="showcase-slide" data-i="0">
-                <span class="feature-tag">City-First Setup</span>
-                <h3>Your City, Country, and World</h3>
-                <p>Start with your city, then expand to country and global coverage in one balanced feed that keeps you informed at every level.</p>
-                <ul class="feature-bullets">
-                  <li>City-level personalization during onboarding</li>
-                  <li>Balanced local, national, and global mix</li>
-                  <li>Update location anytime in settings</li>
-                  <li>Re-run onboarding when your needs change</li>
-                </ul>
-              </div>
-              <div class="showcase-slide" data-i="1">
-                <span class="feature-tag">41+ Domains</span>
-                <h3>Personalized News Mix</h3>
-                <p>Follow the topics you care about across geopolitics, business, tech, health, society, culture, and more - without feed clutter.</p>
-                <ul class="feature-bullets">
-                  <li>32 topic domains across major categories</li>
-                  <li>Easy setup for scope and depth</li>
-                  <li>Faster discovery with cleaner ranking</li>
-                  <li>Consistent preferences across devices</li>
-                </ul>
-              </div>
-              <div class="showcase-slide" data-i="2">
-                <span class="feature-tag">Fast Reading</span>
-                <h3>Swipe, Save, and Share Instantly</h3>
-                <p>Move through headlines quickly, bookmark stories for later, and share in one tap when you find something worth passing on.</p>
-                <ul class="feature-bullets">
-                  <li>Smooth vertical swipe feed</li>
-                  <li>Saved Articles list for revisit sessions</li>
-                  <li>Quick sharing actions with clean output</li>
-                  <li>Designed for quick updates and deep dives</li>
-                </ul>
-              </div>
-              <div class="showcase-slide" data-i="3">
-                <span class="feature-tag">Explore More</span>
-                <h3>Topic Hubs, Maps, and Context</h3>
-                <p>Go deeper with topic hubs, map-based conflict context, and richer story surfaces when you want more than headlines.</p>
-                <ul class="feature-bullets">
-                  <li>Explore hubs for focused discovery</li>
-                  <li>Map context for major conflict regions</li>
-                  <li>Cross-device continuity for longer reads</li>
-                  <li>Built for clarity across phone, tablet, desktop</li>
-                </ul>
-              </div>
-            </div>
-            <div class="showcase-phone-col">
-              <div class="showcase-phone-wrapper">
-                <div class="showcase-phone-glow"></div>
-                <div class="showcase-phone">
-                  <img data-i="0" src="pic_1.jpg" alt="InSnaps city-first personalized feed preview" class="active" />
-                  <img data-i="1" src="pic_2.jpg" alt="InSnaps 41 domains one feed preview" />
-                  <img data-i="2" src="pic_3.jpg" alt="InSnaps share cards and story formats preview" />
-                  <img data-i="3" src="pic_4.jpg" alt="InSnaps free to pro onboarding and feed controls preview" />
-                </div>
-              </div>
-              <div class="showcase-dots">
-                <span class="dot active" data-i="0"></span>
-                <span class="dot" data-i="1"></span>
-                <span class="dot" data-i="2"></span>
-                <span class="dot" data-i="3"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Mobile-only feature cards (visible below 1024px) -->
-      <div class="features-mobile">
-        <div class="container">
-          <div class="feature-card reveal">
-            <div class="feature-card-visual">
-              <img src="pic_1.jpg" alt="InSnaps city-first personalized feed preview" loading="lazy"/>
-            </div>
-            <span class="feature-tag">City-First Setup</span>
-            <h3>Your City, Country, and World</h3>
-            <p>Set your city first and get a balanced local, national, and global feed in one place.</p>
-          </div>
-          <div class="feature-card reveal">
-            <div class="feature-card-visual">
-              <img src="pic_2.jpg" alt="InSnaps 41 domains one feed preview" loading="lazy"/>
-            </div>
-            <span class="feature-tag">41+ Domains</span>
-            <h3>Personalized News Mix</h3>
-            <p>Choose the topics you care about across geopolitics, business, tech, health, society, and culture.</p>
-          </div>
-          <div class="feature-card reveal">
-            <div class="feature-card-visual">
-              <img src="pic_3.jpg" alt="InSnaps share cards and story formats preview" loading="lazy"/>
-            </div>
-            <span class="feature-tag">Fast Reading</span>
-            <h3>Swipe, Save, and Share</h3>
-            <p>Swipe quickly through stories, bookmark for later, and share instantly when something matters.</p>
-          </div>
-          <div class="feature-card reveal">
-            <div class="feature-card-visual">
-              <img src="pic_4.jpg" alt="InSnaps free to pro onboarding and feed controls preview" loading="lazy"/>
-            </div>
-            <span class="feature-tag">Explore More</span>
-            <h3>Topic Hubs and Map Context</h3>
-            <p>Discover deeper coverage with topic hubs, conflict maps, and richer story context.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ======= STATS ======= -->
-    <section class="stats" id="stats">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-card reveal">
-            <span class="stat-number" data-target="32">32</span>
-            <span class="stat-suffix"></span>
-            <span class="stat-label">Topic Domains</span>
-          </div>
-          <div class="stat-card reveal">
-            <span class="stat-number" data-target="4">4</span>
-            <span class="stat-suffix"></span>
-            <span class="stat-label">Platforms (iPhone · iPad · Mac · Android)</span>
-          </div>
-          <div class="stat-card reveal">
-            <span class="stat-number" data-target="3">3</span>
-            <span class="stat-suffix">+</span>
-            <span class="stat-label">Feed Layers (City, Country, World)</span>
-          </div>
-          <div class="stat-card reveal">
-            <span class="stat-number" data-target="1500">1500</span>
-            <span class="stat-suffix">+</span>
-            <span class="stat-label">Downloads</span>
-          </div>
-          <div class="stat-card reveal">
-            <span class="stat-number" data-target="11">11</span>
-            <span class="stat-suffix"></span>
-            <span class="stat-label">Interface Languages</span>
-          </div>
-          <div class="stat-card reveal">
-            <span class="stat-number" data-target="1">1</span>
-            <span class="stat-suffix"></span>
-            <span class="stat-label-zero">One-time onboarding location access (optional)</span>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ======= CATEGORIES ======= -->
-    <section class="categories" id="categories">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Coverage</span>
-          <h2 class="section-title">41+ domains.<br>One personalized feed.</h2>
-        </div>
-        <div class="categories-grid">
-          <div class="category-card reveal">
-            <span class="category-icon">&#9876;&#65039;</span>
-            <h4>War &amp; Conflict</h4>
-            <p>Active wars, insurgencies, territorial disputes, and ceasefire tracking across every continent.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#127758;</span>
-            <h4>Geopolitics</h4>
-            <p>Power shifts, alliances, rivalries, and the strategic moves shaping the global order.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128176;</span>
-            <h4>Finance &amp; Sanctions</h4>
-            <p>Economic measures, market impacts, forex shifts, and the financial ripple effects of geopolitical events.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128737;&#65039;</span>
-            <h4>Military &amp; Weapons</h4>
-            <p>Arms deals, defense operations, weapons technology, cyber warfare, and nuclear developments.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#129309;</span>
-            <h4>Diplomacy &amp; Talks</h4>
-            <p>Summits, treaties, UN resolutions, alliance formations, and peace processes.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128674;</span>
-            <h4>Trade &amp; Supply</h4>
-            <p>Tariffs, shipping disruptions, energy supply shifts, semiconductor wars, and food security.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128499;&#65039;</span>
-            <h4>Elections &amp; Politics</h4>
-            <p>Votes, coups, political transitions, and campaigns reshaping nations worldwide.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128747;</span>
-            <h4>Migration &amp; Borders</h4>
-            <p>Refugees, asylum policy, border disputes, and displacement crises.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128332;</span>
-            <h4>Religion &amp; Culture</h4>
-            <p>Sectarian tensions, cultural shifts, and the role of identity in global affairs.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#9878;&#65039;</span>
-            <h4>Human Rights</h4>
-            <p>Press freedom, civil liberties, war crimes, and accountability worldwide.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128483;&#65039;</span>
-            <h4>Disinfo &amp; Narratives</h4>
-            <p>Propaganda, deepfakes, information warfare, and the battle for truth.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#128200;</span>
-            <h4>Demographics &amp; Society</h4>
-            <p>Population shifts, aging crises, urbanization, and societal transformations.</p>
-          </div>
-          <div class="category-card reveal">
-            <span class="category-icon">&#9994;</span>
-            <h4>Populism &amp; Movements</h4>
-            <p>MAGA, Brexit, nationalism, protest movements, and anti-establishment forces.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ======= AUDIENCE ======= -->
-    <section class="audience" id="audience">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Built For</span>
-          <h2 class="section-title">For those who need<br>to see the full picture.</h2>
-        </div>
-        <div class="audience-grid">
-          <div class="audience-card reveal">
-            <div class="audience-icon">&#128218;</div>
-            <h4>IR &amp; Security Students</h4>
-            <p>Study real-world conflicts with academic-grade data from UCDP and verified multi-source coverage.</p>
-          </div>
-          <div class="audience-card reveal">
-            <div class="audience-icon">&#128221;</div>
-            <h4>Journalists &amp; Researchers</h4>
-            <p>Track developing stories across sources. Verify claims with multi-perspective coverage in one feed.</p>
-          </div>
-          <div class="audience-card reveal">
-            <div class="audience-icon">&#127919;</div>
-            <h4>Defense &amp; Policy Analysts</h4>
-            <p>Monitor military movements, arms developments, and defense policy shifts in real time.</p>
-          </div>
-          <div class="audience-card reveal">
-            <div class="audience-icon">&#128188;</div>
-            <h4>Investors &amp; Risk Analysts</h4>
-            <p>Assess geopolitical risk, track sanctions impact, and stay ahead of market-moving events.</p>
-          </div>
-          <div class="audience-card reveal">
-            <div class="audience-icon">&#128104;&#8205;&#127979;</div>
-            <h4>Educators</h4>
-            <p>A classroom-ready global overview with real-time data, interactive maps, and educational games.</p>
-          </div>
-          <div class="audience-card reveal">
-            <div class="audience-icon">&#127758;</div>
-            <h4>Global Citizens</h4>
-            <p>Stay informed beyond the headlines. Understand how events 10,000 km away affect your daily life.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ======= PRIVACY ======= -->
-    <section class="privacy-section" id="privacy">
-      <div class="container">
-        <div class="privacy-content reveal">
-          <span class="section-label">Privacy and Control</span>
-          <h2 class="privacy-title">You control your setup.<br>Update preferences anytime.<br>Re-run onboarding when needed.</h2>
-          <p class="privacy-subtitle">Location access is optional and used one time during onboarding to set your city-level defaults.</p>
-          <div class="privacy-badges">
-            <div class="privacy-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Optional one-time location access during onboarding</span>
-            </div>
-            <div class="privacy-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-              <span>Manual city/country setup available without location permission</span>
-            </div>
-            <div class="privacy-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-              <span>Preferences can sync across devices when signed in</span>
-            </div>
-            <div class="privacy-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-              <span>Read full details in our Privacy Policy</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ── A glimpse of /live/ ──────────────────────────────────── -->
 
     <!-- ======= WHAT'S NEW ======= -->
-    <section class="whats-new" id="whats-new">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">What's New</span>
-          <h2 class="section-title">Updated onboarding and feed controls.</h2>
-          <p class="section-desc">Latest release highlights aligned with the new app direction.</p>
-        </div>
-        <div class="whats-new-grid">
-          <div class="whats-new-card reveal">
-            <h3>Feature updates</h3>
-            <ul>
-              <li>New Feed &amp; Location setup screen with clearer controls</li>
-              <li>Re-onboarding options: Gradual update or Clear &amp; Restart</li>
-              <li>Improved onboarding flow with city-first personalization</li>
-              <li>Saved Articles improvements, including quick sharing</li>
-            </ul>
-          </div>
-          <div class="whats-new-card reveal">
-            <h3>Polish and stability</h3>
-            <ul>
-              <li>Better feed UI alignment and smoother desktop/home layout</li>
-              <li>Refined update prompts and overall UI polish</li>
-              <li>Saved Articles sharing flow enhancements</li>
-              <li>Performance and stability fixes across feed loading</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ======= LANGUAGES ======= -->
-    <section class="languages" id="languages">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Global Reach</span>
-          <h2 class="section-title">An interface that speaks your language.</h2>
-          <p class="section-desc">The InSnaps interface &mdash; menus, sections, buttons &mdash; is available in English plus 10 more languages. News articles are curated in English from global sources.</p>
-        </div>
-        <div class="languages-grid reveal">
-          <span class="lang-chip">English</span>
-          <span class="lang-chip">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</span>
-          <span class="lang-chip">Espa&ntilde;ol</span>
-          <span class="lang-chip">Fran&ccedil;ais</span>
-          <span class="lang-chip">Deutsch</span>
-          <span class="lang-chip">Portugu&ecirc;s</span>
-          <span class="lang-chip">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</span>
-          <span class="lang-chip">&#1506;&#1489;&#1512;&#1497;&#1514;</span>
-          <span class="lang-chip">&#20013;&#25991;</span>
-          <span class="lang-chip">&#26085;&#26412;&#35486;</span>
-          <span class="lang-chip">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span>
-        </div>
-      </div>
-    </section>
 
     <!-- ======= REVIEWS ======= -->
     <section class="reviews" id="reviews">
@@ -736,7 +429,7 @@
             <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <p class="review-text">"I'm an IR student and this is the only app that gives me a complete picture of global conflicts. The conflict map alone is worth the download. Absolutely essential."</p>
             <div class="review-author">
-              <img class="review-avatar" src="https://ui-avatars.com/api/?name=Ananya+R&background=0d9488&color=fff&size=80&rounded=true&bold=true" alt="Ananya R." width="40" height="40" loading="lazy">
+              <img class="review-avatar" src="https://ui-avatars.com/api/?name=Ananya+R&background=c8481a&color=fff&size=80&rounded=true&bold=true" alt="Ananya R." width="40" height="40" loading="lazy">
               <div>
                 <span class="review-name">Ananya R.</span>
                 <span class="review-role">Graduate Student, International Relations</span>
@@ -997,9 +690,11 @@
         </div>
         <div class="footer-links-group">
           <h5>Product</h5>
-          <a href="#features">Features</a>
+          <a href="#blend">How it works</a>
           <a href="#sources">Sources</a>
-          <a href="#privacy">Privacy</a>
+          <a href="#pricing">Pricing</a>
+          <a href="/privacy/">Privacy controls</a>
+          <a href="/privacy/">Privacy policy</a>
           <a href="/support/">Support</a>
           <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener">Google Play</a>
           <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" target="_blank" rel="noopener">App Store</a>
@@ -1007,7 +702,10 @@
         <div class="footer-links-group">
           <h5>Explore</h5>
           <a href="/conflicts/">All Conflicts</a>
+          <a href="/live/">Live</a>
+          <a href="/answers/">Answers</a>
           <a href="/blog/">Blog</a>
+          <a href="/products/">Products</a>
           <a href="/partner/">Partner with Us</a>
           <a href="mailto:prakshatechnologies@gmail.com">Contact Us</a>
           <a href="/privacy/">Privacy Policy</a>
@@ -1099,10 +797,66 @@
     </div>
   </div>
 
-  <script async src="//www.instagram.com/embed.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
   <script src="script.js"></script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script>
+    // d3 + topojson are ~280KB for a section below the fold, so fetch them only
+    // when the globe is close to view, then run the (guarded) init.
+    (function () {
+      var viz = document.getElementById('globeViz');
+      if (!viz) return;
+      var started = false;
+      function boot() {
+        if (started) return;
+        started = true;
+        var srcs = ['https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js',
+                    'https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js'];
+        var left = srcs.length;
+        srcs.forEach(function (src) {
+          var s = document.createElement('script');
+          s.src = src;
+          s.onload = function () { if (--left === 0 && window.__insnapsInitGlobe) window.__insnapsInitGlobe(); };
+          s.onerror = function () { left--; };
+          document.body.appendChild(s);
+        });
+      }
+      if (!('IntersectionObserver' in window)) return boot();
+      var io = new IntersectionObserver(function (e) {
+        if (e.some(function (x) { return x.isIntersecting; })) { boot(); io.disconnect(); }
+      }, { rootMargin: '500px 0px' });
+      io.observe(viz);
+    })();
+  </script>
+  <script src="pulse.js"></script>
+  <script src="viewbar.js"></script>
+  <script src="home.js"></script>
+  <script>
+    // Defer the social embeds until the community section is near the viewport.
+    // Loading them eagerly cost ~60 third-party requests on first paint (and a
+    // 429 from syndication.twitter.com) for a section most visitors never reach.
+    (function () {
+      var section = document.getElementById('community') ||
+                    document.querySelector('.instagram-media, .twitter-timeline');
+      if (!section) return;
+      var target = section.closest('section') || section;
+      var loaded = false;
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        [['//www.instagram.com/embed.js', false],
+         ['https://platform.twitter.com/widgets.js', true]].forEach(function (pair) {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = pair[0];
+          if (pair[1]) s.charset = 'utf-8';
+          document.body.appendChild(s);
+        });
+      }
+      if (!('IntersectionObserver' in window)) return load();
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { load(); io.disconnect(); }
+      }, { rootMargin: '400px 0px' });
+      io.observe(target);
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,367 @@
+/* The live card system: the wall on /live/ and the same cards inside the
+   homepage's blend section. Extracted from live/index.html so both use one
+   implementation instead of drifting copies. */
+
+/* Live wall — a web echo of the app's card_layout_service vocabulary.
+   Each story is rendered in one of 8 treatments, picked deterministically
+   from its id (same FNV-1a as the app and pulse.js) so a headline always
+   looks the same wherever it appears. */
+.live-page {
+  --live-radius: 16px;
+  --live-primary: #ff6b35;
+  --live-secondary: #00d9ff;
+  --live-tertiary: #ffd93d;
+  --live-accent: #ff4757;
+  --live-ink: #0a0e17;
+  --live-surface: #121820;
+  padding: 6.5rem 0 4rem;
+  overflow-x: hidden;
+}
+
+.live-head { margin-bottom: 1.4rem; }
+.live-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--live-primary);
+  margin-bottom: 0.6rem;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--live-accent);
+  box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.6);
+  animation: live-ping 2s ease-out infinite;
+}
+@keyframes live-ping {
+  0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.55); }
+  70%, 100% { box-shadow: 0 0 0 9px rgba(255, 71, 87, 0); }
+}
+.live-page h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5.4vw, 2.6rem);
+  font-weight: 700; letter-spacing: -0.025em;
+  line-height: 1.15; margin: 0 0 0.5rem;
+  overflow-wrap: anywhere;
+}
+.live-lede {
+  color: var(--fg-secondary); font-size: 0.98rem;
+  max-width: 62ch; margin: 0 0 0.35rem; line-height: 1.6;
+}
+.live-updated {
+  font-size: 0.78rem; color: var(--fg-muted);
+  display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+}
+.live-updated b { color: var(--fg-secondary); font-weight: 600; }
+
+/* ── filter chips: their own scroller, never the page ───────────── */
+.live-filters {
+  display: flex; gap: 0.45rem;
+  overflow-x: auto; overflow-y: hidden;
+  padding: 0.25rem 0 0.8rem;
+  margin: 0 0 1.4rem;
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.live-chip {
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-size: 0.82rem; font-weight: 600;
+  color: var(--fg-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 0.42rem 0.95rem;
+  cursor: pointer; white-space: nowrap;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+.live-chip:hover { color: var(--fg); border-color: var(--accent); }
+.live-chip[aria-pressed="true"] {
+  color: #fff; background: var(--accent);
+  border-color: var(--accent);
+}
+.live-chip .live-chip-n { opacity: 0.65; font-weight: 500; margin-left: 0.3rem; }
+
+/* ── the wall ───────────────────────────────────────────────────── */
+.live-wall { columns: 1; column-gap: 1.1rem; }
+@media (min-width: 620px)  { .live-wall { columns: 2; } }
+@media (min-width: 1000px) { .live-wall { columns: 3; } }
+@media (min-width: 1380px) { .live-wall { columns: 4; } }
+
+.live-card {
+  display: block; position: relative;
+  break-inside: avoid; -webkit-column-break-inside: avoid;
+  margin: 0 0 1.1rem;
+  border-radius: var(--live-radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  max-width: 100%;
+}
+.live-card:hover {
+  color: var(--fg);
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-elevated);
+}
+.live-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.live-title {
+  font-family: var(--font-display);
+  font-weight: 700; letter-spacing: -0.015em;
+  line-height: 1.27; margin: 0;
+  overflow-wrap: anywhere;
+}
+.live-meta {
+  display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+  font-size: 0.76rem; color: var(--fg-muted);
+  margin-top: 0.6rem;
+}
+.live-source { font-weight: 600; color: var(--fg-secondary); overflow-wrap: anywhere; }
+.live-sep { opacity: 0.5; }
+.live-out {
+  margin-left: auto; display: inline-flex; align-items: center;
+  color: var(--fg-muted); flex: 0 0 auto;
+}
+.live-out svg { width: 13px; height: 13px; }
+
+.live-kicker {
+  display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+  margin-bottom: 0.55rem;
+}
+.live-tier {
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.5rem; border-radius: 999px;
+  background: var(--live-primary); color: #fff;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.live-tier[data-tier="local"]    { background: var(--live-secondary); color: #04141a; }
+.live-tier[data-tier="national"] { background: var(--live-tertiary);  color: #1a1503; }
+.live-tier[data-tier="world"]    { background: var(--live-primary);   color: #fff; }
+.live-tier[data-tier="trending"] { background: var(--live-accent);    color: #fff; }
+.live-traffic {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+  color: #16a34a; white-space: nowrap;
+}
+[data-theme="dark"] .live-traffic { color: #4ade80; }
+.live-traffic::before { content: "\25B2 "; }
+
+.live-media { position: relative; overflow: hidden; background: var(--bg-secondary); }
+.live-media img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; border: 0;
+}
+
+/* ── 1. fullBleedOverlay ────────────────────────────────────────── */
+.live-card[data-layout="fullbleed"] { border: 0; background: var(--live-ink); }
+.live-card[data-layout="fullbleed"] .live-media { aspect-ratio: 4 / 5; }
+.live-card[data-layout="fullbleed"] .live-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(4, 7, 13, 0.94) 0%, rgba(4, 7, 13, 0.6) 34%, rgba(4, 7, 13, 0) 66%);
+}
+.live-card[data-layout="fullbleed"] .live-body {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 1rem 1.05rem 1.05rem;
+}
+.live-card[data-layout="fullbleed"] .live-title {
+  color: #fff; font-size: 1.06rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
+}
+.live-card[data-layout="fullbleed"] .live-meta { color: rgba(255, 255, 255, 0.7); }
+.live-card[data-layout="fullbleed"] .live-source,
+.live-card[data-layout="fullbleed"] .live-out { color: rgba(255, 255, 255, 0.9); }
+
+/* ── 2. boldHeadline ───────────────────────────────────────────── */
+.live-card[data-layout="bold"] { padding: 1.25rem 1.15rem; }
+.live-card[data-layout="bold"]::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--live-primary);
+}
+.live-card[data-layout="bold"] .live-title {
+  font-size: clamp(1.16rem, 3.6vw, 1.42rem);
+  line-height: 1.2;
+}
+
+/* ── 3. darkGlass ──────────────────────────────────────────────── */
+.live-card[data-layout="glass"] { border: 0; background: var(--live-ink); }
+.live-card[data-layout="glass"] .live-media { aspect-ratio: 16 / 11; }
+.live-card[data-layout="glass"] .live-media img { filter: brightness(0.72) saturate(1.05); }
+.live-card[data-layout="glass"] .live-body {
+  position: relative;
+  margin: -2.6rem 0.7rem 0.7rem;
+  padding: 0.95rem 1rem;
+  border-radius: 13px;
+  background: rgba(10, 14, 23, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+.live-card[data-layout="glass"] .live-title { color: #fff; font-size: 1.02rem; }
+.live-card[data-layout="glass"] .live-meta { color: rgba(255, 255, 255, 0.65); }
+.live-card[data-layout="glass"] .live-source,
+.live-card[data-layout="glass"] .live-out { color: rgba(255, 255, 255, 0.88); }
+
+/* ── 4. newspaper ──────────────────────────────────────────────── */
+.live-card[data-layout="newspaper"] {
+  background: var(--bg-card); padding: 1.1rem 1.1rem 1.15rem;
+  border-color: var(--border-strong);
+}
+.live-card[data-layout="newspaper"] .live-rule {
+  height: 3px; background: var(--fg);
+  margin: 0 0 0.7rem; opacity: 0.85;
+}
+.live-card[data-layout="newspaper"] .live-slugline {
+  font-size: 0.64rem; font-weight: 800; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--fg-secondary);
+  margin-bottom: 0.5rem; overflow-wrap: anywhere;
+}
+.live-card[data-layout="newspaper"] .live-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.16rem; letter-spacing: -0.005em; line-height: 1.24;
+}
+.live-card[data-layout="newspaper"] .live-media {
+  margin-top: 0.85rem; aspect-ratio: 3 / 1; border-radius: 6px;
+}
+.live-card[data-layout="newspaper"] .live-media img { filter: grayscale(1) contrast(1.08); }
+.live-card[data-layout="newspaper"] .live-meta {
+  border-top: 1px solid var(--border-strong);
+  margin-top: 0.8rem; padding-top: 0.55rem;
+}
+
+/* ── 5. gradientBanner ─────────────────────────────────────────── */
+.live-card[data-layout="gradient"] {
+  border: 0; padding: 1.3rem 1.15rem;
+  background: linear-gradient(140deg, #ff6b35 0%, #ff4757 58%, #b1123c 100%);
+}
+.live-card[data-layout="gradient"] .live-title { color: #fff; font-size: 1.14rem; }
+.live-card[data-layout="gradient"] .live-tier {
+  background: rgba(255, 255, 255, 0.22); color: #fff;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+.live-card[data-layout="gradient"] .live-traffic { color: #fff; }
+.live-card[data-layout="gradient"] .live-meta { color: rgba(255, 255, 255, 0.78); }
+.live-card[data-layout="gradient"] .live-source,
+.live-card[data-layout="gradient"] .live-out { color: #fff; }
+
+/* ── 6. compactOverlay ─────────────────────────────────────────── */
+.live-card[data-layout="compact"] {
+  display: flex; gap: 0.85rem; align-items: flex-start;
+  padding: 0.85rem 0.95rem;
+}
+.live-card[data-layout="compact"] .live-media {
+  flex: 0 0 84px; width: 84px; aspect-ratio: 1 / 1;
+  border-radius: 11px;
+}
+.live-card[data-layout="compact"] .live-body { flex: 1 1 auto; min-width: 0; }
+.live-card[data-layout="compact"] .live-kicker { margin-bottom: 0.4rem; }
+.live-card[data-layout="compact"] .live-title { font-size: 0.95rem; line-height: 1.32; }
+.live-card[data-layout="compact"] .live-meta { margin-top: 0.45rem; font-size: 0.72rem; }
+
+/* ── 7. magazineCover ──────────────────────────────────────────── */
+.live-card[data-layout="magazine"] .live-media { aspect-ratio: 3 / 4; }
+.live-card[data-layout="magazine"] .live-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(4, 7, 13, 0.55) 0%, rgba(4, 7, 13, 0) 42%);
+}
+.live-card[data-layout="magazine"] .live-kicker {
+  position: absolute; top: 0.85rem; left: 0.9rem; right: 0.9rem;
+  margin: 0; z-index: 2;
+}
+.live-card[data-layout="magazine"] .live-body { padding: 1.05rem 1.05rem 1.1rem; }
+.live-card[data-layout="magazine"] .live-title {
+  font-size: clamp(1.1rem, 3.4vw, 1.3rem); line-height: 1.2;
+}
+.live-card[data-layout="magazine"] .live-mediawrap { position: relative; }
+
+/* ── 8. neonAccent ─────────────────────────────────────────────── */
+.live-card[data-layout="neon"] {
+  padding: 1.1rem;
+  border: 1px solid rgba(0, 217, 255, 0.42);
+  box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.1), 0 8px 30px -18px rgba(0, 217, 255, 0.75);
+}
+.live-card[data-layout="neon"]:hover {
+  border-color: var(--live-secondary);
+  box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.22), 0 12px 34px -16px rgba(0, 217, 255, 0.8);
+}
+.live-card[data-layout="neon"] .live-media {
+  aspect-ratio: 16 / 9; border-radius: 10px; margin-bottom: 0.85rem;
+}
+.live-card[data-layout="neon"] .live-title { font-size: 1.04rem; }
+
+/* ── status / empty / more ─────────────────────────────────────── */
+.live-status {
+  text-align: center; padding: 3rem 1.25rem;
+  color: var(--fg-secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--live-radius);
+  background: var(--bg-secondary);
+}
+.live-status h2 {
+  font-family: var(--font-display); font-size: 1.1rem;
+  margin: 0 0 0.5rem; color: var(--fg);
+}
+.live-status p { margin: 0 auto; max-width: 46ch; font-size: 0.9rem; line-height: 1.6; }
+.live-status .live-retry {
+  margin-top: 1.1rem;
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  color: #fff; background: var(--accent); border: 0;
+  border-radius: 999px; padding: 0.5rem 1.3rem; cursor: pointer;
+}
+.live-spinner {
+  width: 26px; height: 26px; margin: 0 auto 0.9rem;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--live-primary);
+  border-radius: 50%;
+  animation: live-spin 800ms linear infinite;
+}
+@keyframes live-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .live-spinner, .live-dot { animation: none; }
+  .live-card { transition: none; }
+}
+
+.live-more { text-align: center; margin: 0.6rem 0 0; }
+.live-more button {
+  font-family: var(--font-body); font-size: 0.88rem; font-weight: 600;
+  color: var(--fg); background: var(--bg-secondary);
+  border: 1px solid var(--border-strong); border-radius: 999px;
+  padding: 0.6rem 1.6rem; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.live-more button:hover { border-color: var(--accent); color: var(--accent); }
+
+.live-appcta {
+  margin-top: 2.6rem; padding: 1.6rem 1.4rem;
+  border-radius: var(--live-radius);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-secondary);
+  text-align: center;
+}
+.live-appcta h2 {
+  font-family: var(--font-display); font-size: 1.2rem;
+  margin: 0 0 0.4rem; letter-spacing: -0.02em;
+}
+.live-appcta p { color: var(--fg-secondary); font-size: 0.9rem; margin: 0 0 1rem; }
+.live-appcta-row {
+  display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+}
+.live-appcta-row a {
+  font-size: 0.85rem; font-weight: 600;
+  padding: 0.55rem 1.25rem; border-radius: 999px;
+  background: var(--accent); color: #fff;
+}
+.live-appcta-row a:hover { background: var(--accent-light); color: #fff; }
+.live-appcta-row a.is-ghost {
+  background: transparent; color: var(--fg-secondary);
+  border: 1px solid var(--border-strong);
+}
+.live-appcta-row a.is-ghost:hover { color: var(--accent); border-color: var(--accent); background: transparent; }
+
+@media (max-width: 480px) {
+  .live-page { padding-top: 5.6rem; }
+  .live-card[data-layout="compact"] .live-media { flex-basis: 72px; width: 72px; }
+}

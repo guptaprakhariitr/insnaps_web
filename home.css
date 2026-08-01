@@ -1,0 +1,558 @@
+/* Homepage hero + blend section + the persistent "view in app" bar.
+   Loaded after style.css, so it inherits the theme variables defined there. */
+
+/* ── hero ───────────────────────────────────────────────────────── */
+
+.hp {
+  position: relative;
+  padding: 74px 0 68px;
+  overflow: hidden;
+  background: var(--gradient-subtle);
+}
+.hp::before {
+  content: "";
+  position: absolute;
+  top: -30%; left: 50%;
+  width: 900px; height: 700px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, var(--accent-glow-strong), transparent 72%);
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.hp-grid {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 44px;
+  align-items: center;
+}
+@media (min-width: 940px) {
+  .hp-grid { grid-template-columns: 1.06fr 0.94fr; gap: 56px; }
+}
+
+.hp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--bg-card);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fg-secondary);
+}
+.hp-live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent-red, #ff4757);
+  box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.6);
+  animation: hp-live 2s ease-out infinite;
+}
+@keyframes hp-live {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(255, 71, 87, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+}
+
+.hp-title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5.6vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--fg);
+}
+.hp-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.hp-lede {
+  margin: 0 0 26px;
+  max-width: 46ch;
+  font-size: clamp(1rem, 2.4vw, 1.14rem);
+  line-height: 1.55;
+  color: var(--fg-secondary);
+}
+
+/* ── town search ────────────────────────────────────────────────── */
+
+.hp-town { margin-bottom: 12px; }
+.hp-town-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+  max-width: 460px;
+}
+.hp-town-field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.hp-town-field svg {
+  position: absolute;
+  left: 13px; top: 50%;
+  transform: translateY(-50%);
+  width: 17px; height: 17px;
+  color: var(--fg-muted);
+  pointer-events: none;
+}
+.hp-town input {
+  width: 100%;
+  padding: 13px 14px 13px 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.hp-town input::placeholder { color: var(--fg-muted); }
+.hp-town input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.hp-town-row button {
+  flex: 0 0 auto;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent-light, #ff6b35);
+  color: var(--on-accent, #0a0e17);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.hp-town-row button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px -8px var(--accent-glow-strong);
+}
+.hp-town-row button:disabled { opacity: 0.55; cursor: default; transform: none; box-shadow: none; }
+
+.hp-town-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+.hp-town-hint b { color: var(--fg-secondary); font-weight: 600; }
+.hp-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.hp-chip {
+  padding: 5px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg-secondary);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+.hp-chip:hover { border-color: var(--accent); color: var(--accent); }
+.hp-chip[aria-pressed="true"] {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── proof tiles ────────────────────────────────────────────────── */
+
+.hp-proof {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(148px, 100%), 1fr));
+  gap: 10px;
+  margin: 26px 0 24px;
+  max-width: 520px;
+}
+.hp-proof-tile {
+  padding: 14px 15px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--bg-card);
+}
+.hp-proof-tile strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 3px;
+}
+.hp-proof-tile span {
+  font-size: 0.79rem;
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+
+.hp-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.hp-platforms {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+}
+
+/* ── hero right column ──────────────────────────────────────────── */
+
+.hp-stage-wrap { position: relative; }
+.hp-stage-caption {
+  margin: 14px auto 0;
+  max-width: 380px;
+  text-align: center;
+  font-size: 0.79rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.hp-stage-caption b { color: var(--fg-secondary); font-weight: 600; }
+
+/* ── blend section ──────────────────────────────────────────────── */
+
+.hp-blend {
+  padding: 74px 0;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.hp-blend-inner { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+.hp-blend-head { max-width: 620px; margin-bottom: 32px; }
+.hp-blend-head h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.hp-blend-head p { margin: 0; color: var(--fg-secondary); font-size: 1rem; line-height: 1.6; }
+
+.hp-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  padding: 22px;
+  margin-bottom: 26px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-card);
+}
+@media (min-width: 760px) { .hp-controls { grid-template-columns: 1fr 1fr; gap: 30px; } }
+
+.hp-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fg-secondary);
+}
+.hp-slider-value { color: var(--accent); font-variant-numeric: tabular-nums; }
+
+.hp-controls input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--accent-cyan, #00d9ff), var(--accent-light, #ff6b35));
+  outline: none;
+  cursor: pointer;
+}
+.hp-controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 21px; height: 21px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+}
+.hp-controls input[type="range"]::-moz-range-thumb {
+  width: 19px; height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent);
+  cursor: grab;
+}
+.hp-controls input[type="range"]:focus-visible { box-shadow: 0 0 0 3px var(--accent-glow); }
+
+.hp-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+}
+
+/* mix read-out */
+.hp-mix {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+}
+.hp-mix-bar {
+  display: flex;
+  flex: 1 1 220px;
+  min-width: 180px;
+  height: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+.hp-mix-bar > i { display: block; height: 100%; transition: width 260ms ease; }
+.hp-mix-local    { background: var(--accent-cyan, #00d9ff); }
+.hp-mix-national { background: var(--accent-gold, #ffd93d); }
+.hp-mix-world    { background: var(--accent-light, #ff6b35); }
+.hp-mix-legend { display: flex; gap: 13px; flex-wrap: wrap; font-size: 0.76rem; }
+/* No `gap` here: the country name is a nested <span>, which flex treats as its
+   own item, so a gap would render as "National ( India )". Space the swatch
+   with a margin instead. */
+.hp-mix-legend span { display: inline-flex; align-items: center; color: var(--fg-muted); }
+.hp-mix-legend i { width: 9px; height: 9px; border-radius: 3px; display: inline-block; margin-right: 5px; }
+
+/* ── the wall inside the blend section ────────────────────────────
+   Uses the /live/ card system (livecards.css). Only the grid and the
+   supporting copy live here. */
+
+.hp-wall-cards { margin-top: 4px; }
+
+.hp-list-empty,
+.hp-local-prompt {
+  margin: 0;
+  padding: 18px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.hp-local-prompt strong { color: var(--fg-secondary); font-weight: 600; }
+.hp-local-prompt button {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 1px solid var(--accent-glow-strong);
+}
+.hp-local-prompt button:hover { border-bottom-color: var(--accent); }
+
+/* ── persistent "view in app" bar ───────────────────────────────── */
+
+/* Deliberately a slim bar, not a full-screen interstitial: Google penalises
+   intrusive interstitials on mobile, and this has to survive that. */
+.viewbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1200;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  min-height: 56px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-top: 1px solid var(--border-strong);
+  box-shadow: 0 -6px 26px rgba(0, 0, 0, 0.14);
+  transform: translateY(100%);
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: max(9px, env(safe-area-inset-bottom));
+}
+.viewbar.is-mounted { display: flex; }
+.viewbar.is-shown { transform: translateY(0); }
+
+.viewbar-icon {
+  flex: 0 0 auto;
+  width: 34px; height: 34px;
+  border-radius: 9px;
+}
+.viewbar-text { flex: 1; min-width: 0; }
+.viewbar-text strong {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.viewbar-text span {
+  display: block;
+  font-size: 0.73rem;
+  color: var(--fg-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.viewbar-cta {
+  flex: 0 0 auto;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent-light, #ff6b35);
+  color: var(--on-accent, #0a0e17);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.viewbar-close {
+  flex: 0 0 auto;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  color: var(--fg-muted);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.viewbar-close:hover { background: var(--bg-card-hover); color: var(--fg); }
+
+@media (max-width: 420px) {
+  .viewbar { gap: 9px; padding-left: 11px; padding-right: 11px; }
+  .viewbar-text span { display: none; }
+  .viewbar-cta { padding: 9px 13px; font-size: 0.82rem; }
+}
+
+/* Keep the bar from covering the last of the page. */
+body.has-viewbar { padding-bottom: 68px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewbar { transition: none; }
+  .hp-live-dot { animation: none; }
+}
+
+/* ── fit the first view to one screen ───────────────────────────────
+   --chrome-h is the fixed banner + navbar + ticker + bottom bar, measured by
+   home.js. The hero then targets the remaining viewport height, and the Pulse
+   card is sized from that height rather than a fixed width, so the whole
+   first look lands inside one screen at any window size. */
+
+.hp {
+  min-height: calc(100svh - var(--chrome-h, 190px));
+  display: flex;
+  align-items: center;
+  /* Tighten vertically on short viewports; stay generous on tall ones. */
+  padding-block: clamp(18px, 4svh, 74px);
+}
+.hp-grid { width: 100%; }
+
+.hp-stage-wrap .pulse-stage,
+.hp-stage-wrap #pulseStage {
+  /* Height-driven: 9:16 keeps the width in step. */
+  height: min(calc(100svh - var(--chrome-h, 190px) - 92px), 620px);
+  max-height: 620px;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+}
+
+/* Compress the left column's rhythm as the viewport gets shorter. */
+@media (min-width: 940px) {
+  .hp-title  { font-size: clamp(1.85rem, min(5.6vw, 5.2svh), 3.5rem); margin-bottom: clamp(8px, 1.4svh, 16px); }
+  .hp-lede   { margin-bottom: clamp(12px, 2.4svh, 26px); font-size: clamp(0.94rem, 2svh, 1.14rem); }
+  .hp-eyebrow{ margin-bottom: clamp(8px, 1.8svh, 20px); }
+  .hp-proof  { margin: clamp(12px, 2.4svh, 26px) 0 clamp(12px, 2.2svh, 24px); }
+  .hp-proof-tile { padding: clamp(9px, 1.6svh, 14px) 15px; }
+  .hp-proof-tile span { font-size: 0.76rem; }
+}
+
+/* ── mobile: Pulse first, then the city box ─────────────────────────
+   On a phone the reel is the pitch, so it leads; the city box sits directly
+   under it where a thumb is already resting. The supporting copy and proof
+   tiles move below, out of the first screen. */
+@media (max-width: 939px) {
+  .hp {
+    min-height: 0;
+    padding-block: 14px 26px;
+  }
+  .hp-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hp-right { order: 1; }
+  .hp-left  { order: 2; display: flex; flex-direction: column; }
+
+  /* Within the left column, the search jumps above the headline copy. */
+  .hp-left .hp-town      { order: 1; margin-bottom: 6px; }
+  .hp-left .hp-town-hint { order: 2; margin-bottom: 14px; }
+  .hp-left .hp-eyebrow   { order: 3; }
+  .hp-left .hp-title     { order: 4; font-size: clamp(1.6rem, 7vw, 2.1rem); }
+  .hp-left .hp-lede      { order: 5; }
+  .hp-left .hp-proof     { order: 6; }
+  .hp-left .hp-actions   { order: 7; }
+  .hp-left .hp-platforms { order: 8; }
+
+  .hp-stage-wrap .pulse-stage,
+  .hp-stage-wrap #pulseStage {
+    /* Reserve the reel caption (~30px), the gap, and the city box (~52px) so
+       the search lands above the fold — the whole point of this order. */
+    height: min(calc(100svh - var(--chrome-h, 210px) - 168px), 540px);
+    margin-inline: auto;
+  }
+  .hp-stage-caption { margin-top: 10px; }
+  /* The dropdown must clear the reel above it. */
+  .hp-ac { max-height: 240px; }
+}
+
+/* ── short viewports: keep the whole first view on one screen ────────
+   At 1440x800 the hero needed 701px but only 588px was free, and the three
+   proof tiles alone were 220px of it. Rather than drop the message, collapse
+   them to one line of title-only pills (~45px) — same three claims, a fifth of
+   the height. Tall screens keep the full cards. */
+@media (min-width: 940px) and (max-height: 1050px) {
+  .hp-proof {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    max-width: none;
+    margin: clamp(10px, 1.8svh, 18px) 0 clamp(10px, 1.8svh, 18px);
+  }
+  .hp-proof-tile {
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--bg-card);
+  }
+  .hp-proof-tile strong {
+    margin-bottom: 0;
+    font-size: 0.84rem;
+    white-space: nowrap;
+  }
+  .hp-proof-tile span { display: none; }   /* the detail lives in the blend section */
+  .hp-platforms { margin-top: 9px; font-size: 0.76rem; }
+  .hp-town-hint { font-size: 0.78rem; }
+}
+
+/* Very short (a 13" laptop with browser chrome + our banner): also trim the
+   secondary line so nothing spills. */
+@media (min-width: 940px) and (max-height: 760px) {
+  .hp-lede { display: none; }
+}

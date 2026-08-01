@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQQCZ7SLN5"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live News Wall — Local, National, World &amp; Trending Headlines | InSnaps</title>
+  <meta name="description" content="A continuously updating wall of local, national and world headlines — refreshed every 30 minutes, from the same sources the InSnaps app reads.">
+  <meta name="keywords" content="live news, breaking news headlines, trending news today, local news, world news wall">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://insnaps.app/live/">
+  <link rel="icon" type="image/png" href="/logo.png">
+  <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
+  <meta name="apple-itunes-app" content="app-id=6762338049">
+  <meta property="og:title" content="Live News Wall | InSnaps : Swipe &amp; Share Global News">
+  <meta property="og:description" content="Local, national, world and trending headlines — updated through the day.">
+  <meta property="og:url" content="https://insnaps.app/live/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://insnaps.app/insnaps_og.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/city.css">
+  <script defer src="/city.js"></script>
+  <link rel="stylesheet" href="/livecards.css">
+  <script defer src="/livecards.js"></script>
+</head>
+<body>
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="InSnaps : Swipe &amp; Share Global News" class="nav-logo-icon" width="32" height="32">
+        <span class="nav-logo-text">InSnaps</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#blend">How it works</a>
+        <a href="/live/">Live</a>
+        <a href="/answers/">Answers</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&amp;hl=en_IN" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
+      </div>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="live-page">
+    <div class="container">
+      <header class="live-head">
+        <span class="live-eyebrow"><span class="live-dot"></span>Live wall</span>
+        <h1>Today's headlines, as they land</h1>
+        <p class="live-lede">Local, national, world and trending stories pulled together in one wall — the same mix the InSnaps app builds around your city. Headlines only; every card opens the publisher's own page.</p>
+        <p class="live-updated" id="liveUpdated" aria-live="polite"></p>
+      </header>
+
+      <div class="live-filters" id="liveFilters" role="group" aria-label="Filter headlines by tier"></div>
+
+      <div class="live-wall" id="liveWall"></div>
+      <div class="live-more" id="liveMore" hidden><button type="button" id="liveMoreBtn">Show more headlines</button></div>
+
+      <div class="live-status" id="liveStatus">
+        <div class="live-spinner"></div>
+        <p>Loading the latest headlines…</p>
+      </div>
+
+      <section class="live-appcta">
+        <h2>This is a slice of what the app does</h2>
+        <p>InSnaps builds this feed around your city — swipe to read, listen to narrated reels, save and share.</p>
+        <div class="live-appcta-row">
+          <a href="https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049" target="_blank" rel="noopener" data-cta="app_store">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree" target="_blank" rel="noopener" data-cta="play_store">Google Play</a>
+          <a href="/conflicts/" class="is-ghost" data-cta="conflicts">Browse conflict hubs</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><div class="footer-bottom">
+      <p>&copy; 2026 InSnaps : Swipe &amp; Share Global News &middot; <a href="/live/">Live</a> &middot; <a href="/conflicts/">Conflicts</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/privacy/">Privacy</a></p>
+    </div></div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ── chrome: theme + mobile nav (same pattern as the rest of the site) ──
+      var html = document.documentElement;
+      var toggle = document.getElementById('themeToggle');
+      var stored = localStorage.getItem('insnaps-theme');
+      html.setAttribute('data-theme', (stored === 'light' || stored === 'dark') ? stored : 'light');
+      toggle.addEventListener('click', function () {
+        var n = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', n);
+        localStorage.setItem('insnaps-theme', n);
+      });
+      var burger = document.getElementById('navHamburger');
+      var navLinks = document.getElementById('navLinks');
+      if (burger && navLinks) {
+        burger.addEventListener('click', function () {
+          burger.classList.toggle('open');
+          navLinks.classList.toggle('open');
+          document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+        });
+      }
+
+      function track(name, params) {
+        if (window.gtag) gtag('event', name, params || {});
+      }
+
+      // ── helpers ───────────────────────────────────────────────────────
+      var TEMPLATE_PATH = '/assets/pulse/';
+      var PAGE = 36;
+      var REFRESH_MS = 180000;   // re-pull the static JSON every 3 minutes
+      var TICK_MS = 60000;       // re-stamp the relative times every minute
+
+      // Math.imul, not `h * prime`: the product exceeds 2^53 so a float
+      // multiply would lose precision and diverge from the app (Dart), the
+      // build script (Python) and pulse.js.
+      function fnv1a(s) {
+        var h = 0x811c9dc5;
+        for (var i = 0; i < s.length; i++) {
+          h ^= s.charCodeAt(i);
+          h = Math.imul(h, 0x01000193) >>> 0;
+        }
+        return h >>> 0;
+      }
+
+      var LAYOUTS = ['fullbleed', 'bold', 'glass', 'newspaper', 'gradient', 'compact', 'magazine', 'neon'];
+      // Layouts that have no image slot at all — a story with a picture should
+      // not be forced into one, and vice versa.
+      var TEXT_ONLY = { bold: 1, gradient: 1 };
+
+      function layoutFor(id) { return LAYOUTS[fnv1a(String(id)) % LAYOUTS.length]; }
+
+      function escapeHtml(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      function relativeTime(iso) {
+        if (!iso) return '';
+        var then = Date.parse(iso);
+        if (isNaN(then)) return '';
+        var mins = Math.max(0, Math.round((Date.now() - then) / 60000));
+        if (mins < 1) return 'just now';
+        if (mins < 60) return mins + 'm ago';
+        var h = Math.round(mins / 60);
+        if (h < 24) return h + 'h ago';
+        return Math.round(h / 24) + 'd ago';
+      }
+
+      function safeUrl(u) {
+        var s = String(u || '');
+        return /^https?:\/\//i.test(s) ? s : '';
+      }
+
+      var TIER_LABEL = { local: 'Local', national: 'National', world: 'World', trending: 'Trending' };
+
+      /* The city the visitor picked anywhere on the site. Read from storage
+         directly rather than through window.InSnapsCity: this inline script runs
+         during parsing, while city.js is deferred and therefore executes later,
+         so the API is not there yet. city.js owns the same key. */
+      function readStoredCity() {
+        try {
+          var c = JSON.parse(localStorage.getItem('insnaps-city') || 'null');
+          return (c && c.city && c.cc) ? c : null;
+        } catch (_) { return null; }
+      }
+      var chosen = readStoredCity();
+
+      // slugify() drops diacritics, so "Tromsø" would miss tromso.json; fold first.
+      var FOLD = { 'ø': 'o', 'Ø': 'o', 'æ': 'ae', 'Æ': 'ae', 'ß': 'ss', 'đ': 'd',
+                   'ð': 'd', 'þ': 'th', 'ł': 'l', 'ı': 'i', 'œ': 'oe', 'Œ': 'oe' };
+      function asciiSlug(text) {
+        var t = String(text || '').replace(/[øØæÆßđðþłıœŒ]/g, function (c) { return FOLD[c] || c; });
+        if (t.normalize) t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return t.trim().toLowerCase().replace(/[\s_]+/g, '-')
+          .replace(/[^a-z0-9-]/g, '').replace(/-{2,}/g, '-').replace(/^-|-$/g, '').slice(0, 64);
+      }
+      var CC_NAME = {
+        IN: 'India', US: 'United States', GB: 'United Kingdom', AU: 'Australia',
+        CA: 'Canada', AE: 'United Arab Emirates', SG: 'Singapore', ZA: 'South Africa'
+      };
+
+      function fetchJson(path) {
+        return fetch(path, { cache: 'no-store' }).then(function (r) {
+          if (!r.ok) throw new Error(path + ' -> ' + r.status);
+          return r.json();
+        });
+      }
+      function softJson(path) {
+        return fetchJson(path).catch(function () { return null; });
+      }
+
+      // ── DOM ───────────────────────────────────────────────────────────
+      var wallEl = document.getElementById('liveWall');
+      var statusEl = document.getElementById('liveStatus');
+      var filtersEl = document.getElementById('liveFilters');
+      var updatedEl = document.getElementById('liveUpdated');
+      var moreEl = document.getElementById('liveMore');
+      var moreBtn = document.getElementById('liveMoreBtn');
+
+      var allCards = [];
+      var generatedAt = null;
+      var activeTier = 'all';
+      var shown = 0;
+      var didTrackView = false;
+      var loadFailed = false;
+
+      // ── load ──────────────────────────────────────────────────────────
+      function normalize(c, tier, extra) {
+        var url = safeUrl(c.url);
+        if (!c || !c.title || !url) return null;
+        var template = TEMPLATE_PATH + (c.template || 'bt_01') + '.webp';
+        return {
+          id: String(c.id || url),
+          title: String(c.title),
+          source: c.source || '',
+          url: url,
+          publishedAt: c.publishedAt || '',
+          ts: Date.parse(c.publishedAt || '') || 0,
+          image: c.image || null,
+          template: template,
+          tier: c.tier || tier,
+          place: c.place || (extra && extra.place) || null,
+          topic: c.topic || null,
+          traffic: c.traffic || null,
+          slug: c.slug || null
+        };
+      }
+
+      function newest(a, b) {
+        if (!a) return b;
+        if (!b) return a;
+        return (Date.parse(a) || 0) >= (Date.parse(b) || 0) ? a : b;
+      }
+
+      function load() {
+        // towns-index tells us which town files actually exist, so we never
+        // fire a request we know will 404.
+        return softJson('/_data/live/towns-index.json').then(function (idx) {
+          var towns = [];
+          if (idx && idx.towns) {
+            Object.keys(idx.towns).forEach(function (slug) {
+              var t = idx.towns[slug];
+              if (t && t.n > 0) towns.push({ slug: slug, name: t.name, cc: t.cc, n: t.n });
+            });
+            // With a city chosen, that city IS the local tier — showing a dozen
+            // unrelated towns instead would be noise. Without one we know
+            // neither city nor country, so there is no honest local tier at all.
+            if (chosen) {
+              var want = asciiSlug(chosen.city);
+              towns = towns.filter(function (t) { return t.slug === want; });
+              if (!towns.length) towns = [{ slug: want, name: chosen.city, cc: chosen.cc, n: 1 }];
+            } else {
+              towns = [];
+            }
+          }
+          return Promise.all([
+            softJson('/_data/live/world.json'),
+            softJson('/_data/live/countries.json'),
+            softJson('/_data/live/trending.json'),
+            Promise.all(towns.map(function (t) {
+              return softJson('/_data/live/towns/' + encodeURIComponent(t.slug) + '.json');
+            }))
+          ]).then(function (res) {
+            var world = res[0], countries = res[1], trending = res[2], townFiles = res[3];
+            // Every source is soft-failed individually so one bad file can't
+            // blank the wall — but if none of them came back, that's an error,
+            // not an empty day.
+            loadFailed = !world && !countries && !trending;
+            var seen = {};
+            var out = [];
+            var gen = null;
+
+            function push(card) {
+              if (!card) return;
+              if (seen[card.id]) return;
+              seen[card.id] = 1;
+              out.push(card);
+            }
+
+            if (world) {
+              gen = newest(gen, world.generatedAt);
+              (world.cards || []).forEach(function (c) { push(normalize(c, 'world')); });
+            }
+            // National is a claim about a specific country, so it needs the
+            // country the visitor actually chose — not every country we cache.
+            if (countries && countries.countries && chosen && chosen.cc) {
+              gen = newest(gen, countries.generatedAt);
+              (countries.countries[chosen.cc] || []).forEach(function (c) {
+                push(normalize(c, 'national', { place: chosen.country || CC_NAME[chosen.cc] || chosen.cc }));
+              });
+            }
+            if (trending && trending.geos) {
+              gen = newest(gen, trending.generatedAt);
+              var geoKeys = (chosen && chosen.cc && trending.geos[chosen.cc]) ? [chosen.cc] : ['US'];
+              geoKeys.forEach(function (cc) {
+                (trending.geos[cc] || []).slice(0, 10).forEach(function (c) {
+                  push(normalize(c, 'trending', { place: CC_NAME[cc] || cc }));
+                });
+              });
+            }
+            (townFiles || []).forEach(function (t) {
+              if (!t) return;
+              gen = newest(gen, t.updatedAt);
+              (t.cards || []).slice(0, 6).forEach(function (c) {
+                push(normalize(c, 'local', { place: t.name }));
+              });
+            });
+
+            out.sort(function (a, b) { return b.ts - a.ts; });
+            allCards = out;
+            generatedAt = gen;
+            return out;
+          });
+        });
+      }
+
+      // ── render ────────────────────────────────────────────────────────
+      function tierBadge(c) {
+        var label = c.tier === 'local' || c.tier === 'national'
+          ? (c.place || TIER_LABEL[c.tier] || c.tier)
+          : (TIER_LABEL[c.tier] || c.tier);
+        return '<span class="live-tier" data-tier="' + escapeHtml(c.tier) + '">' + escapeHtml(label) + '</span>';
+      }
+
+      function kicker(c) {
+        return '<div class="live-kicker">' + tierBadge(c) +
+          (c.traffic ? '<span class="live-traffic">' + escapeHtml(c.traffic) + ' searches</span>' : '') +
+          '</div>';
+      }
+
+      var OUT_ICON = '<span class="live-out" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" ' +
+        'stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>' +
+        '<polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>';
+
+      function metaRow(c) {
+        var bits = [];
+        if (c.source) bits.push('<span class="live-source">' + escapeHtml(c.source) + '</span>');
+        var rel = relativeTime(c.publishedAt);
+        if (rel) bits.push('<span class="live-time" data-at="' + escapeHtml(c.publishedAt) + '">' + escapeHtml(rel) + '</span>');
+        return '<div class="live-meta">' + bits.join('<span class="live-sep" aria-hidden="true">&middot;</span>') + OUT_ICON + '</div>';
+      }
+
+      function media(c, eager) {
+        var src = c.image || c.template;
+        return '<div class="live-media"><img src="' + escapeHtml(src) + '" alt="" ' +
+          'data-fallback="' + escapeHtml(c.template) + '" ' +
+          'loading="' + (eager ? 'eager' : 'lazy') + '" decoding="async"></div>';
+      }
+
+      function title(c) { return '<h3 class="live-title">' + escapeHtml(c.title) + '</h3>'; }
+
+      // Card markup now lives in /livecards.js so /live/ and the homepage share
+      // one implementation. Kept as thin wrappers so the rest of this file is
+      // unchanged.
+      function cardHtml(c, layout, eager) {
+        return window.InSnapsLiveCards.cardHtml(c, eager, layout);
+      }
+      function pickLayout(c) { return window.InSnapsLiveCards.pickLayout(c); }
+      function wireImages(scope) { return window.InSnapsLiveCards.wireImages(scope); }
+
+      function __unusedCardHtml(c, layout, eager) {
+        var inner;
+        if (layout === 'fullbleed') {
+          inner = media(c, eager) + '<div class="live-body">' + kicker(c) + title(c) + metaRow(c) + '</div>';
+        } else if (layout === 'glass') {
+          inner = media(c, eager) + '<div class="live-body">' + kicker(c) + title(c) + metaRow(c) + '</div>';
+        } else if (layout === 'newspaper') {
+          var slug = [(c.place || TIER_LABEL[c.tier] || ''), c.source].filter(Boolean).join(' — ');
+          inner = '<div class="live-rule"></div>' +
+            '<div class="live-slugline">' + escapeHtml(slug) + '</div>' +
+            title(c) + (c.image ? media(c, eager) : '') + metaRow(c);
+        } else if (layout === 'compact') {
+          inner = media(c, eager) + '<div class="live-body">' + kicker(c) + title(c) + metaRow(c) + '</div>';
+        } else if (layout === 'magazine') {
+          inner = '<div class="live-mediawrap">' + kicker(c) + media(c, eager) + '</div>' +
+            '<div class="live-body">' + title(c) + metaRow(c) + '</div>';
+        } else if (layout === 'neon') {
+          inner = (c.image ? media(c, eager) : '') + kicker(c) + title(c) + metaRow(c);
+        } else {
+          // bold / gradient — typography only, no image slot
+          inner = kicker(c) + title(c) + metaRow(c);
+        }
+        return '<a class="live-card" data-layout="' + layout + '" data-tier="' + escapeHtml(c.tier) + '" ' +
+          'data-id="' + escapeHtml(c.id) + '" href="' + escapeHtml(c.url) + '" ' +
+          'target="_blank" rel="noopener nofollow">' + inner + '</a>';
+      }
+
+      function __unusedPickLayout(c) {
+        var l = layoutFor(c.id);
+        // Keep the wall honest: a story with a real photo gets a layout that
+        // can show it; a template-only story is nudged off the photo layouts
+        // that would otherwise be mostly filler artwork.
+        if (!c.image && (l === 'fullbleed' || l === 'magazine' || l === 'glass')) {
+          l = LAYOUTS[fnv1a('t' + c.id) % 2 === 0 ? 1 : 4];   // bold | gradient
+        }
+        if (c.image && TEXT_ONLY[l]) l = 'compact';
+        return l;
+      }
+
+      function filtered() {
+        if (activeTier === 'all') return allCards;
+        return allCards.filter(function (c) { return c.tier === activeTier; });
+      }
+
+      function renderChips() {
+        var counts = { all: allCards.length, local: 0, national: 0, world: 0, trending: 0 };
+        allCards.forEach(function (c) {
+          if (counts[c.tier] != null) counts[c.tier]++;
+        });
+        var order = [['all', 'All'], ['local', 'Local'], ['national', 'National'], ['world', 'World'], ['trending', 'Trending']];
+        filtersEl.innerHTML = order.map(function (p) {
+          var n = counts[p[0]] || 0;
+          return '<button type="button" class="live-chip" data-tier="' + p[0] + '" ' +
+            'aria-pressed="' + (activeTier === p[0] ? 'true' : 'false') + '"' +
+            (n === 0 && p[0] !== 'all' ? ' disabled' : '') + '>' +
+            p[1] + '<span class="live-chip-n">' + n + '</span></button>';
+        }).join('');
+      }
+
+      function __unusedWireImages(scope) {
+        var imgs = scope.querySelectorAll('img[data-fallback]');
+        for (var i = 0; i < imgs.length; i++) {
+          (function (img) {
+            img.addEventListener('error', function () {
+              var fb = img.getAttribute('data-fallback');
+              if (fb && img.getAttribute('src') !== fb) img.setAttribute('src', fb);
+            });
+          })(imgs[i]);
+        }
+      }
+
+      function renderPage(reset) {
+        var list = filtered();
+        if (reset) {
+          wallEl.innerHTML = '';
+          shown = 0;
+        }
+        var slice = list.slice(shown, shown + PAGE);
+        var html = slice.map(function (c, i) {
+          return cardHtml(c, pickLayout(c), shown === 0 && i < 4);
+        }).join('');
+        var frag = document.createElement('div');
+        frag.innerHTML = html;
+        wireImages(frag);
+        while (frag.firstChild) wallEl.appendChild(frag.firstChild);
+        shown += slice.length;
+        moreEl.hidden = shown >= list.length;
+      }
+
+      function renderStatus(kind) {
+        if (kind === 'ok') {
+          statusEl.hidden = true;
+          statusEl.innerHTML = '';
+          return;
+        }
+        statusEl.hidden = false;
+        moreEl.hidden = true;
+        if (kind === 'empty') {
+          statusEl.innerHTML =
+            '<h2>No headlines in this slice right now</h2>' +
+            '<p>The wall refreshes through the day. Try another filter, or open the app for a feed built around your own city.</p>' +
+            '<button type="button" class="live-retry">Reload</button>';
+        } else {
+          statusEl.innerHTML =
+            '<h2>Couldn’t load the headline feed</h2>' +
+            '<p>The live snapshot didn’t come back this time. It’s a static file, so a reload usually fixes it.</p>' +
+            '<button type="button" class="live-retry">Try again</button>';
+        }
+        var btn = statusEl.querySelector('.live-retry');
+        if (btn) btn.addEventListener('click', function () { boot(true); });
+      }
+
+      function renderUpdated() {
+        if (!generatedAt) { updatedEl.textContent = ''; return; }
+        var rel = relativeTime(generatedAt);
+        updatedEl.innerHTML = 'Updated <b>' + escapeHtml(rel || 'just now') + '</b>' +
+          '<span class="live-sep" aria-hidden="true">&middot;</span>' +
+          '<span>' + allCards.length + ' headlines</span>' +
+          '<span class="live-sep" aria-hidden="true">&middot;</span>' +
+          '<span>headlines link to the publisher</span>';
+      }
+
+      function renderAll(reset) {
+        renderChips();
+        if (!allCards.length) {
+          wallEl.innerHTML = '';
+          renderStatus(loadFailed ? 'error' : 'empty');
+          renderUpdated();
+          return;
+        }
+        if (!filtered().length) { wallEl.innerHTML = ''; renderStatus('empty'); renderUpdated(); return; }
+        renderStatus('ok');
+        renderPage(reset !== false);
+        renderUpdated();
+      }
+
+      // ── events ────────────────────────────────────────────────────────
+      filtersEl.addEventListener('click', function (e) {
+        var chip = e.target.closest('.live-chip');
+        if (!chip || chip.disabled) return;
+        var t = chip.getAttribute('data-tier');
+        if (t === activeTier) return;
+        activeTier = t;
+        track('live_wall_filter', { tier: t, count: filtered().length });
+        renderAll(true);
+        window.scrollTo({ top: Math.max(0, filtersEl.getBoundingClientRect().top + window.pageYOffset - 90), behavior: 'smooth' });
+      });
+
+      moreBtn.addEventListener('click', function () {
+        track('live_wall_show_more', { tier: activeTier, shown: shown });
+        renderPage(false);
+      });
+
+      wallEl.addEventListener('click', function (e) {
+        var card = e.target.closest('.live-card');
+        if (!card) return;
+        track('live_wall_headline_click', {
+          tier: card.getAttribute('data-tier') || 'unknown',
+          layout: card.getAttribute('data-layout') || 'unknown',
+          card_id: card.getAttribute('data-id') || '',
+          filter: activeTier
+        });
+      });
+
+      document.querySelectorAll('.live-appcta-row a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          track('live_wall_cta_click', { dest: a.getAttribute('data-cta') || 'unknown' });
+        });
+      });
+
+      // ── boot + keep fresh ─────────────────────────────────────────────
+      function boot(isRetry) {
+        if (isRetry) {
+          statusEl.hidden = false;
+          statusEl.innerHTML = '<div class="live-spinner"></div><p>Loading the latest headlines…</p>';
+        }
+        load().then(function (cards) {
+          renderAll(true);
+          if (!didTrackView) {
+            didTrackView = true;
+            track('live_wall_view', { total: cards.length, generated_at: generatedAt || 'unknown' });
+          }
+        }).catch(function () {
+          allCards = [];
+          wallEl.innerHTML = '';
+          renderChips();
+          renderStatus('error');
+        });
+      }
+
+      boot(false);
+
+      // Relative times go stale while the tab sits open.
+      setInterval(function () {
+        var times = wallEl.querySelectorAll('.live-time');
+        for (var i = 0; i < times.length; i++) {
+          var rel = relativeTime(times[i].getAttribute('data-at'));
+          if (rel) times[i].textContent = rel;
+        }
+        renderUpdated();
+      }, TICK_MS);
+
+      // Re-pull the snapshot; only repaint if the build actually moved on.
+      setInterval(function () {
+        if (document.hidden) return;
+        var was = generatedAt;
+        var wasCount = allCards.length;
+        load().then(function () {
+          if (generatedAt === was && allCards.length === wasCount) return;
+          renderAll(true);
+          track('live_wall_refresh', { total: allCards.length });
+        }).catch(function () { /* keep what is on screen */ });
+      }, REFRESH_MS);
+
+      // Changing the city anywhere on the site rebuilds this wall, since the
+      // local and national tiers are defined by that choice.
+      function subscribeCity() {
+        if (!window.InSnapsCity) return false;
+        window.InSnapsCity.onChange(function (city) {
+          chosen = city || null;
+          load().then(function () {
+            renderAll(true);
+            track('live_wall_city_change', { city: (city && city.city) || 'cleared' });
+          }).catch(function () {});
+        });
+        return true;
+      }
+      // city.js is deferred, so it may not exist yet at parse time.
+      if (!subscribeCity()) {
+        window.addEventListener('DOMContentLoaded', subscribeCity);
+      }
+    })();
+  </script>
+</body>
+</html>

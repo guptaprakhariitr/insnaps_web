@@ -5,26 +5,31 @@
 /* --- Theme Variables --- */
 :root,
 [data-theme="dark"] {
-  --bg: #050505;
-  --bg-secondary: #0d0d0d;
-  --bg-card: #141414;
-  --bg-card-hover: #1a1a1a;
-  --fg: #f5f5f7;
-  --fg-secondary: #a1a1a6;
-  --fg-muted: #6e6e73;
-  --accent: #14b8a6;
-  --accent-light: #2dd4bf;
-  --accent-glow: rgba(20, 184, 166, 0.12);
-  --accent-glow-strong: rgba(20, 184, 166, 0.25);
+  --bg: #0a0e17;
+  --bg-secondary: #0e1420;
+  --bg-card: #121820;
+  --bg-card-hover: #171f2a;
+  --fg: #f5f7fa;
+  --fg-secondary: #a3adbb;
+  --fg-muted: #6b7684;
+  /* App palette (lib/theme/app_theme.dart). #FF6B35 is 6.81:1 on this bg. */
+  --accent: #ff6b35;
+  --accent-light: #ff8c5a;
+  --accent-cyan: #00d9ff;
+  --accent-gold: #ffd93d;
+  --accent-red: #ff4757;
+  --on-accent: #0a0e17;
+  --accent-glow: rgba(255, 107, 53, 0.14);
+  --accent-glow-strong: rgba(255, 107, 53, 0.28);
   --border: rgba(255, 255, 255, 0.06);
   --border-strong: rgba(255, 255, 255, 0.12);
   --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.3);
   --shadow-elevated: 0 8px 60px rgba(0, 0, 0, 0.5);
-  --shadow-phone: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(20, 184, 166, 0.08);
+  --shadow-phone: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 107, 53, 0.10);
   --gradient-subtle: linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  --nav-bg: rgba(5, 5, 5, 0.8);
+  --nav-bg: rgba(10, 14, 23, 0.82);
   --review-bg: var(--bg-card);
 }
 
@@ -36,15 +41,22 @@
   --fg: #1d1d1f;
   --fg-secondary: #6e6e73;
   --fg-muted: #86868b;
-  --accent: #0d9488;
-  --accent-light: #14b8a6;
-  --accent-glow: rgba(13, 148, 136, 0.08);
-  --accent-glow-strong: rgba(13, 148, 136, 0.15);
+  /* Orange has to be darkened for text on white: #FF6B35 is only 2.84:1,
+     #C8481A is 4.78:1 and passes AA. Fills still use the bright brand orange
+     with dark text on top (6.81:1) rather than white (2.84:1). */
+  --accent: #c8481a;
+  --accent-light: #ff6b35;
+  --accent-cyan: #0090a8;
+  --accent-gold: #a67c00;
+  --accent-red: #d92d3c;
+  --on-accent: #0a0e17;
+  --accent-glow: rgba(200, 72, 26, 0.09);
+  --accent-glow-strong: rgba(200, 72, 26, 0.18);
   --border: rgba(0, 0, 0, 0.06);
   --border-strong: rgba(0, 0, 0, 0.1);
   --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.06);
   --shadow-elevated: 0 8px 60px rgba(0, 0, 0, 0.1);
-  --shadow-phone: 0 25px 80px rgba(0, 0, 0, 0.15), 0 0 60px rgba(13, 148, 136, 0.06);
+  --shadow-phone: 0 25px 80px rgba(0, 0, 0, 0.15), 0 0 60px rgba(200, 72, 26, 0.07);
   --gradient-subtle: linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
   --nav-bg: rgba(255, 255, 255, 0.85);
   --review-bg: var(--bg-secondary);
@@ -70,6 +82,9 @@
   transition: transform 0.3s ease;
 }
 .app-banner.visible { transform: translateY(0); }
+/* --banner-h is set by script.js from the banner's real height (0 when hidden),
+   so the navbar and ticker shift down instead of being covered. */
+:root { --banner-h: 0px; }
 .app-banner.hidden { display: none; }
 .app-banner-text { white-space: nowrap; }
 .app-banner-btn {
@@ -122,7 +137,7 @@
 /* --- Conflict Tags as Links --- */
 .region-tags a {
   background: var(--accent-glow);
-  border: 1px solid rgba(20, 184, 166, 0.15);
+  border: 1px solid rgba(255, 107, 53, 0.15);
   color: var(--accent);
   font-size: 0.8rem;
   font-weight: 500;
@@ -132,7 +147,7 @@
   transition: background 0.2s, border-color 0.2s;
 }
 .region-tags a:hover {
-  background: rgba(20, 184, 166, 0.2);
+  background: rgba(255, 107, 53, 0.2);
   border-color: var(--accent);
 }
 
@@ -185,7 +200,8 @@ a:hover { color: var(--accent-light); }
 /* --- Navigation --- */
 .navbar {
   position: fixed;
-  top: 0;
+  top: var(--banner-h, 0px);
+  transition: top 0.3s ease;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -320,13 +336,13 @@ a:hover { color: var(--accent-light); }
   font-weight: 600;
   font-size: 0.95rem;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 24px rgba(20, 184, 166, 0.3);
+  box-shadow: 0 4px 24px rgba(255, 107, 53, 0.3);
 }
 .btn-primary:hover {
   background: var(--accent-light);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 6px 30px rgba(20, 184, 166, 0.4);
+  box-shadow: 0 6px 30px rgba(255, 107, 53, 0.4);
 }
 .btn-primary svg { width: 20px; height: 20px; }
 .btn-large { padding: 1.1rem 2.5rem; font-size: 1.05rem; }
@@ -459,7 +475,7 @@ a:hover { color: var(--accent-light); }
   font-weight: 600;
   color: var(--accent);
   background: var(--accent-glow);
-  border: 1px solid rgba(20, 184, 166, 0.2);
+  border: 1px solid rgba(255, 107, 53, 0.2);
   padding: 0.4rem 1rem;
   border-radius: 999px;
   margin-bottom: 1.5rem;
@@ -1098,7 +1114,7 @@ a:hover { color: var(--accent-light); }
 }
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 1.5rem;
 }
 .review-card {
@@ -1220,7 +1236,9 @@ a:hover { color: var(--accent-light); }
 }
 .conflicts-regions {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* min() so the 300px track can shrink below the viewport on narrow phones —
+     a fixed 300px minimum overflowed the page at 320px. */
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 1.5rem;
 }
 .region-block {
@@ -1242,7 +1260,7 @@ a:hover { color: var(--accent-light); }
 }
 .region-tags span {
   background: var(--accent-glow);
-  border: 1px solid rgba(20, 184, 166, 0.15);
+  border: 1px solid rgba(255, 107, 53, 0.15);
   color: var(--accent);
   font-size: 0.8rem;
   font-weight: 500;
@@ -1398,7 +1416,7 @@ a:hover { color: var(--accent-light); }
   border-radius: 999px;
   font-weight: 700;
   font-size: 0.88rem;
-  box-shadow: 0 6px 28px rgba(20, 184, 166, 0.45), 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 28px rgba(255, 107, 53, 0.45), 0 2px 8px rgba(0,0,0,0.2);
   transition: background 0.2s, transform 0.25s, box-shadow 0.25s, opacity 0.4s;
   opacity: 0;
   transform: translateY(20px);
@@ -1413,7 +1431,7 @@ a:hover { color: var(--accent-light); }
   background: var(--accent-light);
   color: white;
   transform: translateY(-3px);
-  box-shadow: 0 10px 36px rgba(20, 184, 166, 0.55), 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 36px rgba(255, 107, 53, 0.55), 0 4px 12px rgba(0,0,0,0.15);
 }
 .fab-download:active {
   transform: translateY(0);
@@ -2436,8 +2454,8 @@ a:hover { color: var(--accent-light); }
 
 /* Smooth CTA glow pulse */
 @keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.15); }
-  50% { box-shadow: 0 0 40px rgba(20, 184, 166, 0.35); }
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.15); }
+  50% { box-shadow: 0 0 40px rgba(255, 107, 53, 0.35); }
 }
 .cta-final .btn-primary {
   animation: ctaGlow 3s ease-in-out infinite;
@@ -2453,7 +2471,7 @@ a:hover { color: var(--accent-light); }
   overflow: hidden;
   display: flex;
   align-items: center;
-  margin-top: 64px;
+  margin-top: calc(64px + var(--banner-h, 0px));
   width: 100%;
   max-width: 100vw;
   box-sizing: border-box;
@@ -2623,7 +2641,7 @@ a:hover { color: var(--accent-light); }
 .pricing { padding: 5rem 0; }
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
   max-width: 720px;
   margin: 0 auto;
