@@ -1,0 +1,359 @@
+/* Pulse — the web port of the app's reels mode (lib/widgets/reels/*).
+   Visual vocabulary is copied from the app so the two feel like one product:
+   9:16 full-bleed card, blurred backdrop behind non-filling images, Ken Burns
+   motion, typed caption, narration progress bar, breaking-news light effects. */
+
+.pulse-stage {
+  --pulse-radius: 22px;
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--pulse-radius);
+  overflow: hidden;
+  background: #05070c;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  isolation: isolate;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+@media (min-width: 900px) {
+  .pulse-stage { max-width: 420px; }
+}
+
+/* ── slides ─────────────────────────────────────────────────────── */
+
+.pulse-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 380ms ease;
+  pointer-events: none;
+}
+.pulse-slide.is-active { opacity: 1; pointer-events: auto; }
+
+/* Heavily blurred, darkened backdrop so a non-filling image still reaches the
+   card edges — app parity: ImageFilter.blur(28) + Transform.scale(1.15). */
+.pulse-backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(28px) brightness(0.5) saturate(1.1);
+  transform: scale(1.15);
+}
+
+.pulse-image-wrap { position: absolute; inset: 0; overflow: hidden; }
+
+/* Ken Burns. The transform is driven by CSS custom properties the JS sets per
+   card (one of the app's 10 deterministic zoom variants), and the duration is
+   set to the narration estimate so motion and voice finish together. */
+.pulse-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: var(--kb-origin, 50% 50%);
+  transform: scale(var(--kb-from, 1));
+  transition: transform var(--kb-duration, 8s) linear;
+  will-change: transform;
+}
+.pulse-slide.is-active .pulse-image { transform: scale(var(--kb-to, 1.12)); }
+.pulse-stage.is-paused .pulse-image { transition: none; }
+
+/* Template-backed cards fill the frame; real photos are contained over the
+   blurred backdrop so nothing important gets cropped. */
+.pulse-slide[data-template-only="1"] .pulse-image { object-fit: cover; }
+
+/* Legibility scrims, top and bottom. */
+.pulse-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(3, 6, 12, 0.72) 0%, rgba(3, 6, 12, 0) 26%),
+    /* The 44 breaking templates have their own baked-in "LIVE" lower-third, so
+       the bottom scrim has to be opaque enough to bury it behind the caption. */
+    linear-gradient(to top, rgba(3, 6, 12, 0.97) 0%, rgba(3, 6, 12, 0.9) 22%, rgba(3, 6, 12, 0.62) 40%, rgba(3, 6, 12, 0) 62%);
+}
+
+/* ── caption ────────────────────────────────────────────────────── */
+
+.pulse-body {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pulse-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* Dark text on the brand orange: white on #FF6B35 is only 2.84:1, near-black
+   is 6.81:1. Same reason the light theme darkens the accent for text. */
+.pulse-tier {
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: #0a0e17;
+  background: var(--pulse-accent, #ff6b35);
+  box-shadow: 0 0 14px -2px var(--pulse-accent, #ff6b35);
+}
+.pulse-tier[data-tier="local"]    { background: #00d9ff; box-shadow: 0 0 14px -2px #00d9ff; color: #04141a; }
+.pulse-tier[data-tier="national"] { background: #ffd93d; box-shadow: 0 0 14px -2px #ffd93d; color: #1a1503; }
+.pulse-tier[data-tier="world"]    { background: #ff6b35; box-shadow: 0 0 14px -2px #ff6b35; color: #0a0e17; }
+/* The app's #FF4757 only reaches 3.34:1 under white, and a 10.5px bold chip is
+   not "large text", so the fill is deepened to #C81E2B (5.71:1). The glow keeps
+   the brand red. */
+.pulse-tier[data-tier="trending"] { background: #c81e2b; box-shadow: 0 0 14px -2px #ff4757; color: #fff; }
+
+.pulse-traffic { color: rgba(255, 255, 255, 0.82); font-weight: 600; letter-spacing: 0.05em; }
+.pulse-traffic::before { content: "▲ "; color: #4ade80; }
+
+.pulse-caption {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  font-size: clamp(1.14rem, 4.6vw, 1.42rem);
+  line-height: 1.26;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
+  white-space: pre-wrap;
+  min-height: 3.8em;
+}
+
+/* Blinking cursor while the caption is still typing. */
+.pulse-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.14em;
+  background: var(--pulse-accent, #ff6b35);
+  animation: pulse-caret 900ms steps(2, start) infinite;
+}
+.pulse-slide[data-typed="1"] .pulse-caret { display: none; }
+@keyframes pulse-caret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.pulse-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+.pulse-source { font-weight: 600; color: #fff; }
+.pulse-meta a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.28); }
+.pulse-meta a:hover { border-bottom-color: #fff; }
+
+/* ── chrome: progress, controls ──────────────────────────────────── */
+
+.pulse-progress {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  gap: 4px;
+  padding: 10px 12px 0;
+  z-index: 3;
+}
+.pulse-progress-seg {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.26);
+  overflow: hidden;
+}
+.pulse-progress-seg > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #fff;
+  border-radius: 2px;
+}
+/* Widths are driven by inline styles from pulse.js (_beginBar), because an
+   inline declaration has to win over any class rule here — see the comment on
+   _beginBar. Only the finished state is expressed in CSS. */
+.pulse-progress-seg.is-done > i { width: 100% !important; transition: none !important; }
+
+.pulse-controls {
+  position: absolute;
+  top: 26px; right: 12px;
+  z-index: 4;
+  display: flex;
+  gap: 6px;
+}
+.pulse-btn {
+  width: 34px; height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(8, 12, 20, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+.pulse-btn:hover { background: rgba(8, 12, 20, 0.85); transform: scale(1.06); }
+.pulse-btn svg { width: 17px; height: 17px; }
+.pulse-btn .i-on, .pulse-btn .i-off { display: none; }
+.pulse-stage[data-muted="1"] .pulse-btn-mute .i-off { display: block; }
+.pulse-stage[data-muted="0"] .pulse-btn-mute .i-on { display: block; }
+
+/* Centre pause indicator, mirroring the app's 750ms tap feedback. */
+.pulse-pause-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 160ms ease;
+  pointer-events: none;
+}
+.pulse-pause-hint.is-shown { opacity: 1; }
+.pulse-pause-hint span {
+  width: 62px; height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(6, 9, 16, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.pulse-pause-hint svg { width: 26px; height: 26px; color: #fff; }
+
+/* ── breaking-news light effects (5 deterministic variants) ──────── */
+
+.pulse-fx { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.pulse-slide:not(.is-active) .pulse-fx > * { animation-play-state: paused; }
+.pulse-stage.is-paused .pulse-fx > * { animation-play-state: paused; }
+
+/* 0 — light sweep */
+.fx-sweep {
+  position: absolute; inset: -20% -60%;
+  background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.13) 50%, transparent 58%);
+  animation: fx-sweep 4.2s ease-in-out infinite;
+}
+@keyframes fx-sweep { 0% { transform: translateX(-45%); } 100% { transform: translateX(45%); } }
+
+/* 1 — breaking badge */
+.fx-badge {
+  position: absolute; top: 46px; left: 16px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: #ff1744;
+  color: #fff;
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em;
+  animation: fx-badge 1.5s ease-in-out infinite;
+}
+@keyframes fx-badge { 0%,100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+/* 2 — corner glow */
+.fx-corner {
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 40% at 100% 0%, rgba(255,71,87,0.30), transparent 70%);
+  animation: fx-corner 3.4s ease-in-out infinite;
+}
+@keyframes fx-corner { 0%,100% { opacity: 0.35; } 50% { opacity: 0.9; } }
+
+/* 3 — vignette pulse */
+.fx-vignette {
+  position: absolute; inset: 0;
+  box-shadow: inset 0 0 90px 24px rgba(255, 23, 68, 0.24);
+  animation: fx-vignette 2.8s ease-in-out infinite;
+}
+@keyframes fx-vignette { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* 4 — drifting band */
+.fx-band {
+  position: absolute; left: -10%; right: -10%; height: 16%;
+  background: linear-gradient(to bottom, transparent, rgba(0,217,255,0.16), transparent);
+  animation: fx-band 6s linear infinite;
+}
+@keyframes fx-band { 0% { top: -18%; } 100% { top: 104%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-fx { display: none; }
+  .pulse-image { transition: none; }
+  .pulse-progress-seg.is-live > i { transition: none; }
+}
+
+/* ── end card: the deliberate handoff to the app ─────────────────── */
+
+.pulse-end {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 30px 26px;
+  text-align: center;
+  background: linear-gradient(165deg, #0a0e17 0%, #131a26 100%);
+}
+.pulse-stage.is-ended .pulse-end { display: flex; }
+.pulse-end h3 {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.28;
+}
+.pulse-end p { margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.5; max-width: 25ch; }
+.pulse-end-count { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); font-weight: 700; }
+.pulse-end-actions { display: flex; flex-direction: column; gap: 9px; width: 100%; max-width: 250px; margin-top: 4px; }
+.pulse-end-open {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 18px;
+  border: 0; border-radius: 12px;
+  background: #ff6b35; color: #0a0e17;
+  font-family: inherit; font-size: 0.92rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.pulse-end-open:hover { transform: translateY(-1px); box-shadow: 0 10px 26px -8px rgba(255,107,53,0.7); }
+.pulse-end-open svg { width: 17px; height: 17px; }
+.pulse-end-replay {
+  background: none; border: 1px solid rgba(255,255,255,0.24); border-radius: 12px;
+  padding: 10px 18px; color: rgba(255,255,255,0.8);
+  font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.pulse-end-replay:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* ── loading / empty ────────────────────────────────────────────── */
+
+.pulse-status {
+  position: absolute; inset: 0; z-index: 7;
+  display: grid; place-items: center;
+  padding: 24px; text-align: center;
+  background: #0a0e17;
+  color: rgba(255,255,255,0.62);
+  font-size: 0.88rem;
+}
+.pulse-stage.is-ready .pulse-status { display: none; }
+.pulse-spinner {
+  width: 26px; height: 26px; margin: 0 auto 12px;
+  border: 2px solid rgba(255,255,255,0.18);
+  border-top-color: #ff6b35;
+  border-radius: 50%;
+  animation: pulse-spin 800ms linear infinite;
+}
+@keyframes pulse-spin { to { transform: rotate(360deg); } }
