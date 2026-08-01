@@ -32,4 +32,6 @@ AuthKey_*.p8
 ga4-*.json
 
 # --- Local scratch / unreferenced working files ---
+Screenshot *.png
+Screen Shot *.png
 img.png

@@ -4,15 +4,16 @@ on:
   push:
     branches: [insnaps]
     paths:
-      - '_data/**'
+      - '_data/conflicts.json'
       - '_scripts/**'
       - 'build.sh'
       - '**.html'
       - '**.css'
       - '**.js'
   schedule:
-    # Refresh blog RSS content daily at 06:00 UTC
-    - cron: '0 6 * * *'
+    # Refresh the live news layer every 30 minutes. Runs that produce no
+    # content change exit without committing (see the guard below).
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -41,10 +42,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # t/index.html and products/gh-cache.json are also rewritten by build.sh.
-          git add conflicts/ blog/ sitemap.xml insnaps_og.png t/index.html products/gh-cache.json
+          git add conflicts/ blog/ sitemap.xml insnaps_og.png t/index.html products/gh-cache.json _data/live/ _data/answers.json answers/ _content/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: auto-generate conflict pages, blog posts, and sitemap [$(date -u +%Y-%m-%d)]"
+            git commit -m "chore: refresh live news layer, conflict pages, blog posts, and sitemap [$(date -u +'%Y-%m-%d %H:%MZ')]"
             git push
           fi

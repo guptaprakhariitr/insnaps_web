@@ -70,7 +70,7 @@ for c in conflicts:
   <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
   <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">
   <link rel=\"stylesheet\" href=\"/style.css\">
-  <link rel=\"stylesheet\" href=\"/conflict-page.css\">
+  <link rel=\"stylesheet\" href=\"/conflict-page.css\">\n  <link rel=\"stylesheet\" href=\"/city.css\">\n  <script defer src=\"/city.js\"></script>
 </head>
 <body>
   <nav class=\"navbar scrolled\" id=\"navbar\">
@@ -80,10 +80,8 @@ for c in conflicts:
         <span class=\"nav-logo-text\">InSnaps</span>
       </a>
       <div class=\"nav-links\" id=\"navLinks\">
-        <a href=\"/#features\">Features</a>
-        <a href=\"/conflicts/\">Conflicts</a>
-        <a href=\"/blog/\">Blog</a>
-        <a href=\"/partner/\">Partner</a>
+        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/answers/\">Answers</a>\n        <a href=\"/blog/\">Blog</a>\n
+
         <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"nav-cta\">Download Free</a>
       </div>
       <div class=\"nav-right\">
@@ -224,7 +222,7 @@ page = f'''<!DOCTYPE html>
   <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
   <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">
   <link rel=\"stylesheet\" href=\"/style.css\">
-  <link rel=\"stylesheet\" href=\"/conflict-page.css\">
+  <link rel=\"stylesheet\" href=\"/conflict-page.css\">\n  <link rel=\"stylesheet\" href=\"/city.css\">\n  <script defer src=\"/city.js\"></script>
 </head>
 <body>
   <nav class=\"navbar scrolled\" id=\"navbar\">
@@ -233,11 +231,7 @@ page = f'''<!DOCTYPE html>
         <img src=\"/logo.png\" alt=\"InSnaps : Swipe & Share Global News\" class=\"nav-logo-icon\" width=\"32\" height=\"32\">
         <span class=\"nav-logo-text\">InSnaps</span>
       </a>
-      <div class=\"nav-links\" id=\"navLinks\">
-        <a href=\"/#features\">Features</a>
-        <a href=\"/conflicts/\">Conflicts</a>
-        <a href=\"/blog/\">Blog</a>
-        <a href=\"/partner/\">Partner</a>
+      <div class=\"nav-links\" id=\"navLinks\">\n        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/answers/\">Answers</a>\n        <a href=\"/blog/\">Blog</a>\n
         <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"nav-cta\">Download Free</a>
       </div>
       <div class=\"nav-right\">
@@ -339,11 +333,7 @@ cat > blog/index.html << 'BLOGEOF'
         <img src="/logo.png" alt="InSnaps : Swipe & Share Global News" class="nav-logo-icon" width="32" height="32">
         <span class="nav-logo-text">InSnaps</span>
       </a>
-      <div class="nav-links" id="navLinks">
-        <a href="/#features">Features</a>
-        <a href="/conflicts/">Conflicts</a>
-        <a href="/blog/">Blog</a>
-        <a href="/partner/">Partner</a>
+      <div class="nav-links" id="navLinks">\n        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/answers/\">Answers</a>\n        <a href=\"/blog/\">Blog</a>\n
         <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
@@ -397,6 +387,9 @@ cat > blog/index.html << 'BLOGEOF'
 BLOGEOF
 echo "  Generated blog index"
 
+echo "==> Rendering /answers/ pages from buzz content..."
+python3 _scripts/gen_answers.py || echo "  (skipped — kept existing /answers pages)"
+
 echo "==> Building sitemap.xml..."
 
 python3 -c "
@@ -408,13 +401,28 @@ with open('$DATA_FILE') as f:
 
 now = '$NOW'
 urls = [
-    ('$SITE_URL/', '1.0', 'weekly'),
+    ('$SITE_URL/', '1.0', 'daily'),
+    ('$SITE_URL/live/', '0.9', 'hourly'),
     ('$SITE_URL/conflicts/', '0.9', 'weekly'),
     ('$SITE_URL/blog/', '0.8', 'weekly'),
+    ('$SITE_URL/products/', '0.6', 'weekly'),
     ('$SITE_URL/support/', '0.75', 'monthly'),
+    ('$SITE_URL/privacy/', '0.4', 'yearly'),
 ]
+# /t/ and /a/ are noindex deep-link handlers, so they stay out of the sitemap.
 for c in conflicts:
     urls.append(('$SITE_URL/conflicts/' + c['slug'] + '/', '0.7', 'weekly'))
+
+# /answers/ pages, if gen_answers.py has run
+try:
+    with open('_data/answers.json') as f:
+        _ans = json.load(f)
+    if _ans.get('pages'):
+        urls.append(('$SITE_URL/answers/', '0.85', 'weekly'))
+        for a in _ans['pages']:
+            urls.append(('$SITE_URL/answers/' + a['slug'] + '/', '0.8', 'monthly'))
+except Exception:
+    pass
 
 xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n'
 xml += '<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n'
@@ -454,6 +462,9 @@ if updated != page:
 else:
     print(f'  {path} already in sync ({len(topics)} topics)')
 "
+
+echo "==> Refreshing live news layer..."
+python3 _scripts/gen_live_feed.py || echo "  (skipped — kept existing _data/live snapshot)"
 
 echo "==> Refreshing GitHub snapshot for /products..."
 GH_TOKEN="${GH_TOKEN:-$(security find-generic-password -s decant-gh-release-pat -w 2>/dev/null || true)}" \

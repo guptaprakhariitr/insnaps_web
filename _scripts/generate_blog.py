@@ -180,6 +180,8 @@ def generate_blog_post(slug, config, articles):
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/conflict-page.css">
   <link rel="stylesheet" href="/blog.css">
+  <link rel="stylesheet" href="/city.css">
+  <script defer src="/city.js"></script>
 </head>
 <body>
   <nav class="navbar scrolled" id="navbar">
@@ -189,10 +191,11 @@ def generate_blog_post(slug, config, articles):
         <span class="nav-logo-text">{NAV_WORDMARK}</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="/#features">Features</a>
-        <a href="/conflicts/">Conflicts</a>
+        <a href="/#blend">How it works</a>
+        <a href="/live/">Live</a>
+        <a href="/answers/">Answers</a>
         <a href="/blog/">Blog</a>
-        <a href="/partner/">Partner</a>
+
         <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
@@ -296,6 +299,8 @@ def generate_blog_index(posts_meta):
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/conflict-page.css">
   <link rel="stylesheet" href="/blog.css">
+  <link rel="stylesheet" href="/city.css">
+  <script defer src="/city.js"></script>
 </head>
 <body>
   <nav class="navbar scrolled" id="navbar">
@@ -305,10 +310,11 @@ def generate_blog_index(posts_meta):
         <span class="nav-logo-text">{NAV_WORDMARK}</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="/#features">Features</a>
-        <a href="/conflicts/">Conflicts</a>
+        <a href="/#blend">How it works</a>
+        <a href="/live/">Live</a>
+        <a href="/answers/">Answers</a>
         <a href="/blog/">Blog</a>
-        <a href="/partner/">Partner</a>
+
         <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
