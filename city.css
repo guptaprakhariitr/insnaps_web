@@ -1,0 +1,234 @@
+/* Shared city UI: the autocomplete dropdown, the navbar chip and the picker
+   dialog. Loaded on every page alongside city.js, since the chosen city is
+   site-wide state. */
+
+/* ── city autocomplete dropdown ─────────────────────────────────── */
+
+.hp-town-field { position: relative; }
+
+.hp-ac {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  max-height: 292px;
+  overflow-y: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 13px;
+  background: var(--bg-card);
+  box-shadow: 0 18px 44px -14px rgba(0, 0, 0, 0.34), 0 0 0 1px var(--border);
+}
+.hp-ac[hidden] { display: none; }
+
+/* On a phone the city box sits low (deliberately, under the reel), so opening
+   downward puts the suggestions behind the bottom bar. Flip upward when there
+   is not enough room below. */
+.hp-ac.is-up {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+.hp-ac-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 9px 11px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+.hp-ac-city { font-weight: 600; color: var(--fg); }
+.hp-ac-rest {
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hp-ac-item:hover,
+.hp-ac-item.is-active { background: var(--accent-glow); }
+.hp-ac-item.is-active .hp-ac-city { color: var(--accent); }
+
+.hp-ac-note {
+  padding: 11px 12px;
+  font-size: 0.86rem;
+  color: var(--fg-muted);
+}
+
+/* ── the persistent city control (navbar chip + picker dialog) ───── */
+
+.city-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px 6px 9px;
+  margin-right: 4px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg-secondary);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  max-width: 190px;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.city-chip:hover { border-color: var(--accent); color: var(--accent); }
+.city-chip svg { width: 14px; height: 14px; flex: 0 0 auto; opacity: 0.8; }
+.city-chip-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.city-chip-cc {
+  flex: 0 0 auto;
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--fg-muted);
+}
+.city-chip.is-empty { border-style: dashed; }
+@media (max-width: 620px) {
+  .city-chip { max-width: 118px; padding: 5px 9px; font-size: 0.76rem; }
+  .city-chip-cc { display: none; }
+}
+
+.city-dlg { position: fixed; inset: 0; z-index: 1400; display: none; }
+.city-dlg.is-open { display: block; }
+.city-dlg-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(6, 9, 15, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+.city-dlg-panel {
+  position: relative;
+  width: min(440px, calc(100vw - 32px));
+  margin: min(14vh, 110px) auto 0;
+  padding: 22px 22px 16px;
+  border-radius: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 70px -18px rgba(0, 0, 0, 0.45);
+}
+.city-dlg-head { display: flex; align-items: center; justify-content: space-between; }
+.city-dlg-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+.city-dlg-x {
+  border: 0; background: transparent; cursor: pointer;
+  font-size: 1.5rem; line-height: 1; color: var(--fg-muted); padding: 0 2px;
+}
+.city-dlg-x:hover { color: var(--fg); }
+.city-dlg-sub {
+  margin: 6px 0 15px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.city-dlg-field { position: relative; }
+.city-dlg-field svg {
+  position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+  width: 17px; height: 17px; color: var(--fg-muted); pointer-events: none;
+}
+.city-dlg-field input {
+  width: 100%;
+  padding: 12px 14px 12px 38px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+.city-dlg-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.city-dlg-list {
+  position: static;
+  margin-top: 8px;
+  box-shadow: none;
+  border-color: var(--border);
+  max-height: 260px;
+}
+.city-dlg-clear {
+  display: block;
+  margin: 12px auto 0;
+  border: 0; background: transparent;
+  color: var(--fg-muted);
+  font-family: inherit; font-size: 0.8rem; font-weight: 500;
+  cursor: pointer;
+}
+.city-dlg-clear:hover { color: var(--accent-red, #d92d3c); }
+
+/* ── first-run city gate ──────────────────────────────────────────
+   The page is held behind a plain themed cover while the picker fades in, then
+   the cover fades out and the site fades in. Deliberately not a dark scrim:
+   nothing behind it should be readable-but-blocked, which reads as a nag. */
+
+.city-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--bg);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+.city-gate.is-shown { opacity: 1; }
+
+html.city-gated,
+html.city-gated body { overflow: hidden; }
+/* Hold the page itself back until the gate is answered, then fade it in. */
+html.city-gated body > *:not(.city-gate) { opacity: 0; }
+html.city-gate-done body > *:not(.city-gate) {
+  animation: city-site-in 460ms ease forwards;
+}
+@keyframes city-site-in { from { opacity: 0; } to { opacity: 1; } }
+
+.city-gate-panel {
+  width: min(420px, 100%);
+  text-align: center;
+  transform: translateY(10px);
+  transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.city-gate.is-shown .city-gate-panel { transform: translateY(0); }
+
+.city-gate-panel h2 {
+  margin: 0 0 9px;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 4.6vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.city-gate-panel p {
+  margin: 0 0 20px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fg-secondary);
+}
+.city-gate-panel .city-dlg-field { text-align: left; }
+.city-gate-list {
+  position: static;
+  margin-top: 8px;
+  text-align: left;
+  box-shadow: none;
+  max-height: 244px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-gate, .city-gate-panel { transition: none; }
+  html.city-gate-done body > *:not(.city-gate) { animation: none; opacity: 1; }
+}
