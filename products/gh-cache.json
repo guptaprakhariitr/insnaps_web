@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T03:05:11.990210+00:00",
+  "generatedAt": "2026-08-08T04:33:15.855368+00:00",
   "repos": {
     "guptaprakhariitr/vigil": {
       "pushed_at": "2026-06-27T07:27:57Z",
@@ -95,7 +95,16 @@
       "pushed_at": "2026-06-24T04:56:20Z",
       "stars": 2,
       "language": "Swift",
-      "license": "AGPL-3.0"
+      "license": "AGPL-3.0",
+      "release": {
+        "tag": "v1.0.0",
+        "published_at": "2026-06-24T04:56:22Z",
+        "dmg": {
+          "name": "TrayShelf_1.0.0_aarch64.dmg",
+          "url": "https://github.com/guptaprakhariitr/tray-mac/releases/download/v1.0.0/TrayShelf_1.0.0_aarch64.dmg",
+          "size": 2184507
+        }
+      }
     }
   }
 }
