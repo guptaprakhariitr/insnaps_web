@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T11:47:48.528150+00:00",
+  "generatedAt": "2026-08-17T12:24:32.364338+00:00",
   "repos": {
     "guptaprakhariitr/vigil": {
       "pushed_at": "2026-06-27T07:27:57Z",
@@ -73,6 +73,36 @@
           "name": "TwinnedApp_1.0.0_aarch64.dmg",
           "url": "https://github.com/guptaprakhariitr/twinned/releases/download/v1.0.0/TwinnedApp_1.0.0_aarch64.dmg",
           "size": 2400536
+        }
+      }
+    },
+    "guptaprakhariitr/caliper": {
+      "pushed_at": "2026-06-24T04:50:43Z",
+      "stars": 2,
+      "language": "Swift",
+      "license": "AGPL-3.0",
+      "release": {
+        "tag": "v1.0.0",
+        "published_at": "2026-06-24T04:50:53Z",
+        "dmg": {
+          "name": "PicaMac_1.0.0_aarch64.dmg",
+          "url": "https://github.com/guptaprakhariitr/caliper/releases/download/v1.0.0/PicaMac_1.0.0_aarch64.dmg",
+          "size": 1922171
+        }
+      }
+    },
+    "guptaprakhariitr/tray-mac": {
+      "pushed_at": "2026-06-24T04:56:20Z",
+      "stars": 2,
+      "language": "Swift",
+      "license": "AGPL-3.0",
+      "release": {
+        "tag": "v1.0.0",
+        "published_at": "2026-06-24T04:56:22Z",
+        "dmg": {
+          "name": "TrayShelf_1.0.0_aarch64.dmg",
+          "url": "https://github.com/guptaprakhariitr/tray-mac/releases/download/v1.0.0/TrayShelf_1.0.0_aarch64.dmg",
+          "size": 2184507
         }
       }
     }
