@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T18:20:45.945072+00:00",
+  "generatedAt": "2026-08-19T19:00:35.419600+00:00",
   "repos": {
     "guptaprakhariitr/vigil": {
       "pushed_at": "2026-06-27T07:27:57Z",
@@ -20,91 +20,7 @@
       "pushed_at": "2026-06-24T04:54:48Z",
       "stars": 2,
       "language": "TypeScript",
-      "license": "AGPL-3.0",
-      "release": {
-        "tag": "v0.0.3",
-        "published_at": "2026-06-24T04:54:48Z",
-        "dmg": {
-          "name": "Decant_0.0.3_aarch64.dmg",
-          "url": "https://github.com/guptaprakhariitr/decant/releases/download/v0.0.3/Decant_0.0.3_aarch64.dmg",
-          "size": 27276128
-        }
-      }
-    },
-    "guptaprakhariitr/aiconnect-figma-mcp": {
-      "pushed_at": "2026-06-25T15:12:06Z",
-      "stars": 15,
-      "language": "JavaScript",
-      "license": "MIT",
-      "release": {
-        "tag": "v1.3.0",
-        "published_at": "2026-06-25T15:12:06Z",
-        "dmg": {
-          "name": "aiconnect-figma-plugin.zip",
-          "url": "https://github.com/guptaprakhariitr/aiconnect-figma-mcp/releases/download/v1.3.0/aiconnect-figma-plugin.zip",
-          "size": 38603
-        }
-      }
-    },
-    "guptaprakhariitr/glaze": {
-      "pushed_at": "2026-06-24T04:47:21Z",
-      "stars": 4,
-      "language": "Swift",
-      "license": "AGPL-3.0",
-      "release": {
-        "tag": "v1.0.0",
-        "published_at": "2026-06-24T04:47:33Z",
-        "dmg": {
-          "name": "MatteShot_1.0.0_aarch64.dmg",
-          "url": "https://github.com/guptaprakhariitr/glaze/releases/download/v1.0.0/MatteShot_1.0.0_aarch64.dmg",
-          "size": 2062817
-        }
-      }
-    },
-    "guptaprakhariitr/twinned": {
-      "pushed_at": "2026-06-24T04:53:24Z",
-      "stars": 2,
-      "language": "Swift",
-      "license": "AGPL-3.0",
-      "release": {
-        "tag": "v1.0.0",
-        "published_at": "2026-06-24T04:53:28Z",
-        "dmg": {
-          "name": "TwinnedApp_1.0.0_aarch64.dmg",
-          "url": "https://github.com/guptaprakhariitr/twinned/releases/download/v1.0.0/TwinnedApp_1.0.0_aarch64.dmg",
-          "size": 2400536
-        }
-      }
-    },
-    "guptaprakhariitr/caliper": {
-      "pushed_at": "2026-06-24T04:50:43Z",
-      "stars": 2,
-      "language": "Swift",
-      "license": "AGPL-3.0",
-      "release": {
-        "tag": "v1.0.0",
-        "published_at": "2026-06-24T04:50:53Z",
-        "dmg": {
-          "name": "PicaMac_1.0.0_aarch64.dmg",
-          "url": "https://github.com/guptaprakhariitr/caliper/releases/download/v1.0.0/PicaMac_1.0.0_aarch64.dmg",
-          "size": 1922171
-        }
-      }
-    },
-    "guptaprakhariitr/tray-mac": {
-      "pushed_at": "2026-06-24T04:56:20Z",
-      "stars": 2,
-      "language": "Swift",
-      "license": "AGPL-3.0",
-      "release": {
-        "tag": "v1.0.0",
-        "published_at": "2026-06-24T04:56:22Z",
-        "dmg": {
-          "name": "TrayShelf_1.0.0_aarch64.dmg",
-          "url": "https://github.com/guptaprakhariitr/tray-mac/releases/download/v1.0.0/TrayShelf_1.0.0_aarch64.dmg",
-          "size": 2184507
-        }
-      }
+      "license": "AGPL-3.0"
     }
   }
 }
