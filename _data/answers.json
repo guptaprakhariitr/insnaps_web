@@ -1,35 +1,41 @@
 {
-  "generatedAt": "2026-08-22T09:48:38.389406+00:00",
+  "generatedAt": "2026-08-22T09:38:56.918150+00:00",
   "pages": [
     {
       "slug": "best-news-app-for-gen-z",
       "title": "Best News App for Gen Z (2026)",
-      "target": "best news app for Gen Z"
+      "target": "best news app for Gen Z",
+      "description": "Short, visual, narrated news cards instead of walls of text. InSnaps Pulse mode is free to try; Pro $2.99/mo. Honest limits: English-only, early-stage app."
     },
     {
       "slug": "ground-news-alternative-cheaper",
       "title": "Cheaper Ground News Alternative (2026)",
-      "target": "cheaper Ground News alternative"
+      "target": "cheaper Ground News alternative",
+      "description": "InSnaps Pro is $2.99/mo vs Ground News Vantage $99.99/yr, but it has no bias comparison or Blindspot. An honest, tier-by-tier comparison."
     },
     {
       "slug": "inshorts-alternative",
       "title": "Inshorts Alternative (2026): Honest Comparison",
-      "target": "Inshorts alternative"
+      "target": "Inshorts alternative",
+      "description": "Inshorts does 60-word text briefs, India-first. InSnaps adds narrated visual cards, any locality, and a mix you control. Free; Pro $2.99/mo."
     },
     {
       "slug": "local-and-world-news-in-one-app",
       "title": "Local and World News in One App",
-      "target": "app for both local and international news in one feed"
+      "target": "app for both local and international news in one feed",
+      "description": "One feed for your town and the world, with a slider you control. InSnaps is free; Pro is $2.99/mo. Honest limits: English-only news, early-stage indie app."
     },
     {
       "slug": "news-app-that-covers-my-town",
       "title": "News App That Actually Covers My Town",
-      "target": "news app that actually covers my town"
+      "target": "news app that actually covers my town",
+      "description": "Most news apps only do big metros. InSnaps builds a feed for small towns too, free, Pro $2.99/mo. Honest limits: news is English-only, early-stage app."
     },
     {
       "slug": "news-app-you-can-listen-to",
       "title": "News App That Reads Headlines Aloud",
-      "target": "news app that reads headlines aloud"
+      "target": "news app that reads headlines aloud",
+      "description": "InSnaps narrates news as auto-playing visual cards, with unlimited article audio on Pro at $2.99/mo. Honest limits: synthetic voice, English-only news."
     }
   ]
 }

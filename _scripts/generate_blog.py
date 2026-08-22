@@ -25,42 +25,42 @@ NAV_WORDMARK = "InSnaps"
 RSS_FEEDS = {
     "global-conflicts": {
         "title": "Global Conflicts & Wars — Weekly Roundup",
-        "seo_title": "Global Conflicts Update — Wars & Crisis News This Week | InSnaps : Swipe & Share Global News",
+        "seo_title": "Global Conflicts Update — Wars & Crisis News This Week | InSnaps",
         "description": "Latest updates on active conflicts, wars, and humanitarian crises around the world. Curated from top news sources.",
         "keywords": "global conflicts update, wars this week, conflict news, humanitarian crisis, world wars update",
         "url": "https://news.google.com/rss/search?q=global+conflicts+wars+crisis&hl=en-US&gl=US&ceid=US:en",
     },
     "ukraine-russia-war": {
         "title": "Ukraine-Russia War — Latest Developments",
-        "seo_title": "Ukraine-Russia War Update — Latest News & Analysis | InSnaps : Swipe & Share Global News",
+        "seo_title": "Ukraine-Russia War Update — Latest News & Analysis | InSnaps",
         "description": "The latest developments in the Russia-Ukraine war, including frontline updates, diplomacy, and international response.",
         "keywords": "ukraine war update, russia ukraine news, ukraine conflict latest, ukraine war 2026",
         "url": "https://news.google.com/rss/search?q=ukraine+russia+war&hl=en-US&gl=US&ceid=US:en",
     },
     "middle-east-conflict": {
         "title": "Middle East Conflicts — Latest Updates",
-        "seo_title": "Middle East Conflict Update — Gaza, Yemen, Iran News | InSnaps : Swipe & Share Global News",
+        "seo_title": "Middle East Conflict Update — Gaza, Yemen, Iran News | InSnaps",
         "description": "Latest news from Middle East conflicts including Israel-Palestine, Yemen, Iran tensions, and regional security.",
         "keywords": "middle east conflict, gaza war, yemen houthi, iran tensions, israel palestine update",
         "url": "https://news.google.com/rss/search?q=middle+east+conflict+war&hl=en-US&gl=US&ceid=US:en",
     },
     "geopolitics-sanctions": {
         "title": "Geopolitics & Sanctions — This Week",
-        "seo_title": "Geopolitics & Sanctions Update — Global Political News | InSnaps : Swipe & Share Global News",
+        "seo_title": "Geopolitics & Sanctions Update — Global Political News | InSnaps",
         "description": "Key geopolitical developments, sanctions updates, and international relations news from around the world.",
         "keywords": "geopolitics news, sanctions update, international relations, global politics, diplomacy news",
         "url": "https://news.google.com/rss/search?q=geopolitics+sanctions+diplomacy&hl=en-US&gl=US&ceid=US:en",
     },
     "africa-conflicts": {
         "title": "Africa Conflicts — Overlooked Crises Update",
-        "seo_title": "Africa Conflicts Update — Sudan, Congo, Sahel Crisis News | InSnaps : Swipe & Share Global News",
+        "seo_title": "Africa Conflicts Update — Sudan, Congo, Sahel Crisis News | InSnaps",
         "description": "Updates on Africa's overlooked conflicts: Sudan civil war, DR Congo, Sahel crisis, and more.",
         "keywords": "africa conflicts, sudan war, congo crisis, sahel conflict, africa war update",
         "url": "https://news.google.com/rss/search?q=africa+conflict+war+crisis+sudan+congo&hl=en-US&gl=US&ceid=US:en",
     },
     "military-defense-news": {
         "title": "Military & Defense — Global Updates",
-        "seo_title": "Military & Defense News — Arms, Operations & Analysis | InSnaps : Swipe & Share Global News",
+        "seo_title": "Military & Defense News — Arms, Operations & Analysis | InSnaps",
         "description": "Latest military and defense news: arms deals, military operations, defense budgets, and strategic developments.",
         "keywords": "military news, defense news, arms deals, military operations, defense budget",
         "url": "https://news.google.com/rss/search?q=military+defense+news+arms&hl=en-US&gl=US&ceid=US:en",
@@ -164,14 +164,35 @@ def generate_blog_post(slug, config, articles):
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "{esc(config['title'])}",
-    "description": "{esc(config['description'])}",
-    "datePublished": "{today_iso}",
-    "dateModified": "{today_iso}",
-    "url": "{SITE_URL}/blog/{slug}/",
-    "publisher": {{"@type": "Organization", "name": "{APP_NAME}", "url": "{SITE_URL}"}},
-    "author": {{"@type": "Person", "name": "Prakhar Gupta"}}
+    "@graph": [
+    {{
+      "@type": "CollectionPage",
+      "headline": "{esc(config['title'])}",
+      "description": "{esc(config['description'])}",
+      "datePublished": "{today_iso}",
+      "dateModified": "{today_iso}",
+      "url": "{SITE_URL}/blog/{slug}/",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "publisher": {{"@id": "{SITE_URL}/#organization"}},
+      "author": {{"@id": "{SITE_URL}/#organization"}}
+    }},
+    {{
+      "@type": "Organization",
+      "@id": "{SITE_URL}/#organization",
+      "name": "InSnaps",
+      "alternateName": "{APP_NAME}",
+      "url": "{SITE_URL}",
+      "logo": {{"@type": "ImageObject", "url": "{SITE_URL}/logo.png"}},
+      "sameAs": [
+        "https://x.com/BuildWtPrakhar",
+        "https://www.instagram.com/insnapsofficial",
+        "https://www.threads.net/@insnapsofficial",
+        "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049",
+        "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree"
+      ]
+    }}
+    ]
   }}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,7 +214,7 @@ def generate_blog_post(slug, config, articles):
       <div class="nav-links" id="navLinks">
         <a href="/#blend">How it works</a>
         <a href="/live/">Live</a>
-        <a href="/answers/">Answers</a>
+        <a href="/news/">News</a>
         <a href="/blog/">Blog</a>
 
         <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
@@ -312,7 +333,7 @@ def generate_blog_index(posts_meta):
       <div class="nav-links" id="navLinks">
         <a href="/#blend">How it works</a>
         <a href="/live/">Live</a>
-        <a href="/answers/">Answers</a>
+        <a href="/news/">News</a>
         <a href="/blog/">Blog</a>
 
         <a href="{PLAY_STORE}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
@@ -395,32 +416,16 @@ def main():
         })
 
     # Generate blog index
+    # The combined index (written posts first, RSS roundups secondary) is built
+    # by gen_blog_posts.py, which runs after this and has the post metadata.
     index_html = generate_blog_index(posts_meta)
     with open(os.path.join(BLOG_DIR, "index.html"), "w") as f:
         f.write(index_html)
 
     print(f"\n  Generated {len(posts_meta)} blog posts + index")
 
-    # Update sitemap to include blog posts
-    sitemap_entries = []
-    for pm in posts_meta:
-        sitemap_entries.append(f"{SITE_URL}/blog/{pm['slug']}/")
-
-    # Read existing sitemap and append blog URLs
-    try:
-        with open("sitemap.xml", "r") as f:
-            existing = f.read()
-
-        for url in sitemap_entries:
-            if url not in existing:
-                entry = f'  <url>\n    <loc>{url}</loc>\n    <lastmod>{datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S+00:00")}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.6</priority>\n  </url>\n'
-                existing = existing.replace("</urlset>", entry + "</urlset>")
-
-        with open("sitemap.xml", "w") as f:
-            f.write(existing)
-        print("  Updated sitemap.xml with blog URLs")
-    except Exception as e:
-        print(f"  Warning: Could not update sitemap: {e}")
+    # The sitemap is built afterwards by _scripts/gen_sitemap.py, which
+    # discovers these pages on disk — nothing to patch here.
 
 
 if __name__ == "__main__":

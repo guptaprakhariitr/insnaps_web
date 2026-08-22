@@ -1,0 +1,210 @@
+/* /news/ — the reporting desk.
+   Layered on top of style.css (tokens, nav, buttons), answers.css (prose) and
+   blogpost.css (article body). Only what the news surfaces add lives here. */
+
+.news-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h, 68px) + 3rem) 1.25rem 5rem;
+}
+
+.news-head {
+  max-width: 760px;
+  margin-bottom: 3rem;
+}
+.news-head h1 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0.65rem 0 0.9rem;
+}
+.news-head p {
+  color: var(--fg-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Section kicker. --accent is already themed (#c8481a light, #ff6b35 dark), so
+   it clears AA as text in both without a second token. */
+.news-kicker {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── lead story ─────────────────────────────────────────── */
+
+.news-lead {
+  display: grid;
+  /* minmax(min(...)) rather than a bare minmax: a plain 380px floor overflows
+     narrow phones, and overflow:hidden would just hide the evidence. */
+  grid-template-columns: minmax(min(420px, 100%), 1.1fr) minmax(min(320px, 100%), 1fr);
+  gap: 0;
+  align-items: stretch;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-card);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  margin-bottom: 2.5rem;
+}
+.news-lead:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.10);
+  border-color: var(--accent);
+}
+.news-lead-media { background: #0c1119; }
+.news-lead-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+.news-lead-body {
+  padding: 2rem 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.news-lead-body h2 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.news-lead-body p {
+  color: var(--fg-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── card grid ──────────────────────────────────────────── */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 1.5rem;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-card);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.09);
+  border-color: var(--accent);
+}
+.news-card-media {
+  aspect-ratio: 16 / 9;
+  background: #0c1119;
+}
+.news-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+.news-card-body {
+  padding: 1.25rem 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+.news-card-body h3 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.news-card-body p {
+  color: var(--fg-muted);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+.news-card-meta,
+.news-lead .news-card-meta {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  letter-spacing: 0.01em;
+}
+
+.news-empty {
+  color: var(--fg-muted);
+  padding: 2rem 0;
+}
+
+/* ── desk note ──────────────────────────────────────────── */
+
+.news-note {
+  margin-top: 4rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  background: var(--bg-card);
+  max-width: 780px;
+}
+.news-note h2 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1.15rem;
+  margin: 0 0 0.75rem;
+}
+.news-note p {
+  color: var(--fg-muted);
+  line-height: 1.65;
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+.news-note p:last-child { margin-bottom: 0; }
+
+/* ── article body ───────────────────────────────────────── */
+
+/* Disclosure line. A report on a third party has to say up front that there is
+   no commercial relationship behind it. */
+.news-about {
+  border-left: 3px solid var(--accent);
+  padding: 0.7rem 0 0.7rem 1rem;
+  margin: 0 0 2rem;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+
+.news-body h2 { scroll-margin-top: calc(var(--nav-h, 68px) + 1rem); }
+
+/* Sources list: dense, and long URLs must wrap rather than push the page wide. */
+.news-body #sources + ul,
+.news-body #sources + ol {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.news-body #sources + ul a,
+.news-body #sources + ol a { word-break: break-word; }
+
+@media (max-width: 860px) {
+  .news-lead { grid-template-columns: 1fr; }
+  .news-lead-media { aspect-ratio: 16 / 9; }
+  .news-lead-body { padding: 1.5rem 1.35rem 1.6rem; }
+}

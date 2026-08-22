@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img">
+  <defs>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141b26"/>
+      <stop offset="1" stop-color="#0a0e15"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="100%" cy="100%" r="95%">
+      <stop offset="0" stop-color="hsl(348 56% 56%)" stop-opacity=".30"/>
+      <stop offset="1" stop-color="hsl(348 56% 56%)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#ink)"/>
+  <g stroke="#ffffff" stroke-opacity=".045"><line x1="-120" y1="0" x2="-340" y2="675" stroke-width="1"/><line x1="-62" y1="0" x2="-282" y2="675" stroke-width="1"/><line x1="-4" y1="0" x2="-224" y2="675" stroke-width="1"/><line x1="54" y1="0" x2="-166" y2="675" stroke-width="1"/><line x1="112" y1="0" x2="-108" y2="675" stroke-width="1"/><line x1="170" y1="0" x2="-50" y2="675" stroke-width="1"/><line x1="228" y1="0" x2="8" y2="675" stroke-width="1"/><line x1="286" y1="0" x2="66" y2="675" stroke-width="1"/><line x1="344" y1="0" x2="124" y2="675" stroke-width="1"/><line x1="402" y1="0" x2="182" y2="675" stroke-width="1"/><line x1="460" y1="0" x2="240" y2="675" stroke-width="1"/><line x1="518" y1="0" x2="298" y2="675" stroke-width="1"/><line x1="576" y1="0" x2="356" y2="675" stroke-width="1"/><line x1="634" y1="0" x2="414" y2="675" stroke-width="1"/><line x1="692" y1="0" x2="472" y2="675" stroke-width="1"/><line x1="750" y1="0" x2="530" y2="675" stroke-width="1"/><line x1="808" y1="0" x2="588" y2="675" stroke-width="1"/><line x1="866" y1="0" x2="646" y2="675" stroke-width="1"/><line x1="924" y1="0" x2="704" y2="675" stroke-width="1"/><line x1="982" y1="0" x2="762" y2="675" stroke-width="1"/><line x1="1040" y1="0" x2="820" y2="675" stroke-width="1"/><line x1="1098" y1="0" x2="878" y2="675" stroke-width="1"/><line x1="1156" y1="0" x2="936" y2="675" stroke-width="1"/><line x1="1214" y1="0" x2="994" y2="675" stroke-width="1"/><line x1="1272" y1="0" x2="1052" y2="675" stroke-width="1"/><line x1="1330" y1="0" x2="1110" y2="675" stroke-width="1"/><line x1="1388" y1="0" x2="1168" y2="675" stroke-width="1"/><line x1="1446" y1="0" x2="1226" y2="675" stroke-width="1"/><line x1="1504" y1="0" x2="1284" y2="675" stroke-width="1"/></g>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <g fill="none"><circle cx="1200" cy="675" r="300" stroke="hsl(348 56% 56%)" stroke-opacity="0.42" stroke-width="2.50"/><circle cx="1200" cy="675" r="418" stroke="hsl(348 56% 56%)" stroke-opacity="0.36" stroke-width="2.25"/><circle cx="1200" cy="675" r="536" stroke="hsl(348 56% 56%)" stroke-opacity="0.30" stroke-width="2.00"/><circle cx="1200" cy="675" r="654" stroke="hsl(348 56% 56%)" stroke-opacity="0.24" stroke-width="1.75"/><circle cx="1200" cy="675" r="772" stroke="hsl(348 56% 56%)" stroke-opacity="0.18" stroke-width="1.50"/></g>
+  <rect x="0" y="667" width="1200" height="8" fill="hsl(348 56% 56%)" fill-opacity=".9"/>
+</svg>

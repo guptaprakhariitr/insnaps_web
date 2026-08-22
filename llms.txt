@@ -1,25 +1,69 @@
 # InSnaps
 
-> InSnaps is a personalized local + global news app for iPhone, iPad, Mac and Android. Set your city once and get a vertical swipe feed that balances local, national and world news — including geopolitics, conflicts, business and 32 topic domains — curated in English from sources including Reuters, BBC, Al Jazeera and NPR. Its signature feature is an interactive conflict map of active wars and crises built on UCDP (Uppsala Conflict Data Program) data.
+> InSnaps is a personalized local + world news app for iPhone, iPad, Mac and Android. Global news apps cover the world but miss your street; local apps cover your street but miss the world. InSnaps carries both in one feed: set your city once and swipe through a mix of local, national and world news across 32 topic domains, in English, from sources including Reuters, BBC, Al Jazeera and NPR. Coverage is not limited to major metros — smaller towns and districts get a real local tier, not an empty one. Its signature extras are Pulse, a full-screen narrated reel format built for people who read news the way they watch short video, and an interactive map of active conflicts built on UCDP (Uppsala Conflict Data Program) data.
 
-InSnaps is built by indie founder Prakhar Gupta. Taglines: "Your City. Your Country. Your World." and "Signal over noise."
+Taglines: "Your City. Your Country. Your World." and "Signal over noise."
 
 ## Key facts
 
-- Pricing: Free tier ($0 — personalized feed, 13 news domains, monthly swipe allowance). InSnaps Pro: $2.99/month, $24.99/year, or $149.99 lifetime — unlimited swipes, ad-free, cross-device sync, unlimited article audio.
+- What it is: primarily a news reader. The app aggregates and organizes reporting from existing outlets and links out to the original article. Separately, the InSnaps team publishes a small amount of its own reporting at https://insnaps.app/news/ — original stories on companies, launches and events, each one citing its sources. Nothing in the app's feed is written by InSnaps.
+- Pricing: free tier ($0 — personalized feed, conflict map, monthly swipe allowance). InSnaps Pro: $2.99/month, $24.99/year, or $149.99 lifetime — unlimited swipes, ad-free, cross-device sync, unlimited article audio.
 - Platforms: iPhone, iPad, Mac (App Store), Android (Google Play).
+- Location: you pick a city explicitly. There is no silent background location tracking, and the choice is changeable at any time.
 - Topic domains: 32 user-selectable, including Geopolitics, Conflicts, Defense, Energy, World, Local, Business, Crypto, Tech, AI, Science, Health, Sports and Travel.
-- Interface languages: English plus 10 more (Hindi, Spanish, French, German, Portuguese, Arabic, Hebrew, Chinese, Japanese, Russian). News articles are in English.
+- Formats: swipe cards, Pulse (narrated full-screen reels), article audio, saved articles, share cards.
+- Interface languages: English plus 10 more (Hindi, Spanish, French, German, Portuguese, Arabic, Hebrew, Chinese, Japanese, Russian). News articles themselves are in English.
 - Conflict data sources: UCDP, ReliefWeb, Crisis Group, CFR.
 
-## Pages
 
-- [Home](https://insnaps.app/): what InSnaps is, features, pricing, FAQ
-- [Conflict tracker](https://insnaps.app/conflicts/): live index of active conflicts with a detail page per conflict
-- [Blog](https://insnaps.app/blog/): auto-updated category news roundups
-- [Support](https://insnaps.app/support/): help and contact
+## Main pages
+
+- [https://insnaps.app/](https://insnaps.app/): what InSnaps is, features, pricing, FAQ
+- [https://insnaps.app/live/](https://insnaps.app/live/): a live wall of current local + world headlines, readable in the browser
+- [https://insnaps.app/conflicts/](https://insnaps.app/conflicts/): index of active armed conflicts, with a detail page per conflict
+- [https://insnaps.app/answers/](https://insnaps.app/answers/): direct answers to common questions about news apps and coverage
+- [https://insnaps.app/blog/](https://insnaps.app/blog/): long-form writing on local news, coverage and news formats
+- [https://insnaps.app/news/](https://insnaps.app/news/): original InSnaps reporting on companies, launches and events, with sources cited
+- [https://insnaps.app/support/](https://insnaps.app/support/): help and contact
+- [https://insnaps.app/privacy/](https://insnaps.app/privacy/): privacy policy
+
+## Articles
+
+Written to answer the question in the title, whether or not the reader ever installs anything.
+
+- [How Much of Your Feed Should Be Local vs World News? Picking a Mix and Sticking to It](https://insnaps.app/blog/how-much-local-vs-world/): The short answer: There is no universally correct ratio, and anyone who tells you “70/30” made it up. What matters is that the mix is a decision you made…
+- [How to Tell If a News App Is Actually Personalised (Or Just Showing You What’s Popular)](https://insnaps.app/blog/is-your-news-app-personalised/): The short answer: Run four tests. Can you set your city by name and have it stick? Can you change the local↔global mix? Does the app re-rank for you, or…
+- [Can You Just Listen to the News Instead of Reading It?](https://insnaps.app/blog/listening-to-the-news/): The short answer: Yes, and a lot of people already do. The Reuters Institute’s Digital News Report 2025 puts podcasts at around 10% of news access, with…
+- [Your Town Has No Local Paper. Now What? A Practical Guide to Living in a News Desert](https://insnaps.app/blog/news-deserts-what-to-do/): The short answer: You are not imagining it. Northwestern’s Medill State of Local News 2025 counted 213 US counties with no local news source at all…
+- [What Actually Counts as “Local News” in a News App? Named Localities vs Metro Markets](https://insnaps.app/blog/what-counts-as-local-news/): The short answer: In most news apps, “local” does not mean your town; it means the nearest media market, a metro-sized region the app already has indexed…
+
+## Original reporting
+
+Written by the InSnaps team, not aggregated. Each story names its sources and says where a claim is a company's own.
+
+- [deSal built a 50-article content operation before it built an audience](https://insnaps.app/news/desal-hard-water-hair-care/) [about: deSal]: A two-founder Bengaluru hair-care brand has published locality-level articles on water hardness in dozens of Indian neighbourhoods — while its own…
+
+## Answers
+
+- [Best News App for Gen Z (2026)](https://insnaps.app/answers/best-news-app-for-gen-z/)
+- [Cheaper Ground News Alternative (2026)](https://insnaps.app/answers/ground-news-alternative-cheaper/)
+- [Inshorts Alternative (2026): Honest Comparison](https://insnaps.app/answers/inshorts-alternative/)
+- [Local and World News in One App](https://insnaps.app/answers/local-and-world-news-in-one-app/)
+- [News App That Actually Covers My Town](https://insnaps.app/answers/news-app-that-covers-my-town/)
+- [News App That Reads Headlines Aloud](https://insnaps.app/answers/news-app-you-can-listen-to/)
+
+## Conflict tracker
+
+30 conflicts tracked, each with its own page at https://insnaps.app/conflicts/<slug>/ — including Ukraine-Russia War, Israel-Palestine Conflict, Sudan Civil War, Myanmar Civil War, Yemen War, Ethiopia Conflict, DR Congo Conflict, Syria Civil War, India-Pakistan Tensions, Taiwan Strait Tensions, South China Sea Dispute, North Korea Tensions.
 
 ## Download
 
 - [App Store (iPhone, iPad, Mac)](https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049)
 - [Google Play (Android)](https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree)
+
+
+## Feeds
+
+- Sitemap: https://insnaps.app/sitemap.xml
+- Article feed: https://insnaps.app/blog/feed.xml
+- News feed: https://insnaps.app/news/feed.xml

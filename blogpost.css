@@ -1,0 +1,178 @@
+/* Blog post page — the reading layout, modelled on desal.in/blogs/news/<post>.
+   Loaded *after* answers.css, which still supplies the prose styles (tables,
+   callouts, lists, code). This file only changes the page shell: a wide centred
+   header, a hero, and a narrower body column than /answers/ uses.
+
+   Measured off the reference: title set large and centred above full width, body
+   column 772px, body text ~17.3px on a 1.8 line-height, section headings ~21px
+   with a big space above and a small one below. That asymmetric heading margin
+   is most of why long text there feels sectioned rather than dense. */
+
+/* ── reading progress ──────────────────────────────────────────────
+   The reference has none; it is the one thing worth adding to a
+   2,000-word page. Sits under the fixed navbar, not over the content. */
+.post-progress {
+  position: fixed;
+  top: var(--nav-h, 64px);
+  left: 0;
+  height: 2px;
+  width: 100%;
+  z-index: 60;
+  background: transparent;
+  pointer-events: none;
+}
+.post-progress > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  transition: width 90ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .post-progress > i { transition: none; }
+}
+
+/* ── header ───────────────────────────────────────────────────────── */
+.post-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 96px 24px 72px;
+}
+
+.post-head {
+  max-width: 860px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.post-crumb {
+  margin-bottom: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.post-crumb a { color: var(--accent); text-decoration: none; }
+.post-crumb a:hover { text-decoration: underline; }
+.post-crumb span { margin: 0 7px; opacity: 0.5; }
+
+.post-head h1 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: clamp(1.95rem, 4.4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+  color: var(--fg);
+  /* Long question-shaped headlines break badly on a centred axis without this. */
+  text-wrap: balance;
+}
+
+.post-meta {
+  margin: 0;
+  font-size: 0.83rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--fg-muted);
+}
+
+/* ── hero ─────────────────────────────────────────────────────────── */
+.post-hero {
+  /* 840 made the hero 471px tall and pushed the lead paragraph off the fold.
+     The reference hero is 680 wide; 720 keeps the opening line visible. */
+  max-width: 720px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-secondary);
+}
+.post-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.post-back {
+  max-width: 720px;
+  margin: 0 auto 46px;
+  font-size: 0.87rem;
+}
+.post-back a {
+  color: var(--fg-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.post-back a:hover { color: var(--accent); border-bottom-color: currentColor; }
+
+/* ── body column ──────────────────────────────────────────────────── */
+.post-body {
+  max-width: 772px;
+  margin: 0 auto;
+}
+
+/* Override the /answers/ prose metrics for the longer-form reading measure. */
+.post-body p,
+.post-body li {
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+.post-body p { margin: 0 0 20px; }
+.post-body li { margin-bottom: 11px; }
+
+.post-body h2 {
+  margin: 52px 0 12px;
+  font-size: clamp(1.35rem, 2.6vw, 1.62rem);
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+  scroll-margin-top: calc(var(--nav-h, 64px) + 20px);
+}
+.post-body h3 {
+  margin: 38px 0 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  scroll-margin-top: calc(var(--nav-h, 64px) + 20px);
+}
+.post-body h4 {
+  margin: 28px 0 8px;
+  font-size: 1.04rem;
+}
+
+/* The lead paragraph carries "The short answer:" — the one block a skimming
+   reader and an answer engine both take away, so it stays visually distinct. */
+.post-body > blockquote:first-child,
+.post-body > .ans-lead {
+  margin-bottom: 40px;
+}
+
+.post-body table { font-size: 0.94rem; }
+
+/* Tables and pre must scroll inside themselves; the page never scrolls sideways. */
+.post-body .table-wrap,
+.post-body pre { overflow-x: auto; }
+
+.post-body hr {
+  margin: 46px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* ── footer CTA sits in the reading column, not full width ────────── */
+.post-body .ans-cta { margin-top: 56px; }
+
+@media (max-width: 760px) {
+  .post-page { padding: 84px 20px 56px; }
+  .post-head { margin-bottom: 26px; text-align: left; }
+  .post-hero { border-radius: 12px; }
+  .post-back { margin-bottom: 34px; }
+  .post-body p,
+  .post-body li { font-size: 1.04rem; line-height: 1.75; }
+  .post-body h2 { margin-top: 40px; }
+  .post-body h3 { margin-top: 30px; }
+}

@@ -187,39 +187,102 @@
   margin: 0 0 34px;
   max-width: 58ch;
 }
-.ans-grid { display: grid; gap: 14px; }
-.ans-card {
-  display: block;
-  padding: 20px 22px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--bg-card);
-  text-decoration: none;
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-}
-.ans-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-card);
-}
-.ans-card h2 {
-  margin: 0 0 7px;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+/* Q&A list — shared by /answers/ and the /blog/ reading hub.
+   Replaced .ans-grid/.ans-card, a stack of six identical full-width boxes with
+   the words "Answers:" repeated down the page and nothing for the eye to catch. */
+.qa-kicker {
+  display: inline-block;
+  font-size: 0.7rem;
   font-weight: 700;
-  line-height: 1.32;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  /* --accent is themed (#c8481a light, #ff6b35 dark), so it clears AA as text. */
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.qa-list {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.qa-item {
+  display: grid;
+  /* The mark column is fixed; the arrow only takes room once there is room. */
+  grid-template-columns: 34px minmax(0, 1fr) 20px;
+  gap: 16px;
+  align-items: start;
+  padding: 20px 22px;
+  text-decoration: none;
+  border-top: 1px solid var(--border);
+  transition: background 160ms ease;
+}
+.qa-item:first-child { border-top: 0; }
+.qa-item:hover { background: var(--bg-subtle, rgba(127, 127, 127, 0.06)); }
+
+.qa-mark {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+/* color-mix is recent; keep the tint working without it. */
+@supports not (background: color-mix(in oklab, red 10%, transparent)) {
+  .qa-mark { background: rgba(200, 72, 26, 0.13); }
+}
+
+.qa-body { display: block; min-width: 0; }
+.qa-title {
+  display: block;
+  margin: 0 0 5px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
   color: var(--fg);
 }
-.ans-card p {
-  margin: 0 0 10px;
+.qa-desc {
+  display: block;
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--fg-secondary);
 }
-.ans-card-q {
+.qa-target {
+  display: block;
+  margin-top: 8px;
   font-size: 0.75rem;
   color: var(--fg-muted);
-  font-weight: 500;
+}
+.qa-go {
+  align-self: center;
+  color: var(--fg-muted);
+  font-size: 1rem;
+  transition: transform 160ms ease, color 160ms ease;
+}
+.qa-item:hover .qa-go { color: var(--accent); transform: translateX(3px); }
+
+.qa-more {
+  margin: 28px 0 0;
+  font-size: 0.92rem;
+  color: var(--fg-secondary);
+}
+.qa-more a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.qa-more a:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .qa-item { grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 16px 16px; }
+  .qa-mark { width: 28px; height: 28px; font-size: 0.9rem; }
+  .qa-go { display: none; }
 }
 
 @media (max-width: 520px) {

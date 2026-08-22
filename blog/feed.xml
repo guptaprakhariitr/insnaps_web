@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InSnaps Blog</title>
+    <link>https://insnaps.app/blog/</link>
+    <description>How local and world news actually reaches you.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 22 Aug 2026 09:39:02 +0000</lastBuildDate>
+    <atom:link href="https://insnaps.app/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>How Much of Your Feed Should Be Local vs World News? Picking a Mix and Sticking to It</title>
+      <link>https://insnaps.app/blog/how-much-local-vs-world/</link>
+      <guid isPermaLink="true">https://insnaps.app/blog/how-much-local-vs-world/</guid>
+      <description>The short answer: There is no universally correct ratio, and anyone who tells you “70/30” made it up. What matters is that the mix is a decision you made…</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>How to Tell If a News App Is Actually Personalised (Or Just Showing You What’s Popular)</title>
+      <link>https://insnaps.app/blog/is-your-news-app-personalised/</link>
+      <guid isPermaLink="true">https://insnaps.app/blog/is-your-news-app-personalised/</guid>
+      <description>The short answer: Run four tests. Can you set your city by name and have it stick? Can you change the local↔global mix? Does the app re-rank for you, or…</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Can You Just Listen to the News Instead of Reading It?</title>
+      <link>https://insnaps.app/blog/listening-to-the-news/</link>
+      <guid isPermaLink="true">https://insnaps.app/blog/listening-to-the-news/</guid>
+      <description>The short answer: Yes, and a lot of people already do. The Reuters Institute’s Digital News Report 2025 puts podcasts at around 10% of news access, with…</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Your Town Has No Local Paper. Now What? A Practical Guide to Living in a News Desert</title>
+      <link>https://insnaps.app/blog/news-deserts-what-to-do/</link>
+      <guid isPermaLink="true">https://insnaps.app/blog/news-deserts-what-to-do/</guid>
+      <description>The short answer: You are not imagining it. Northwestern’s Medill State of Local News 2025 counted 213 US counties with no local news source at all…</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>What Actually Counts as “Local News” in a News App? Named Localities vs Metro Markets</title>
+      <link>https://insnaps.app/blog/what-counts-as-local-news/</link>
+      <guid isPermaLink="true">https://insnaps.app/blog/what-counts-as-local-news/</guid>
+      <description>The short answer: In most news apps, “local” does not mean your town; it means the nearest media market, a metro-sized region the app already has indexed…</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

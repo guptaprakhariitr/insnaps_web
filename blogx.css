@@ -1,0 +1,178 @@
+/* Blog index — a card grid in the spirit of desal.in/blogs/news: image on top,
+   date + read time, headline doing the work, newest first, no filters. The post
+   pages themselves reuse answers.css, since both are long-form reading. */
+
+.blogx-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 104px 24px 72px;
+}
+
+.blogx-head {
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+.blogx-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.blogx-head h1 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--fg);
+}
+.blogx-head p {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--fg-secondary);
+}
+
+.blogx-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+@media (min-width: 720px)  { .blogx-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1060px) { .blogx-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.blogx-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+.blogx-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-card);
+}
+
+.blogx-card-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+.blogx-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+.blogx-card:hover .blogx-card-media img { transform: scale(1.03); }
+
+.blogx-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 17px 18px 19px;
+  flex: 1;
+}
+.blogx-card-meta {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.blogx-card h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--fg);
+}
+.blogx-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--fg-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.blogx-card-more {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* the live RSS roundups, kept but clearly secondary to the written posts */
+.blogx-rounds {
+  margin-top: 56px;
+  padding-top: 34px;
+  border-top: 1px solid var(--border);
+}
+.blogx-rounds h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+.blogx-rounds > p {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+}
+.blogx-round-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.blogx-round {
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  text-decoration: none;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.blogx-round:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 520px) {
+  .blogx-page { padding-top: 88px; }
+}
+
+/* ── reading hub sections (guides / answers / roundups) ───────
+   /blog/ carries all three now that Answers no longer has its own nav slot,
+   so each band needs a heading of its own to stay navigable. */
+.blogx-guides, .blogx-answers { margin-bottom: 3.5rem; }
+
+.blogx-sec-head {
+  max-width: 62ch;
+  margin: 0 0 1.75rem;
+}
+.blogx-sec-head h2 {
+  font-family: var(--font-display, 'Space Grotesk', system-ui, sans-serif);
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+.blogx-sec-head p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}

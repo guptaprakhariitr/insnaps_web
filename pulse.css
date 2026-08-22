@@ -210,10 +210,60 @@
 .pulse-btn:hover { background: rgba(8, 12, 20, 0.85); transform: scale(1.06); }
 .pulse-btn svg { width: 17px; height: 17px; }
 .pulse-btn .i-on, .pulse-btn .i-off { display: none; }
-.pulse-stage[data-muted="1"] .pulse-btn-mute .i-off { display: block; }
-.pulse-stage[data-muted="0"] .pulse-btn-mute .i-on { display: block; }
 
-/* Centre pause indicator, mirroring the app's 750ms tap feedback. */
+/* Three audio states, because two were a lie. data-muted still says what was
+   *asked* for; data-audio says what is actually audible:
+     off     — muted, unsupported, or a speak() the browser swallowed
+     pending — narration requested, engine has not confirmed it started
+     on      — really speaking
+   The icon follows data-audio, so the speaker-on mark never sits over silence. */
+.pulse-stage[data-audio="off"] .pulse-btn-mute .i-off,
+.pulse-stage[data-audio="pending"] .pulse-btn-mute .i-on,
+.pulse-stage[data-audio="on"] .pulse-btn-mute .i-on { display: block; }
+.pulse-stage[data-audio="off"] .pulse-btn-mute .i-on,
+.pulse-stage[data-audio="pending"] .pulse-btn-mute .i-off,
+.pulse-stage[data-audio="on"] .pulse-btn-mute .i-off { display: none; }
+
+/* Off is the resting state, so it reads as an invitation, not a dead control. */
+.pulse-stage[data-audio="off"] .pulse-btn-mute {
+  background: rgba(255, 107, 53, 0.9);
+  color: #14100c;                  /* white on the orange is 2.84:1 — fails AA */
+}
+.pulse-stage[data-audio="off"] .pulse-btn-mute:hover { background: rgba(255, 107, 53, 1); }
+
+/* Pending is visibly provisional — the sound mark, breathing, not asserted. */
+.pulse-stage[data-audio="pending"] .pulse-btn-mute { opacity: 0.72; }
+.pulse-stage[data-audio="pending"] .pulse-btn-mute svg {
+  animation: pulse-audio-wait 1.1s ease-in-out infinite;
+}
+@keyframes pulse-audio-wait {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-stage[data-audio="pending"] .pulse-btn-mute svg { animation: none; opacity: 0.6; }
+}
+
+.pulse-btn-mute:disabled { opacity: 0.4; cursor: not-allowed; }
+.pulse-btn-mute:disabled:hover { transform: none; }
+
+/* Play/pause. The reel had no visible transport at all: pausing was an
+   undocumented click on the card, and the only feedback vanished after 750ms. */
+.pulse-btn-play .i-play, .pulse-btn-play .i-pause { display: none; }
+.pulse-btn-play:not(.is-paused) .i-pause { display: block; }
+.pulse-btn-play.is-paused .i-play { display: block; }
+
+.pulse-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+/* Keyboard users need to see where Space/M will land. */
+.pulse-stage:focus-visible {
+  outline: 2px solid var(--accent, #FF6B35);
+  outline-offset: 3px;
+}
+
+/* Centre pause indicator. Held for the whole pause, not a 750ms flash. */
 .pulse-pause-hint {
   position: absolute;
   inset: 0;
@@ -225,6 +275,14 @@
   pointer-events: none;
 }
 .pulse-pause-hint.is-shown { opacity: 1; }
+/* Dim the card behind it so "paused" reads at a glance. */
+.pulse-pause-hint.is-shown::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 9, 16, 0.28);
+}
+.pulse-pause-hint span { position: relative; }
 .pulse-pause-hint span {
   width: 62px; height: 62px;
   display: grid;

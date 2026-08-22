@@ -30,6 +30,9 @@ for c in conflicts:
     parties_html = ''.join(f'<span class=\"party-tag\">{html.escape(p)}</span>' for p in c.get('parties', []))
     severity_class = c.get('severity', 'limited')
     esc = lambda s: html.escape(str(s))
+    # The full brand string is 38 chars; with it every conflict <title> ran
+    # 95-107 chars and Google cut off the descriptive half.
+    seo_title = c['seoTitle'].replace('InSnaps : Swipe & Share Global News', 'InSnaps')
 
     page = f'''<!DOCTYPE html>
 <html lang=\"en\" data-theme=\"light\">
@@ -38,7 +41,7 @@ for c in conflicts:
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset=\"UTF-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-  <title>{esc(c['seoTitle'])}</title>
+  <title>{esc(seo_title)}</title>
   <meta name=\"description\" content=\"{esc(c['summary'][:160])}\">
   <meta name=\"keywords\" content=\"{esc(c.get('keywords',''))}\">
   <meta name=\"robots\" content=\"index, follow\">
@@ -58,12 +61,34 @@ for c in conflicts:
   <script type=\"application/ld+json\">
   {{
     \"@context\": \"https://schema.org\",
-    \"@type\": \"Article\",
-    \"headline\": \"{esc(c['title'])}\",
-    \"description\": \"{esc(c['summary'][:200])}\",
-    \"url\": \"$SITE_URL/conflicts/{slug}/\",
-    \"publisher\": {{\"@type\": \"Organization\", \"name\": \"InSnaps : Swipe & Share Global News\", \"url\": \"$SITE_URL\"}},
-    \"mainEntityOfPage\": \"$SITE_URL/conflicts/{slug}/\"
+    \"@graph\": [
+    {{
+      \"@type\": \"Article\",
+      \"headline\": \"{esc(c['title'])}\",
+      \"description\": \"{esc(c['summary'][:200])}\",
+      \"url\": \"$SITE_URL/conflicts/{slug}/\",
+      \"inLanguage\": \"en\",
+      \"isAccessibleForFree\": true,
+      \"publisher\": {{\"@id\": \"$SITE_URL/#organization\"}},
+      \"author\": {{\"@id\": \"$SITE_URL/#organization\"}},
+      \"mainEntityOfPage\": \"$SITE_URL/conflicts/{slug}/\"
+    }},
+    {{
+      \"@type\": \"Organization\",
+      \"@id\": \"$SITE_URL/#organization\",
+      \"name\": \"InSnaps\",
+      \"alternateName\": \"InSnaps : Swipe & Share Global News\",
+      \"url\": \"$SITE_URL\",
+      \"logo\": {{\"@type\": \"ImageObject\", \"url\": \"$SITE_URL/logo.png\"}},
+      \"sameAs\": [
+        \"https://x.com/BuildWtPrakhar\",
+        \"https://www.instagram.com/insnapsofficial\",
+        \"https://www.threads.net/@insnapsofficial\",
+        \"https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049\",
+        \"https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree\"
+      ]
+    }}
+    ]
   }}
   </script>
   <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
@@ -80,7 +105,7 @@ for c in conflicts:
         <span class=\"nav-logo-text\">InSnaps</span>
       </a>
       <div class=\"nav-links\" id=\"navLinks\">
-        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/answers/\">Answers</a>\n        <a href=\"/blog/\">Blog</a>\n
+        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/news/\">News</a>\n        <a href=\"/blog/\">Blog</a>\n
 
         <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"nav-cta\">Download Free</a>
       </div>
@@ -205,7 +230,7 @@ page = f'''<!DOCTYPE html>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset=\"UTF-8\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-  <title>Active Conflicts & Wars in $YEAR — Global Conflict Tracker | InSnaps : Swipe & Share Global News</title>
+  <title>Active Conflicts & Wars in $YEAR — Global Conflict Tracker | InSnaps</title>
   <meta name=\"description\" content=\"Track all active conflicts and wars worldwide in $YEAR. Interactive conflict map, live updates from Reuters, BBC, UCDP. Monitor 30+ ongoing wars and crises.\">
   <meta name=\"keywords\" content=\"active conflicts 2026, ongoing wars 2026, list of active conflicts, global conflict tracker, world wars map, conflict monitor\">
   <meta name=\"robots\" content=\"index, follow\">
@@ -231,7 +256,7 @@ page = f'''<!DOCTYPE html>
         <img src=\"/logo.png\" alt=\"InSnaps : Swipe & Share Global News\" class=\"nav-logo-icon\" width=\"32\" height=\"32\">
         <span class=\"nav-logo-text\">InSnaps</span>
       </a>
-      <div class=\"nav-links\" id=\"navLinks\">\n        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/answers/\">Answers</a>\n        <a href=\"/blog/\">Blog</a>\n
+      <div class=\"nav-links\" id=\"navLinks\">\n        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/news/\">News</a>\n        <a href=\"/blog/\">Blog</a>\n
         <a href=\"$PLAY_STORE\" target=\"_blank\" rel=\"noopener\" class=\"nav-cta\">Download Free</a>
       </div>
       <div class=\"nav-right\">
@@ -310,7 +335,7 @@ cat > blog/index.html << 'BLOGEOF'
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-HQQCZ7SLN5');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog — Geopolitics Analysis & Conflict Insights | InSnaps : Swipe & Share Global News</title>
+  <title>Blog — Geopolitics Analysis & Conflict Insights | InSnaps</title>
   <meta name="description" content="Weekly geopolitics analysis, conflict updates, data-driven articles about wars, sanctions, diplomacy, and global security from the InSnaps : Swipe & Share Global News team.">
   <link rel="canonical" href="https://insnaps.app/blog/">
   <link rel="icon" type="image/png" href="/logo.png">
@@ -333,7 +358,7 @@ cat > blog/index.html << 'BLOGEOF'
         <img src="/logo.png" alt="InSnaps : Swipe & Share Global News" class="nav-logo-icon" width="32" height="32">
         <span class="nav-logo-text">InSnaps</span>
       </a>
-      <div class="nav-links" id="navLinks">\n        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/answers/\">Answers</a>\n        <a href=\"/blog/\">Blog</a>\n
+      <div class="nav-links" id="navLinks">\n        <a href=\"/#blend\">How it works</a>\n        <a href=\"/live/\">Live</a>\n        <a href=\"/news/\">News</a>\n        <a href=\"/blog/\">Blog</a>\n
         <a href="https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree&hl=en_IN" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
       </div>
       <div class="nav-right">
@@ -357,7 +382,7 @@ cat > blog/index.html << 'BLOGEOF'
       <div class="blog-coming-soon">
         <div class="cta-card">
           <h3>Blog Coming Soon</h3>
-          <p>We're preparing articles on global news trends, shareable card design tips, and in-depth coverage across our 13 news domains.</p>
+          <p>We're preparing articles on global news trends, shareable card design tips, and in-depth coverage across our 32 topic domains.</p>
           <p style="margin-top:1rem;color:var(--fg-muted);font-size:0.9rem;">In the meantime, follow us on <a href="https://www.reddit.com/r/WorldNewsSnaps/" target="_blank" rel="noopener">Reddit</a> and <a href="https://x.com/BuildWtPrakhar" target="_blank" rel="noopener">X (Twitter)</a> for updates.</p>
         </div>
       </div>
@@ -393,53 +418,17 @@ python3 _scripts/check_slug_parity.py || { echo "  ! slug tables diverged — sh
 echo "==> Rendering /answers/ pages from buzz content..."
 python3 _scripts/gen_answers.py || echo "  (skipped — kept existing /answers pages)"
 
-echo "==> Building sitemap.xml..."
-
-python3 -c "
-import json
-from datetime import datetime
-
-with open('$DATA_FILE') as f:
-    conflicts = json.load(f)
-
-now = '$NOW'
-urls = [
-    ('$SITE_URL/', '1.0', 'daily'),
-    ('$SITE_URL/live/', '0.9', 'hourly'),
-    ('$SITE_URL/conflicts/', '0.9', 'weekly'),
-    ('$SITE_URL/blog/', '0.8', 'weekly'),
-    ('$SITE_URL/products/', '0.6', 'weekly'),
-    ('$SITE_URL/support/', '0.75', 'monthly'),
-    ('$SITE_URL/privacy/', '0.4', 'yearly'),
-]
-# /t/ and /a/ are noindex deep-link handlers, so they stay out of the sitemap.
-for c in conflicts:
-    urls.append(('$SITE_URL/conflicts/' + c['slug'] + '/', '0.7', 'weekly'))
-
-# /answers/ pages, if gen_answers.py has run
-try:
-    with open('_data/answers.json') as f:
-        _ans = json.load(f)
-    if _ans.get('pages'):
-        urls.append(('$SITE_URL/answers/', '0.85', 'weekly'))
-        for a in _ans['pages']:
-            urls.append(('$SITE_URL/answers/' + a['slug'] + '/', '0.8', 'monthly'))
-except Exception:
-    pass
-
-xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n'
-xml += '<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n'
-for url, priority, freq in urls:
-    xml += f'  <url>\n    <loc>{url}</loc>\n    <lastmod>{now}</lastmod>\n    <changefreq>{freq}</changefreq>\n    <priority>{priority}</priority>\n  </url>\n'
-xml += '</urlset>\n'
-
-with open('sitemap.xml', 'w') as f:
-    f.write(xml)
-print(f'  Generated sitemap with {len(urls)} URLs')
-"
-
 echo "==> Building blog posts from RSS..."
 python3 _scripts/generate_blog.py
+
+echo "==> Rendering long-form blog posts from buzz content..."
+python3 _scripts/gen_blog_posts.py || echo "  (skipped — kept existing /blog posts)"
+
+echo "==> Rendering /news/ reporting..."
+# Unlike the other content generators this one is allowed to fail the build: a
+# story that cannot render (no Sources block, an unknown section) must not ship
+# as a half-page, and silently keeping the previous /news/ would hide the error.
+python3 _scripts/gen_news.py
 
 echo "==> Syncing conflict topics into the topic redirect page..."
 python3 -c "
@@ -472,6 +461,11 @@ python3 _scripts/gen_live_feed.py || echo "  (skipped — kept existing _data/li
 echo "==> Refreshing GitHub snapshot for /products..."
 GH_TOKEN="${GH_TOKEN:-$(security find-generic-password -s decant-gh-release-pat -w 2>/dev/null || true)}" \
   python3 _scripts/gen_gh_cache.py || echo "  (skipped — kept existing products/gh-cache.json)"
+
+# Last, so it can list what every generator above actually wrote.
+echo "==> Building sitemap.xml and llms.txt..."
+python3 _scripts/gen_sitemap.py
+python3 _scripts/gen_llms.py
 
 echo "==> Build complete!"
 echo "    - $(ls conflicts/*/index.html 2>/dev/null | wc -l | tr -d ' ') conflict pages"

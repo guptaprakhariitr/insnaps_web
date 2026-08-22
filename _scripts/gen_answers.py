@@ -83,8 +83,11 @@ def inline(text):
         return '<a href="%s"%s>%s</a>' % (html.escape(url, quote=True), rel, label)
 
     out = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, out)
-    out = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", out)
-    out = re.sub(r"(?<![*\w])\*([^*]+)\*(?!\*)", r"<em>\1</em>", out)
+    # `[^*]+` could not span nested emphasis, so `**bold with *italic* inside**`
+    # failed to match and the stray asterisks were printed literally. Non-greedy
+    # across anything, bold first, and italics must not re-consume the `**`.
+    out = re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", out, flags=re.S)
+    out = re.sub(r"(?<![*\w])\*(?=\S)([^*]+?)(?<=\S)\*(?!\*)", r"<em>\1</em>", out)
     for i, c in enumerate(codes):
         out = out.replace("\x00CODE%d\x00" % i, "<code>%s</code>" % c)
     return out
@@ -93,6 +96,28 @@ def inline(text):
 def slugify(text):
     s = re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
     return s[:80]
+
+
+def split_authored_ld(md):
+    """Pull the authored JSON-LD off the body; return (body, ld or None).
+
+    buzz answer pages carry the same trailing house sections as the blog posts:
+    `## Structured Data (JSON-LD)` is the page's real structured data and
+    `## Image Prompts` is internal art direction. Both are consumed here rather
+    than rendered — printing either one would dump raw JSON onto the page.
+    """
+    ld = None
+    m = re.search(r"##\s*Structured Data.*?```json\s*(.*?)```", md, re.S | re.I)
+    if m:
+        try:
+            ld = json.loads(m.group(1))
+        except Exception as e:
+            print(f"    ! JSON-LD did not parse ({e}) — falling back to generated", file=sys.stderr)
+    for heading in (r"\n##\s*Structured Data", r"\n##\s*Image Prompts"):
+        cut = re.search(heading, md, re.I)
+        if cut:
+            md = md[: cut.start()]
+    return md.rstrip() + "\n", ld
 
 
 def render_markdown(md):
@@ -215,7 +240,7 @@ NAV = """  <nav class="navbar scrolled" id="navbar">
       <div class="nav-links" id="navLinks">
         <a href="/#blend">How it works</a>
         <a href="/live/">Live</a>
-        <a href="/answers/">Answers</a>
+        <a href="/news/">News</a>
         <a href="/blog/">Blog</a>
 
         <a href="{play}" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
@@ -251,28 +276,88 @@ THEME_SCRIPT = """  <script>
 """
 
 
-def page_html(meta, body_html, faqs, h1, updated):
+def page_html(meta, body_html, faqs, h1, updated, authored=None):
     slug = meta["slug"]
     title = meta.get("title") or h1 or slug
     desc = meta.get("description", "")
     url = "%s/answers/%s/" % (SITE_URL, slug)
+    org_id = SITE_URL + "/#organization"
 
-    ld = [{
+    # Authored JSON-LD wins over the generated version; whatever the author did
+    # not write is still synthesized below, so a page is never shipped without
+    # structured data.
+    authored_nodes = []
+    if authored:
+        if isinstance(authored, dict) and "@graph" in authored:
+            authored_nodes = list(authored["@graph"] or [])
+        elif isinstance(authored, list):
+            authored_nodes = list(authored)
+        elif isinstance(authored, dict):
+            authored_nodes = [authored]
+        authored_nodes = [n for n in authored_nodes if isinstance(n, dict) and n.get("@type")]
+    have = {n.get("@type") for n in authored_nodes}
+    for node in authored_nodes:
+        if node.get("@type") not in ("Article", "BlogPosting", "NewsArticle"):
+            continue
+        # Every page resolves to the site's single publisher entity rather than
+        # an inline Organization per page.
+        node["publisher"] = {"@id": org_id}
+        if not isinstance(node.get("author"), dict) or node["author"].get("@type") != "Person":
+            node["author"] = {"@id": org_id}
+        node.setdefault("url", url)
+        node.setdefault("mainEntityOfPage", {"@type": "WebPage", "@id": url})
+        node.setdefault("inLanguage", "en")
+        node.setdefault("isAccessibleForFree", True)
+        node.setdefault("dateModified", updated[:10])
+        # The declared hero comes from an image *prompt*, not a file we ship.
+        # Advertising a 404 in schema is worse than carrying no image at all.
+        declared = node.get("image")
+        first = declared[0] if isinstance(declared, list) and declared else declared
+        if isinstance(first, dict):
+            first = first.get("url")
+        on_disk = None
+        if isinstance(first, str) and first.startswith(SITE_URL):
+            on_disk = os.path.join(ROOT, first[len(SITE_URL):].lstrip("/"))
+        if not isinstance(first, str) or (on_disk and not os.path.isfile(on_disk)):
+            node["image"] = SITE_URL + "/insnaps_og.png"
+
+    ld = list(authored_nodes)
+    if "Article" not in have:
+        ld.append({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": h1 or title,
+            "description": desc,
+            "url": url,
+            "datePublished": meta.get("date", updated[:10]),
+            "dateModified": updated[:10],
+            # One shared publisher @id across the site rather than an inline
+            # Organization per page, so answer engines resolve a single entity.
+            "author": {"@id": org_id},
+            "publisher": {"@id": org_id},
+            "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+            "inLanguage": "en",
+            "isAccessibleForFree": True,
+        })
+    # The publisher entity itself is always emitted, authored or not.
+    ld.append({
         "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": h1 or title,
-        "description": desc,
-        "url": url,
-        "datePublished": meta.get("date", updated[:10]),
-        "dateModified": updated[:10],
-        "author": {"@type": "Organization", "name": APP_NAME, "url": SITE_URL},
-        "publisher": {"@type": "Organization", "name": APP_NAME, "url": SITE_URL,
-                      "logo": {"@type": "ImageObject", "url": SITE_URL + "/logo.png"}},
-        "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-        "isAccessibleForFree": True,
-    }]
+        "@type": "Organization",
+        "@id": org_id,
+        "name": "InSnaps",
+        "alternateName": APP_NAME,
+        "url": SITE_URL,
+        "logo": {"@type": "ImageObject", "url": SITE_URL + "/logo.png"},
+        "sameAs": [
+            "https://x.com/BuildWtPrakhar",
+            "https://www.instagram.com/insnapsofficial",
+            "https://www.threads.net/@insnapsofficial",
+            "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049",
+            "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree",
+        ],
+    })
     # FAQPage is the part answer engines actually consume.
-    if faqs:
+    if faqs and "FAQPage" not in have:
         ld.append({
             "@context": "https://schema.org",
             "@type": "FAQPage",
@@ -349,7 +434,7 @@ def page_html(meta, body_html, faqs, h1, updated):
 
   <footer class="ans-footer">
     <div class="ans-footer-inner">
-      <p>&copy; {year} {app} · <a href="/">Home</a> · <a href="/answers/">Answers</a> · <a href="/live/">Live</a> · <a href="/conflicts/">Conflicts</a> · <a href="/privacy/">Privacy</a></p>
+      <p>&copy; {year} {app} · <a href="/">Home</a> · <a href="/answers/">Answers</a> · <a href="/live/">Live</a> · <a href="/news/">News</a> · <a href="/conflicts/">Conflicts</a> · <a href="/privacy/">Privacy</a></p>
     </div>
   </footer>
 {theme}
@@ -367,16 +452,39 @@ def page_html(meta, body_html, faqs, h1, updated):
            year=datetime.now(timezone.utc).year, theme=THEME_SCRIPT)
 
 
+def qa_list_html(pages, heading_level=2):
+    """The Q&A list markup, shared by /answers/ and the /blog/ hub.
+
+    Replaces a stack of identical full-width boxes that gave the eye nothing to
+    latch onto. Each row now leads with the question mark glyph, so the list
+    scans as questions; the search phrase moves to a quiet footnote instead of
+    repeating "Answers:" six times down the page.
+    """
+    h = "h%d" % heading_level
+    rows = []
+    for i, p in enumerate(pages, 1):
+        target = p.get("target", "")
+        note = ('<span class="qa-target">searched as &ldquo;%s&rdquo;</span>'
+                % html.escape(target, quote=False)) if target else ""
+        rows.append(
+            '        <a class="qa-item" href="/answers/%s/">\n'
+            '          <span class="qa-mark" aria-hidden="true">?</span>\n'
+            '          <span class="qa-body">\n'
+            '            <%s class="qa-title">%s</%s>\n'
+            '            <span class="qa-desc">%s</span>\n'
+            '            %s\n'
+            '          </span>\n'
+            '          <span class="qa-go" aria-hidden="true">&rarr;</span>\n'
+            '        </a>' % (
+                html.escape(p["slug"], quote=True), h,
+                html.escape(p.get("title") or p["slug"], quote=False), h,
+                html.escape(p.get("description", ""), quote=False), note))
+    return "\n".join(rows)
+
+
 def index_html(pages, updated):
     e = lambda s: html.escape(str(s), quote=True)
-    cards = "\n".join(
-        '        <a class="ans-card" href="/answers/{slug}/">'
-        '<h2>{title}</h2><p>{desc}</p>'
-        '<span class="ans-card-q">Answers: “{target}”</span></a>'.format(
-            slug=e(p["slug"]), title=html.escape(p.get("title") or p["slug"], quote=False),
-            desc=html.escape(p.get("description", ""), quote=False),
-            target=html.escape(p.get("target", ""), quote=False))
-        for p in pages)
+    cards = qa_list_html(pages)
     ld = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
@@ -397,6 +505,15 @@ def index_html(pages, updated):
   <meta name="description" content="Straight, sourced answers about local and world news apps — what covers your town, what to use instead of Inshorts or Ground News, and the honest trade-offs.">
   <meta name="robots" content="index, follow, max-snippet:-1">
   <link rel="canonical" href="{site}/answers/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Answers | {app}">
+  <meta property="og:description" content="Straight, sourced answers about local and world news apps.">
+  <meta property="og:url" content="{site}/answers/">
+  <meta property="og:image" content="{site}/insnaps_og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Answers | {app}">
+  <meta name="twitter:description" content="Straight, sourced answers about local and world news apps.">
+  <meta name="twitter:image" content="{site}/insnaps_og.png">
   <link rel="icon" type="image/png" href="/logo.png">
   <script type="application/ld+json">{ld}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -411,16 +528,21 @@ def index_html(pages, updated):
 {nav}
   <main class="ans-page">
     <div class="ans-index">
-      <h1>Answers</h1>
-      <p class="ans-index-lede">Straight answers to the questions people actually ask — with sources, comparisons, and the honest limitations. {n} pages, updated {updated_h}.</p>
-      <div class="ans-grid">
+      <nav class="post-crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> <span aria-hidden="true">›</span> <a href="/blog/">Reading</a>
+      </nav>
+      <span class="qa-kicker">Answers</span>
+      <h1>Questions, answered straight.</h1>
+      <p class="ans-index-lede">The questions people actually type, each with sources, comparisons and the honest limitations. {n} answers, updated {updated_h}.</p>
+      <div class="qa-list">
 {cards}
       </div>
+      <p class="qa-more">Looking for the longer write-ups? <a href="/blog/">Read the guides &rarr;</a></p>
     </div>
   </main>
   <footer class="ans-footer">
     <div class="ans-footer-inner">
-      <p>&copy; {year} {app} · <a href="/">Home</a> · <a href="/live/">Live</a> · <a href="/conflicts/">Conflicts</a> · <a href="/privacy/">Privacy</a></p>
+      <p>&copy; {year} {app} · <a href="/">Home</a> · <a href="/live/">Live</a> · <a href="/news/">News</a> · <a href="/conflicts/">Conflicts</a> · <a href="/privacy/">Privacy</a></p>
     </div>
   </footer>
 {theme}
@@ -469,6 +591,7 @@ def main():
     for name in files:
         raw = open(os.path.join(VENDOR_DIR, name), encoding="utf-8").read()
         meta, body_md = parse_frontmatter(raw)
+        body_md, authored_ld = split_authored_ld(body_md)
         body_html, faqs, h1 = render_markdown(body_md)
         slug = meta.get("slug") or slugify(h1 or name[:-3].replace("answer-", ""))
         meta["slug"] = slug
@@ -477,7 +600,7 @@ def main():
         out_dir = os.path.join(OUT_DIR, slug)
         os.makedirs(out_dir, exist_ok=True)
         with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
-            f.write(page_html(meta, body_html, faqs, h1, updated))
+            f.write(page_html(meta, body_html, faqs, h1, updated, authored_ld))
         pages.append(meta)
         print("  + /answers/%s/  (%d FAQ%s)" % (slug, len(faqs), "" if len(faqs) == 1 else "s"))
 
@@ -490,7 +613,9 @@ def main():
     with open(os.path.join(ROOT, "_data", "answers.json"), "w", encoding="utf-8") as f:
         json.dump({"generatedAt": updated,
                    "pages": [{"slug": p["slug"], "title": p["title"],
-                              "target": p.get("target", "")} for p in pages]}, f, indent=2)
+                              "target": p.get("target", ""),
+                              "description": p.get("description", "")}
+                             for p in pages]}, f, indent=2)
     return 0
 
 

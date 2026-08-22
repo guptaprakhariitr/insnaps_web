@@ -25,7 +25,6 @@
   var FALLBACK_MS = 1200;   // app: _fallbackTimer
   var MIN_MS = 2000;        // app: estMs.clamp(2000, 35000)
   var MAX_MS = 35000;
-  var PAUSE_HINT_MS = 750;  // app: _pauseIndicatorTimer
   var REEL_GAP_MS = 1000;   // beat between reels, so they don't run together
   var DEFAULT_LIMIT = 4;
   var WPM = 165;            // silent-pace estimate
@@ -182,11 +181,23 @@
     this.slides = [];
     this.segs = [];
     this.index = 0;
-    // Sound on by default, matching the app. Browsers block speech until the
-    // visitor has interacted with the page, so _armAudioGesture() starts the
-    // narration at the first click/tap/key instead of silently failing.
-    this.muted = this.opts.muted === undefined ? false : !!this.opts.muted;
+    // Muted by default. Sound-on used to be the default "to match the app",
+    // and _armAudioGesture() latched the first scroll or keypress anywhere on
+    // the page as consent — so a visitor who only scrolled the homepage got a
+    // synthetic voice reading headlines at them, with no control in sight.
+    // On the web narration is opt-in: nothing speaks until the sound button
+    // is pressed. The app keeps its own default; this is the browser.
+    this.muted = this.opts.muted === undefined ? true : !!this.opts.muted;
     this.audioArmed = false;
+    // Whether audio is *actually* coming out, as opposed to whether we asked
+    // for it. The speaker icon used to be driven by `muted` alone, so on any
+    // visit where the reel autoplayed before the visitor had touched the page
+    // (second visit onwards, once the city gate stops holding playback) the
+    // browser refused to speak and the icon still showed sound-on over silence.
+    this.speaking = false;
+    // Set once we know a speak() attempt produced nothing, so the control can
+    // stop claiming otherwise and show the tap-to-enable state instead.
+    this.audioBlocked = false;
     this.paused = false;
     this.ended = false;
     this.limit = this.opts.limit || DEFAULT_LIMIT;
@@ -213,11 +224,18 @@
     r.className = 'pulse-stage';
     r.setAttribute('data-muted', this.muted ? '1' : '0');
     r.setAttribute('role', 'region');
-    r.setAttribute('aria-label', 'Pulse — narrated news reel');
+    r.setAttribute('aria-label', 'Pulse — news reel');
+    // Keyboard reach: the reel used to be operable by mouse only, and pausing
+    // was an undocumented click on the card itself.
+    r.setAttribute('tabindex', '0');
     r.innerHTML =
       '<div class="pulse-progress" data-el="progress"></div>' +
       '<div class="pulse-controls">' +
-        '<button class="pulse-btn pulse-btn-mute" data-el="mute" type="button" aria-label="Toggle narration">' +
+        '<button class="pulse-btn pulse-btn-play" data-el="playpause" type="button" aria-label="Pause reel" aria-pressed="false">' +
+          '<svg class="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>' +
+          '<svg class="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>' +
+        '</button>' +
+        '<button class="pulse-btn pulse-btn-mute" data-el="mute" type="button" aria-label="Turn narration on" aria-pressed="false">' +
           '<svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>' +
           '<svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>' +
         '</button>' +
@@ -241,9 +259,18 @@
       '<div class="pulse-status" data-el="status"><div><div class="pulse-spinner"></div>Loading Pulse…</div></div>';
 
     this.el = {};
-    ['progress', 'mute', 'slides', 'hint', 'end', 'endcount', 'endopen', 'endlabel', 'more', 'status']
+    ['progress', 'playpause', 'mute', 'slides', 'hint', 'end', 'endcount', 'endopen', 'endlabel', 'more', 'status']
       .forEach(function (k) { self.el[k] = r.querySelector('[data-el="' + k + '"]'); });
 
+    // The icon rules are keyed on data-audio, so it has to exist from the first
+    // paint — without it neither speaker glyph matches and the button is blank.
+    this._syncControls();
+
+    this.el.playpause.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (self.ended) { self.more(); return; }
+      self.togglePause();
+    });
     this.el.mute.addEventListener('click', function (e) {
       e.stopPropagation();
       self.toggleMute();
@@ -262,6 +289,18 @@
       self.togglePause();
     });
 
+    r.addEventListener('keydown', function (e) {
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      var k = e.key;
+      if (k === ' ' || k === 'Spacebar' || k === 'k' || k === 'K') {
+        e.preventDefault();                 // Space would scroll the page away
+        if (!self.ended) self.togglePause();
+      } else if (k === 'm' || k === 'M') {
+        e.preventDefault();
+        self.toggleMute();
+      }
+    });
+
     // An autoplaying, talking card that follows you down the page is hostile.
     if ('IntersectionObserver' in window) {
       this.io = new IntersectionObserver(function (entries) {
@@ -278,9 +317,11 @@
   };
 
   /* Autoplay policy: speechSynthesis.speak() before any user gesture is
-     ignored in Chrome and Safari. Rather than show a speaker-on icon over
-     silence, listen once for the first interaction anywhere on the page and
-     start the voice from wherever the caption has reached. */
+     ignored in Chrome and Safari. Only reachable once the visitor has already
+     asked for sound, so this is a retry for the case where that same click was
+     not accepted as the activating gesture — not a consent mechanism.
+     Deliberately scoped to the reel, and `wheel` is not in the list: latching a
+     scroll meant the page started talking at someone who never asked. */
   Pulse.prototype._armAudioGesture = function () {
     var self = this;
     if (this.audioArmed || this.muted || !speechSupported) return;
@@ -293,13 +334,14 @@
       if (self.current.spoke) return;
       self._startReel(self.index);
     }
+    var target = this.root;
     function off() {
-      ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (ev) {
-        window.removeEventListener(ev, go, true);
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+        target.removeEventListener(ev, go, true);
       });
     }
-    ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (ev) {
-      window.addEventListener(ev, go, { capture: true, once: false, passive: true });
+    ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+      target.addEventListener(ev, go, { capture: true, once: false, passive: true });
     });
   };
 
@@ -458,6 +500,8 @@
   Pulse.prototype.play = function () {
     this.paused = false;
     this.root.classList.remove('is-paused');
+    this.el.hint.classList.remove('is-shown');
+    this._syncControls();
     this._startReel(this.index);
   };
 
@@ -535,7 +579,11 @@
       this.timers.push(setTimeout(function () {
         if (self.gen !== gen || !self.current || self.current.started) return;
         // Speech never started — almost always the autoplay block. Pace the
-        // caption on a timer so nothing freezes, and wait for a gesture.
+        // caption on a timer so nothing freezes, wait for a gesture, and stop
+        // the control advertising narration the visitor cannot hear.
+        self.speaking = false;
+        self.audioBlocked = true;
+        self._syncControls();
         self._silentPace(0);
         self._armAudioGesture();
       }, FALLBACK_MS));
@@ -588,6 +636,9 @@
       if (stale() || !self.current) return;
       self.current.started = true;
       self.current.spoke = true;      // real audio is playing
+      self.speaking = true;
+      self.audioBlocked = false;
+      self._syncControls();
       var doneRatio = base / Math.max(1, full);
       self._beginBar(doneRatio, Math.max(400, Math.round(self.current.estimated * (1 - doneRatio))));
     };
@@ -599,19 +650,28 @@
       self._revealTo(Math.round(ratio * self.current.caption.length));
     };
     u.onend = function () {
+      self.speaking = false;
+      self._syncControls();
       // Stale means we cancelled it on purpose; advancing here would double-step.
       if (stale() || !self.current || self.paused) return;
       self._revealTo(self.current.caption.length);
       self._advance();
     };
     u.onerror = function () {
+      self.speaking = false;
       if (stale() || !self.current || self.current.started) return;
+      // The engine rejected it outright — say so on the control.
+      self.audioBlocked = true;
+      self._syncControls();
       self._silentPace(self.typed);
     };
 
     try {
       window.speechSynthesis.speak(u);
     } catch (_) {
+      this.speaking = false;
+      this.audioBlocked = true;
+      this._syncControls();
       this._silentPace(this.typed);
     }
   };
@@ -682,6 +742,7 @@
   Pulse.prototype._finish = function () {
     this.stop();
     this.ended = true;
+    this._syncControls();
     this.segs.forEach(function (s) {
       s.classList.add('is-done');
       s.classList.remove('is-live');
@@ -709,18 +770,17 @@
     var self = this;
     if (this.paused || this.ended) return;
     this.paused = true;
+    this.speaking = false;
     this.root.classList.add('is-paused');
     this._freeze();
     this.gen++;              // stop the cancelled utterance from advancing
     this._clearTimers();
     cancelSpeech();
-    if (!silent) {
-      this.el.hint.classList.add('is-shown');
-      if (this.hintTimer) clearTimeout(this.hintTimer);
-      this.hintTimer = setTimeout(function () {
-        self.el.hint.classList.remove('is-shown');
-      }, PAUSE_HINT_MS);
-    }
+    // The indicator stays up for the whole pause. It used to fade after 750ms,
+    // which left a stopped reel looking like a card that had simply died.
+    this.el.hint.classList.add('is-shown');
+    if (this.hintTimer) { clearTimeout(this.hintTimer); this.hintTimer = null; }
+    this._syncControls();
     if (this.opts.onPause) this.opts.onPause(this.context());
   };
 
@@ -752,6 +812,7 @@
     this.paused = false;
     this.root.classList.remove('is-paused');
     this.el.hint.classList.remove('is-shown');
+    this._syncControls();
 
     var cur = this.current;
     var typed = this.typed;
@@ -787,6 +848,9 @@
       this._speak(rest, sp);
       this.timers.push(setTimeout(function () {
         if (!self.current || self.current.started || self.paused) return;
+        self.speaking = false;
+        self.audioBlocked = true;
+        self._syncControls();
         self._silentPace(self.typed);
       }, FALLBACK_MS));
     } else {
@@ -795,9 +859,48 @@
     if (this.opts.onResume) this.opts.onResume(this.context());
   };
 
+  /** Keep the controls telling the truth. Both buttons used to carry a fixed
+   *  aria-label and no pressed state, so assistive tech announced "Toggle
+   *  narration" whether sound was on or off, and a paused reel was
+   *  indistinguishable from a broken one. */
+  /** off | pending | on — what the visitor can actually hear right now.
+   *  "pending" is the honest answer between asking for narration and the
+   *  speech engine confirming it started; "off" covers muted, no speech
+   *  support, and a speak() attempt the browser swallowed. */
+  Pulse.prototype._audioState = function () {
+    if (this.muted || !speechSupported || this.audioBlocked) return 'off';
+    return this.speaking ? 'on' : 'pending';
+  };
+
+  Pulse.prototype._syncControls = function () {
+    if (!this.el || !this.el.playpause) return;
+    var pp = this.el.playpause;
+    var showPlay = this.paused || this.ended;
+    pp.setAttribute('aria-pressed', this.paused ? 'true' : 'false');
+    pp.setAttribute('aria-label',
+      this.ended ? 'Show more stories' : (showPlay ? 'Play reel' : 'Pause reel'));
+    pp.classList.toggle('is-paused', showPlay);
+    var audio = this._audioState();
+    this.root.setAttribute('data-audio', audio);
+    // aria-pressed follows audible reality, not the request, so a screen reader
+    // is not told narration is on while the page is silent.
+    this.el.mute.setAttribute('aria-pressed', audio === 'on' ? 'true' : 'false');
+    this.el.mute.setAttribute('aria-label',
+      audio === 'on' ? 'Turn narration off'
+        : audio === 'pending' ? 'Starting narration — tap to turn off'
+        : 'Turn narration on');
+    if (!speechSupported) {
+      this.el.mute.disabled = true;
+      this.el.mute.title = 'This browser has no speech engine, so Pulse cannot narrate.';
+    }
+  };
+
   Pulse.prototype.toggleMute = function () {
     this.muted = !this.muted;
+    this.speaking = false;
+    this.audioBlocked = false;
     this.root.setAttribute('data-muted', this.muted ? '1' : '0');
+    this._syncControls();
     if (this.opts.onMute) this.opts.onMute(this.muted, this.context());
     if (this.ended) return;
     this._startReel(this.index);   // restart so narration starts/stops cleanly

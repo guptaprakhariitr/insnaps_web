@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-08-22T09:39:02.284988+00:00",
+  "posts": [
+    {
+      "slug": "how-much-local-vs-world",
+      "h1": "How Much of Your Feed Should Be Local vs World News? Picking a Mix and Sticking to It",
+      "title": "How Much of Your Feed Should Be Local vs World News?",
+      "description": "The short answer: There is no universally correct ratio, and anyone who tells you \u201c70/30\u201d made it up. What matters is that the mix is a decision you made\u2026",
+      "read_min": 7,
+      "published": "1 August 2026",
+      "published_iso": "2026-08-01",
+      "image": "https://insnaps.app/blog/assets/how-much-local-vs-world-cover.svg",
+      "words": 1626
+    },
+    {
+      "slug": "is-your-news-app-personalised",
+      "h1": "How to Tell If a News App Is Actually Personalised (Or Just Showing You What\u2019s Popular)",
+      "title": "How to Tell If a News App Is Actually Personalised (Or Just\u2026",
+      "description": "The short answer: Run four tests. Can you set your city by name and have it stick? Can you change the local\u2194global mix? Does the app re-rank for you, or\u2026",
+      "read_min": 8,
+      "published": "1 August 2026",
+      "published_iso": "2026-08-01",
+      "image": "https://insnaps.app/blog/assets/is-your-news-app-personalised-cover.svg",
+      "words": 1705
+    },
+    {
+      "slug": "listening-to-the-news",
+      "h1": "Can You Just Listen to the News Instead of Reading It?",
+      "title": "Can You Just Listen to the News Instead of Reading It?",
+      "description": "The short answer: Yes, and a lot of people already do. The Reuters Institute\u2019s Digital News Report 2025 puts podcasts at around 10% of news access, with\u2026",
+      "read_min": 8,
+      "published": "1 August 2026",
+      "published_iso": "2026-08-01",
+      "image": "https://insnaps.app/blog/assets/listening-to-the-news-cover.svg",
+      "words": 1692
+    },
+    {
+      "slug": "news-deserts-what-to-do",
+      "h1": "Your Town Has No Local Paper. Now What? A Practical Guide to Living in a News Desert",
+      "title": "Your Town Has No Local Paper. Now What?",
+      "description": "The short answer: You are not imagining it. Northwestern\u2019s Medill State of Local News 2025 counted 213 US counties with no local news source at all\u2026",
+      "read_min": 8,
+      "published": "1 August 2026",
+      "published_iso": "2026-08-01",
+      "image": "https://insnaps.app/blog/assets/news-deserts-what-to-do-cover.svg",
+      "words": 1708
+    },
+    {
+      "slug": "what-counts-as-local-news",
+      "h1": "What Actually Counts as \u201cLocal News\u201d in a News App? Named Localities vs Metro Markets",
+      "title": "What Actually Counts as \u201cLocal News\u201d in a News App?",
+      "description": "The short answer: In most news apps, \u201clocal\u201d does not mean your town; it means the nearest media market, a metro-sized region the app already has indexed\u2026",
+      "read_min": 8,
+      "published": "1 August 2026",
+      "published_iso": "2026-08-01",
+      "image": "https://insnaps.app/blog/assets/what-counts-as-local-news-cover.svg",
+      "words": 1661
+    }
+  ]
+}

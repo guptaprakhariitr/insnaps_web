@@ -10,7 +10,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InSnaps — Personalized Local + Global News Feed | Your City. Your Country. Your World.</title>
+  <title>InSnaps — Personalized Local + Global News App | Your City, Your World</title>
   <meta name="description" content="Stay informed faster with InSnaps. Personalized local, national, and global news feed with 32 topic domains. Swipe fast, save articles, and share stories instantly.">
   <meta name="keywords" content="InSnaps, personalized news app, local news app, global news feed, city news app, swipe news app, save articles app, share stories app, world news app, topic based news app, onboarding personalization, cross platform news app, iPhone iPad Mac Android news">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -19,6 +19,7 @@
   <link rel="canonical" href="https://insnaps.app/">
   <link rel="alternate" hreflang="en" href="https://insnaps.app/">
   <link rel="alternate" hreflang="x-default" href="https://insnaps.app/">
+  <link rel="alternate" type="application/rss+xml" title="InSnaps articles" href="https://insnaps.app/blog/feed.xml">
   <link rel="icon" type="image/png" href="logo.png">
   <meta name="google-play-app" content="app-id=com.prakshaappthree.appthree">
   <meta name="apple-itunes-app" content="app-id=6762338049">
@@ -56,18 +57,8 @@
     "downloadUrl": ["https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree", "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049"],
     "screenshot": "https://insnaps.app/insnaps_og.png",
     "featureList": "City-first personalization, Local + national + global feed, 32 topic domains, Fast vertical swipe feed, Saved articles, One-tap sharing, Topic hubs and conflict map, Cross-device sync",
-    "author": {
-      "@type": "Organization",
-      "name": "InSnaps : Swipe & Share Global News",
-      "url": "https://insnaps.app",
-      "sameAs": [
-        "https://x.com/BuildWtPrakhar",
-        "https://www.instagram.com/insnapsofficial",
-        "https://www.threads.net/@insnapsofficial",
-        "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree",
-        "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049"
-      ]
-    }
+    "author": { "@id": "https://insnaps.app/#organization" },
+    "publisher": { "@id": "https://insnaps.app/#organization" }
   }
   </script>
   <script type="application/ld+json">
@@ -122,13 +113,40 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://insnaps.app/#website",
     "name": "InSnaps : Swipe & Share Global News",
     "url": "https://insnaps.app",
+    "inLanguage": "en",
+    "publisher": { "@id": "https://insnaps.app/#organization" },
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://insnaps.app/conflicts/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
+  }
+  </script>
+  <!-- The publisher entity every Article on the site points its "publisher" at,
+       so answer engines resolve one organization instead of one per page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://insnaps.app/#organization",
+    "name": "InSnaps",
+    "alternateName": "InSnaps : Swipe & Share Global News",
+    "url": "https://insnaps.app",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://insnaps.app/logo.png"
+    },
+    "description": "InSnaps is a local + world news app for iPhone, iPad, Mac and Android. Set your city once and get a feed that carries both your locality and the wider world.",
+    "sameAs": [
+      "https://x.com/BuildWtPrakhar",
+      "https://www.instagram.com/insnapsofficial",
+      "https://www.threads.net/@insnapsofficial",
+      "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049",
+      "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree"
+    ]
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -155,7 +173,7 @@
       <div class="nav-links" id="navLinks">
         <a href="#blend">How it works</a>
         <a href="/live/">Live</a>
-        <a href="/answers/">Answers</a>
+        <a href="/news/">News</a>
         <a href="/blog/">Blog</a>
         <a href="#" class="nav-cta dl-btn">Download Free</a>
       </div>
@@ -601,6 +619,29 @@
       </div>
     </section>
 
+    <!-- ======= OUR OWN REPORTING ======= -->
+    <!-- The cards between the markers are written by _scripts/gen_news.py from
+         _data/news.json. Do not hand-edit them; the next build reverts it. -->
+    <section class="hp-news" id="news">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">From our desk</span>
+          <h2 class="section-title">We report some of it ourselves.</h2>
+          <p class="section-desc">Original stories on companies, launches and events &mdash; each one citing its sources. <a href="/news/">Read all news &rarr;</a></p>
+        </div>
+        <div class="hp-news-grid reveal">
+          <!-- NEWS_LATEST:start -->
+          <a class="hp-news-card" href="/news/desal-hard-water-hair-care/">
+            <span class="hp-news-kicker">Companies</span>
+            <h3>deSal built a 50-article content operation before it built an audience</h3>
+            <p>A two-founder Bengaluru hair-care brand has published locality-level articles on water hardness in dozens of Indian neighbourhoods…</p>
+            <span class="hp-news-meta">Bengaluru &middot; 22 August 2026</span>
+          </a>
+          <!-- NEWS_LATEST:end -->
+        </div>
+      </div>
+    </section>
+
     <!-- ======= PRICING / FREEMIUM ======= -->
     <section class="pricing" id="pricing">
       <div class="container">
@@ -621,7 +662,7 @@
               <li>Interactive conflict map</li>
               <li>Monthly swipe allowance</li>
               <li>Shareable news cards</li>
-              <li>13 news domains</li>
+              <li>13 of 32 news domains</li>
             </ul>
             <a href="#download" class="pricing-btn pricing-btn-free">Get Started — It's Free</a>
           </div>
@@ -703,8 +744,8 @@
           <h5>Explore</h5>
           <a href="/conflicts/">All Conflicts</a>
           <a href="/live/">Live</a>
-          <a href="/answers/">Answers</a>
-          <a href="/blog/">Blog</a>
+          <a href="/news/">News</a>
+            <a href="/blog/">Blog</a>
           <a href="/products/">Products</a>
           <a href="/partner/">Partner with Us</a>
           <a href="mailto:prakshatechnologies@gmail.com">Contact Us</a>
