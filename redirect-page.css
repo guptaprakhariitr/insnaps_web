@@ -42,7 +42,7 @@ body {
 }
 a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
 a:hover { color: var(--accent-light); }
-::selection { background: var(--accent); color: white; }
+::selection { background: var(--accent); color: var(--on-accent); }
 
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
@@ -239,7 +239,7 @@ a:hover { color: var(--accent-light); }
 
 .btn-open-app {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  background: var(--accent); color: white !important; padding: 0.9rem 2rem;
+  background: var(--accent); color: var(--on-accent) !important; padding: 0.9rem 2rem;
   border-radius: 999px; font-weight: 700; font-size: 1rem;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 24px rgba(255, 107, 53, 0.35);
@@ -248,7 +248,7 @@ a:hover { color: var(--accent-light); }
   font-family: var(--font-body);
 }
 .btn-open-app:hover {
-  background: var(--accent-light); color: white !important;
+  background: var(--accent-hover); color: var(--on-accent) !important;
   transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255, 107, 53, 0.45);
 }
 .btn-open-app svg { width: 20px; height: 20px; flex-shrink: 0; }
@@ -257,14 +257,14 @@ a:hover { color: var(--accent-light); }
 
 .btn-primary-dl {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  background: var(--accent); color: white !important; padding: 0.8rem 1.8rem;
+  background: var(--accent); color: var(--on-accent) !important; padding: 0.8rem 1.8rem;
   border-radius: 999px; font-weight: 600; font-size: 0.95rem;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 24px rgba(255, 107, 53, 0.3);
   width: 100%; max-width: 300px;
 }
 .btn-primary-dl:hover {
-  background: var(--accent-light); color: white !important;
+  background: var(--accent-hover); color: var(--on-accent) !important;
   transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255, 107, 53, 0.4);
 }
 .btn-primary-dl svg { width: 20px; height: 20px; flex-shrink: 0; }

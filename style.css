@@ -18,7 +18,10 @@
   --accent-cyan: #00d9ff;
   --accent-gold: #ffd93d;
   --accent-red: #ff4757;
+  /* Text on an accent fill. Must flip with the theme: this bright orange needs
+     dark text (6.81:1); the light theme's darker orange needs white (4.78:1). */
   --on-accent: #0a0e17;
+  --accent-hover: #ff8c5a;      /* dark text on it: 8.41:1 */
   --accent-glow: rgba(255, 107, 53, 0.14);
   --accent-glow-strong: rgba(255, 107, 53, 0.28);
   --border: rgba(255, 255, 255, 0.06);
@@ -49,7 +52,10 @@
   --accent-cyan: #0090a8;
   --accent-gold: #a67c00;
   --accent-red: #d92d3c;
-  --on-accent: #0a0e17;
+  --on-accent: #ffffff;         /* white on #c8481a: 4.78:1 */
+  /* Hover darkens here rather than brightening: --accent-light is #ff6b35,
+     and white on that is 2.84:1. */
+  --accent-hover: #a83c14;      /* white on it: 6.32:1 */
   --accent-glow: rgba(200, 72, 26, 0.09);
   --accent-glow-strong: rgba(200, 72, 26, 0.18);
   --border: rgba(0, 0, 0, 0.06);
@@ -75,7 +81,7 @@
   gap: 1rem;
   padding: 0.5rem 1.5rem;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   font-size: 0.85rem;
   font-weight: 600;
   transform: translateY(-100%);
@@ -89,7 +95,9 @@
 .app-banner-text { white-space: nowrap; }
 .app-banner-btn {
   background: white;
-  color: var(--accent);
+  /* Fixed, not var(--accent): the dark theme's #ff6b35 is 2.84:1 on white.
+     #c8481a is 4.78:1 and the pill is white in both themes. */
+  color: #c8481a;
   padding: 0.3rem 0.9rem;
   border-radius: 999px;
   font-size: 0.8rem;
@@ -97,11 +105,13 @@
   text-decoration: none;
   white-space: nowrap;
 }
-.app-banner-btn:hover { opacity: 0.9; color: var(--accent); }
+.app-banner-btn:hover { opacity: 0.9; color: #c8481a; }
 .app-banner-close {
   background: none;
   border: none;
-  color: white;
+  /* Sits on the banner's accent fill, so it follows the same token as the
+     banner text rather than reverting to white. */
+  color: var(--on-accent);
   font-size: 1.3rem;
   cursor: pointer;
   padding: 0 0.25rem;
@@ -187,7 +197,7 @@ a:hover { color: var(--accent-light); }
 
 ::selection {
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
 }
 
 .container {
@@ -255,7 +265,7 @@ a:hover { color: var(--accent-light); }
 .nav-links a:hover { color: var(--fg); }
 .nav-cta {
   background: var(--accent) !important;
-  color: white !important;
+  color: var(--on-accent) !important;
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   font-weight: 600 !important;
@@ -330,7 +340,7 @@ a:hover { color: var(--accent-light); }
   align-items: center;
   gap: 0.6rem;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   padding: 0.85rem 1.8rem;
   border-radius: 999px;
   font-weight: 600;
@@ -339,8 +349,8 @@ a:hover { color: var(--accent-light); }
   box-shadow: 0 4px 24px rgba(255, 107, 53, 0.3);
 }
 .btn-primary:hover {
-  background: var(--accent-light);
-  color: white;
+  background: var(--accent-hover);
+  color: var(--on-accent);
   transform: translateY(-2px);
   box-shadow: 0 6px 30px rgba(255, 107, 53, 0.4);
 }
@@ -1151,7 +1161,7 @@ a:hover { color: var(--accent-light); }
   height: 40px;
   border-radius: 50%;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1411,7 +1421,7 @@ a:hover { color: var(--accent-light); }
   align-items: center;
   gap: 0.5rem;
   background: var(--accent);
-  color: white;
+  color: var(--on-accent);
   padding: 0.85rem 1.4rem;
   border-radius: 999px;
   font-weight: 700;
@@ -1428,8 +1438,8 @@ a:hover { color: var(--accent-light); }
   pointer-events: auto;
 }
 .fab-download:hover {
-  background: var(--accent-light);
-  color: white;
+  background: var(--accent-hover);
+  color: var(--on-accent);
   transform: translateY(-3px);
   box-shadow: 0 10px 36px rgba(255, 107, 53, 0.55), 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -1512,7 +1522,7 @@ a:hover { color: var(--accent-light); }
 .community-follow-btn {
   margin-left: auto;
   background: var(--accent);
-  color: white !important;
+  color: var(--on-accent) !important;
   padding: 0.35rem 1rem;
   border-radius: 999px;
   font-size: 0.8rem;
@@ -1979,7 +1989,7 @@ a:hover { color: var(--accent-light); }
 .globe-popup-btn {
   display: inline-block;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   padding: 0.55rem 1.5rem;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -2133,7 +2143,7 @@ a:hover { color: var(--accent-light); }
 }
 .dl-modal-android {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 .dl-modal-android:hover {
   background: var(--accent-light);
@@ -2189,14 +2199,14 @@ a:hover { color: var(--accent-light); }
 .mid-cta-btn {
   padding: 0.5rem 1.2rem;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   border-radius: 8px;
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
 }
-.mid-cta-btn:hover { background: var(--accent-light); }
+.mid-cta-btn:hover { background: var(--accent-hover); }
 .mid-cta-close {
   background: none;
   border: none;
@@ -2281,7 +2291,7 @@ a:hover { color: var(--accent-light); }
   gap: 0.5rem;
   padding: 0.85rem 1.8rem;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
@@ -2290,7 +2300,7 @@ a:hover { color: var(--accent-light); }
   width: 100%;
   justify-content: center;
 }
-.exit-popup-btn:hover { background: var(--accent-light); }
+.exit-popup-btn:hover { background: var(--accent-hover); }
 .exit-popup-ios-link {
   color: var(--fg-secondary);
   font-size: 0.85rem;
@@ -2667,7 +2677,7 @@ a:hover { color: var(--accent-light); }
   left: 50%;
   transform: translateX(-50%);
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -2738,7 +2748,7 @@ a:hover { color: var(--accent-light); }
 }
 .pricing-btn-pro {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 .pricing-note {
   text-align: center;

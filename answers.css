@@ -74,12 +74,17 @@
 }
 .ans-article strong { color: var(--fg); font-weight: 600; }
 
-.ans-article a {
+/* Prose links only. `.ans-article a` (0,1,1) outranks `.btn-primary` (0,1,0),
+   so this used to repaint the CTA button's label accent-on-accent and the
+   button read as an empty orange pill. Buttons opt out by class. */
+.ans-article a:not([class*="btn"]):not(.pricing-btn) {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--accent-glow-strong);
 }
-.ans-article a:hover { border-bottom-color: var(--accent); }
+.ans-article a:not([class*="btn"]):not(.pricing-btn):hover {
+  border-bottom-color: var(--accent);
+}
 
 .ans-article ul,
 .ans-article ol {

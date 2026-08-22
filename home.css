@@ -127,7 +127,7 @@
   padding: 13px 20px;
   border: 0;
   border-radius: 12px;
-  background: var(--accent-light, #ff6b35);
+  background: var(--accent, #ff6b35);
   color: var(--on-accent, #0a0e17);
   font-family: inherit;
   font-size: 0.92rem;
@@ -325,7 +325,7 @@
 .hp-mix-bar > i { display: block; height: 100%; transition: width 260ms ease; }
 .hp-mix-local    { background: var(--accent-cyan, #00d9ff); }
 .hp-mix-national { background: var(--accent-gold, #ffd93d); }
-.hp-mix-world    { background: var(--accent-light, #ff6b35); }
+.hp-mix-world    { background: var(--accent, #ff6b35); }
 .hp-mix-legend { display: flex; gap: 13px; flex-wrap: wrap; font-size: 0.76rem; }
 /* No `gap` here: the country name is a nested <span>, which flex treats as its
    own item, so a gap would render as "National ( India )". Space the swatch
@@ -413,7 +413,7 @@
   padding: 9px 16px;
   border: 0;
   border-radius: 10px;
-  background: var(--accent-light, #ff6b35);
+  background: var(--accent, #ff6b35);
   color: var(--on-accent, #0a0e17);
   font-family: inherit;
   font-size: 0.85rem;
