@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T13:43:05.534878+00:00",
+  "generatedAt": "2026-08-22T18:22:18.625726+00:00",
   "stories": [
     {
       "slug": "desal-hard-water-hair-care",
@@ -72,61 +72,6 @@
       "image": "https://insnaps.app/news/assets/desal-hard-water-hair-care-hero.webp"
     },
     {
-      "slug": "repello-ai-agent-security",
-      "h1": "Repello started by attacking chatbots. Now it is watching the coding agent on your laptop",
-      "title": "Repello started by attacking chatbots.",
-      "section": "Companies",
-      "dateline": "Bengaluru",
-      "description": "Repello AI, founded in 2024 by two IIT Roorkee alumni and seeded with $1.2M in June 2025, has moved from red-teaming GenAI apps to monitoring what Claude\u2026",
-      "read_min": 6,
-      "words": 1377,
-      "published": "22 August 2026",
-      "published_iso": "2026-08-22",
-      "about_name": "Repello AI",
-      "about_url": "https://repello.ai/",
-      "about_type": "Organization",
-      "citations": [
-        "https://repello.ai/",
-        "https://repello.ai/about-us",
-        "https://repello.ai/newsroom",
-        "https://indianstartupnews.com/funding/ai-security-startup-repello-ai-raises-12-million-in-a-seed-funding-round-led-by-venture-highway-others-9358019",
-        "https://www.ciol.com/funding-acquistion-merger/repello-ai-raises-12-million-to-advance-red-teaming-and-secure-genai-applications-9359692"
-      ],
-      "image_credit": "Repello AI co-founders Aryaman Behera (CEO, left) and Naman Mishra (CTO). Photo: Repello AI",
-      "image_alt": "Repello AI co-founders Aryaman Behera and Naman Mishra",
-      "about_same": [],
-      "about_desc": "AI security company building discovery, autonomous red teaming and runtime protection for AI agents and applications, founded in 2024 by Aryaman Behera and Naman Mishra.",
-      "founders": [
-        "Aryaman Behera",
-        "Naman Mishra"
-      ],
-      "keywords": [
-        "Repello AI",
-        "AI security",
-        "AI red teaming",
-        "ARTEMIS",
-        "agentic AI security",
-        "prompt injection",
-        "LLM security",
-        "AI agent monitoring",
-        "Claude Code security",
-        "Entrepreneur First"
-      ],
-      "summary_line": "Repello AI, founded in 2024 by two IIT Roorkee alumni and seeded with $1.2M in June 2025, has moved from red-teaming GenAI apps to monitoring what Claude Code, Cursor and Copilot actually do on employee machines.",
-      "keyfacts": [
-        "What it is | An AI security company covering discovery, automated red teaming and runtime protection for AI systems",
-        "Founders | Aryaman Behera (CEO) and Naman Mishra (CTO), both IIT Roorkee alumni",
-        "Founded | 2024",
-        "Offices | San Francisco and Bengaluru; the registered entity, Repello Inc., is in Dover, Delaware",
-        "Funding | $1.2 million seed announced 12 June 2025, led by Venture Highway, with pi Ventures and Entrepreneur First",
-        "Named angels | Charlie Songhurst, Vivek Raghavan (Sarvam AI), Neeraj Arora, Matt Clifford",
-        "Products | ARTEMIS (red teaming), ARGUS (runtime guardrails), Inventory, Workstation Lens, Agent Wiz, Whistleblower",
-        "Compliance | Lists SOC 2 and ISO 27001",
-        "Verification status | Funding is press-confirmed; product claims, the customer logo wall and pricing are the company's own and unaudited"
-      ],
-      "image": "https://insnaps.app/news/assets/repello-ai-agent-security-hero.webp"
-    },
-    {
       "slug": "sarvam-ai-sovereign-stack",
       "h1": "Sarvam took the government's compute and gave the weights away",
       "title": "Sarvam took the government's compute and gave the weights away",
@@ -134,7 +79,7 @@
       "dateline": "Bengaluru",
       "description": "Sarvam AI reached a $1.5 billion valuation in June 2026 on a $234 million Series B led by HCLTech, four months after open-sourcing two foundation models\u2026",
       "read_min": 7,
-      "words": 1600,
+      "words": 1554,
       "published": "22 August 2026",
       "published_iso": "2026-08-22",
       "about_name": "Sarvam AI",

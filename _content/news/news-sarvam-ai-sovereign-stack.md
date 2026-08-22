@@ -98,8 +98,6 @@ The open question is whether "best model for Indian languages" is a defensible p
 
 Because it is the clearest test case anywhere of a specific proposition: that a country can fund its own foundation models, keep the output open, and still end up with a company worth something.
 
-There is also a small connection to another story on this desk. Vivek Raghavan is among the angels who backed [Repello AI](/news/repello-ai-agent-security/), the AI-security startup we wrote about this week — the same cohort, one layer up, funding the people securing the systems it is building.
-
 ## FAQ
 
 ### What is Sarvam AI?
