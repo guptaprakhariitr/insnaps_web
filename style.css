@@ -88,6 +88,9 @@
   transition: transform 0.3s ease;
 }
 .app-banner.visible { transform: translateY(0); }
+/* Scrolling down tucks it back above the fold; scrolling up returns it.
+   Needs .visible in the selector to outrank the reveal rule. */
+.app-banner.visible.tucked { transform: translateY(-100%); }
 /* --banner-h is set by script.js from the banner's real height (0 when hidden),
    so the navbar and ticker shift down instead of being covered. */
 :root { --banner-h: 0px; }
@@ -1897,13 +1900,6 @@ a:hover { color: var(--accent-light); }
   transform: translateY(-2px);
 }
 
-.threads-icon {
-  display: block;
-  object-fit: contain;
-}
-.threads-icon-dark { display: none; }
-[data-theme="dark"] .threads-icon-light { display: none; }
-[data-theme="dark"] .threads-icon-dark { display: block; }
 .hero-badge {
   text-decoration: none;
   cursor: pointer;

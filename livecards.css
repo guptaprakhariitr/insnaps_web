@@ -365,3 +365,71 @@
   .live-page { padding-top: 5.6rem; }
   .live-card[data-layout="compact"] .live-media { flex-basis: 72px; width: 72px; }
 }
+
+/* ── phones: the wall becomes a headline list ──────────────────────
+   The eight rotating layouts are built for a multi-column desktop wall. On one
+   narrow column they stacked full-bleed 4:5 portraits at viewport width, so 36
+   cards ran to a screen-mile and the decorative treatments pushed content past
+   the right edge. On a phone the useful thing about a headline wall is the
+   headlines, so below 640px every layout collapses to the same compact text
+   row: no media, no overlays, no per-layout chrome. */
+@media (max-width: 639px) {
+  .live-wall { columns: auto; column-gap: 0; }
+
+  .live-card,
+  .live-card[data-layout] {
+    display: block;
+    margin: 0;
+    padding: 0.85rem 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    transform: none;
+    min-height: 0;
+  }
+  .live-card:first-child { border-top: 0; }
+  .live-card:hover { transform: none; box-shadow: none; background: none; }
+
+  /* Every image, backdrop, gradient scrim and decorative rule goes. */
+  .live-card .live-media,
+  .live-card .live-mediawrap,
+  .live-card .live-rule,
+  .live-card .live-slugline { display: none; }
+
+  /* Layout-specific treatments assumed an image behind the text. */
+  .live-card[data-layout] .live-body {
+    position: static;
+    padding: 0;
+    background: none;
+    color: inherit;
+    text-shadow: none;
+  }
+  .live-card[data-layout] .live-title { color: var(--fg); text-shadow: none; }
+
+  .live-title {
+    font-size: 1rem;
+    line-height: 1.32;
+    /* A long unbroken token (a URL in a headline) must wrap, not widen. */
+    overflow-wrap: anywhere;
+  }
+  .live-kicker { margin-bottom: 0.3rem; }
+  .live-meta { margin-top: 0.35rem; font-size: 0.76rem; }
+
+  /* Belt and braces: nothing in the wall may exceed the viewport. */
+  .live-page, .live-wall, .live-card { max-width: 100%; }
+  .live-page { overflow-x: clip; }
+}
+
+/* The filter row scrolls horizontally by design, but a chip sliced at the right
+   edge reads as a layout bug. A fade signals "there is more this way". */
+@media (max-width: 639px) {
+  .live-filters {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+            mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+  }
+  .live-filters::-webkit-scrollbar { height: 0; }
+  /* The update line is three clauses; let it breathe instead of wrapping mid-phrase. */
+  .live-updated { font-size: 0.74rem; line-height: 1.5; }
+}

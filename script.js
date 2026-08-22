@@ -272,7 +272,8 @@
   // and the ticker shift down rather than being covered by it (the banner is
   // two rows tall under 480px, which used to hide the whole nav).
   function syncBannerOffset(el) {
-    var visible = el && el.classList.contains('visible') && !el.classList.contains('hidden');
+    var visible = el && el.classList.contains('visible')
+      && !el.classList.contains('hidden') && !el.classList.contains('tucked');
     var h = visible ? Math.round(el.getBoundingClientRect().height) : 0;
     document.documentElement.style.setProperty('--banner-h', h + 'px');
   }
@@ -284,24 +285,52 @@
   }
   if (appBanner && bannerClose) {
     var bannerDismissed = sessionStorage.getItem('insnaps-banner-dismissed');
-    var bannerTimer;
     if (!bannerDismissed) {
       setTimeout(function () {
         appBanner.classList.add('visible');
         syncBannerOffset(appBanner);
-        bannerTimer = setTimeout(function () {
-          appBanner.classList.remove('visible');
-          syncBannerOffset(appBanner);
-        }, 8000);
+        armBannerScroll(appBanner);
       }, 3000);
     }
     bannerClose.addEventListener('click', function () {
-      clearTimeout(bannerTimer);
       appBanner.classList.remove('visible');
       appBanner.classList.add('hidden');
       syncBannerOffset(appBanner);
       sessionStorage.setItem('insnaps-banner-dismissed', '1');
     });
+
+    /* The banner used to disappear on an 8s timer whether or not the reader had
+       looked at it, and sat over the page in the meantime. It now follows scroll
+       direction instead: reading down tucks it away, scrolling back up brings it
+       back. The close button is still the permanent dismissal. */
+    function armBannerScroll(el) {
+      var lastY = window.pageYOffset || 0;
+      var ticking = false;
+      var TOLERANCE = 6;      // ignore sub-pixel and trackpad jitter
+      var REVEAL_AT = 4;      // px of upward travel before it comes back
+
+      function apply() {
+        ticking = false;
+        if (el.classList.contains('hidden')) return;
+        var y = window.pageYOffset || 0;
+        var dy = y - lastY;
+        if (Math.abs(dy) < TOLERANCE) return;
+
+        if (dy > 0 && y > 40) {
+          // Reading down: get out of the way.
+          el.classList.add('tucked');
+        } else if (dy < -REVEAL_AT) {
+          el.classList.remove('tucked');
+        }
+        lastY = y;
+        // Let the navbar move with it rather than leaving a gap.
+        syncBannerOffset(el);
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(apply); }
+      }, { passive: true });
+    }
   }
 
   // ========================================

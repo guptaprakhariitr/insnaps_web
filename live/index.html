@@ -118,7 +118,9 @@
 
       // ── helpers ───────────────────────────────────────────────────────
       var TEMPLATE_PATH = '/assets/pulse/';
-      var PAGE = 36;
+      // 36 cards is a reasonable desktop batch and an endless scroll on a
+      // phone, where the wall is one column. Narrow screens get a third of it.
+      var PAGE = (window.innerWidth || 1024) < 640 ? 12 : 36;
       var REFRESH_MS = 180000;   // re-pull the static JSON every 3 minutes
       var TICK_MS = 60000;       // re-stamp the relative times every minute
 

@@ -641,16 +641,24 @@ def sync_homepage(stories, limit=3):
     for st in stories[:limit]:
         dateline = e(st.get("dateline") or "")
         sep = " &middot; " if st.get("dateline") else ""
+        # The card carries the story's own hero, so the homepage block reads as
+        # a glimpse of /news/ rather than a list of links.
+        iw, ih = image_size(st.get("image") or "")
         cards.append(
             '          <a class="hp-news-card" href="/news/%s/">\n'
-            '            <span class="hp-news-kicker">%s</span>\n'
-            '            <h3>%s</h3>\n'
-            '            <p>%s\u2026</p>\n'
-            '            <span class="hp-news-meta">%s%s%s</span>\n'
+            '            <span class="hp-news-thumb"><img src="%s" alt="" '
+            'width="%d" height="%d" loading="lazy" decoding="async"></span>\n'
+            '            <span class="hp-news-text">\n'
+            '              <span class="hp-news-kicker">%s</span>\n'
+            '              <h3>%s</h3>\n'
+            '              <p>%s\u2026</p>\n'
+            '              <span class="hp-news-meta">%s%s%s</span>\n'
+            '            </span>\n'
             '          </a>' % (
-                e(st["slug"]), e(st["section"]),
+                e(st["slug"]), e(site_relative(st.get("image") or "")), iw, ih,
+                e(st["section"]),
                 html.escape(st["h1"], quote=False),
-                html.escape(st["description"][:130], quote=False),
+                html.escape(st["description"][:120], quote=False),
                 dateline, sep, e(st.get("published", ""))))
     cards = "\n".join(cards)
 

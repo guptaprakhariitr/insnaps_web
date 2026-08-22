@@ -351,7 +351,6 @@ def page_html(meta, body_html, faqs, h1, updated, authored=None):
         "sameAs": [
             "https://x.com/BuildWtPrakhar",
             "https://www.instagram.com/insnapsofficial",
-            "https://www.threads.net/@insnapsofficial",
             "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049",
             "https://play.google.com/store/apps/details?id=com.prakshaappthree.appthree",
         ],
