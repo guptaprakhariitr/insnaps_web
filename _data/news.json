@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T12:56:16.158065+00:00",
+  "generatedAt": "2026-08-22T13:07:40.038707+00:00",
   "stories": [
     {
       "slug": "desal-hard-water-hair-care",
@@ -56,6 +56,175 @@
         "Verification status | No press coverage, funding announcement or named testing labs found; market statistics on its site are uncited"
       ],
       "image": "https://insnaps.app/news/assets/desal-hard-water-hair-care-hero.webp"
+    },
+    {
+      "slug": "repello-ai-agent-security",
+      "h1": "Repello started by attacking chatbots. Now it is watching the coding agent on your laptop",
+      "title": "Repello started by attacking chatbots.",
+      "section": "Companies",
+      "dateline": "Bengaluru",
+      "description": "Repello AI, founded in 2024 by two IIT Roorkee alumni and seeded with $1.2M in June 2025, has moved from red-teaming GenAI apps to monitoring what Claude\u2026",
+      "read_min": 6,
+      "words": 1377,
+      "published": "22 August 2026",
+      "published_iso": "2026-08-22",
+      "about_name": "Repello AI",
+      "about_url": "https://repello.ai/",
+      "about_type": "Organization",
+      "citations": [
+        "https://repello.ai/",
+        "https://repello.ai/about-us",
+        "https://repello.ai/newsroom",
+        "https://indianstartupnews.com/funding/ai-security-startup-repello-ai-raises-12-million-in-a-seed-funding-round-led-by-venture-highway-others-9358019",
+        "https://www.ciol.com/funding-acquistion-merger/repello-ai-raises-12-million-to-advance-red-teaming-and-secure-genai-applications-9359692"
+      ],
+      "image_credit": "Repello AI co-founders Aryaman Behera (CEO, left) and Naman Mishra (CTO). Photo: Repello AI",
+      "image_alt": "Repello AI co-founders Aryaman Behera and Naman Mishra",
+      "about_same": [],
+      "about_desc": "AI security company building discovery, autonomous red teaming and runtime protection for AI agents and applications, founded in 2024 by Aryaman Behera and Naman Mishra.",
+      "founders": [
+        "Aryaman Behera",
+        "Naman Mishra"
+      ],
+      "keywords": [
+        "Repello AI",
+        "AI security",
+        "AI red teaming",
+        "ARTEMIS",
+        "agentic AI security",
+        "prompt injection",
+        "LLM security",
+        "AI agent monitoring",
+        "Claude Code security",
+        "Entrepreneur First"
+      ],
+      "summary_line": "Repello AI, founded in 2024 by two IIT Roorkee alumni and seeded with $1.2M in June 2025, has moved from red-teaming GenAI apps to monitoring what Claude Code, Cursor and Copilot actually do on employee machines.",
+      "keyfacts": [
+        "What it is | An AI security company covering discovery, automated red teaming and runtime protection for AI systems",
+        "Founders | Aryaman Behera (CEO) and Naman Mishra (CTO), both IIT Roorkee alumni",
+        "Founded | 2024",
+        "Offices | San Francisco and Bengaluru; the registered entity, Repello Inc., is in Dover, Delaware",
+        "Funding | $1.2 million seed announced 12 June 2025, led by Venture Highway, with pi Ventures and Entrepreneur First",
+        "Named angels | Charlie Songhurst, Vivek Raghavan (Sarvam AI), Neeraj Arora, Matt Clifford",
+        "Products | ARTEMIS (red teaming), ARGUS (runtime guardrails), Inventory, Workstation Lens, Agent Wiz, Whistleblower",
+        "Compliance | Lists SOC 2 and ISO 27001",
+        "Verification status | Funding is press-confirmed; product claims, the customer logo wall and pricing are the company's own and unaudited"
+      ],
+      "image": "https://insnaps.app/news/assets/repello-ai-agent-security-hero.webp"
+    },
+    {
+      "slug": "sarvam-ai-sovereign-stack",
+      "h1": "Sarvam took the government's compute and gave the weights away",
+      "title": "Sarvam took the government's compute and gave the weights away",
+      "section": "Companies",
+      "dateline": "Bengaluru",
+      "description": "Sarvam AI reached a $1.5 billion valuation in June 2026 on a $234 million Series B led by HCLTech, four months after open-sourcing two foundation models\u2026",
+      "read_min": 6,
+      "words": 1390,
+      "published": "22 August 2026",
+      "published_iso": "2026-08-22",
+      "about_name": "Sarvam AI",
+      "about_url": "https://www.sarvam.ai/",
+      "about_type": "Organization",
+      "citations": [
+        "https://www.sarvam.ai/",
+        "https://en.wikipedia.org/wiki/Sarvam_AI",
+        "https://slator.com/sarvam-raises-234m-sovereign-multilingual-ai/",
+        "https://inc42.com/features/sarvam-and-the-sovereign-ai-dream/",
+        "https://www.arcweb.com/blog/sarvam-building-indias-sovereign-ai-stack-rising-unicorn-status"
+      ],
+      "image_credit": "",
+      "image_alt": "",
+      "about_same": [
+        "https://en.wikipedia.org/wiki/Sarvam_AI"
+      ],
+      "about_desc": "Bengaluru AI company building multilingual foundation models and voice systems for Indian languages, founded in 2023 by Vivek Raghavan and Pratyush Kumar, and selected under the IndiaAI Mission to build a sovereign foundation model.",
+      "founders": [
+        "Vivek Raghavan",
+        "Pratyush Kumar"
+      ],
+      "keywords": [
+        "Sarvam AI",
+        "sovereign AI India",
+        "IndiaAI Mission",
+        "Sarvam 105B",
+        "Sarvam 30B",
+        "Indic LLM",
+        "open weights",
+        "Apache 2.0",
+        "HCLTech",
+        "Indian language AI"
+      ],
+      "summary_line": "Sarvam AI reached a $1.5 billion valuation in June 2026 on a $234 million Series B led by HCLTech, four months after open-sourcing two foundation models trained on IndiaAI Mission compute under Apache 2.0.",
+      "keyfacts": [
+        "What it is | An Indian AI company building multilingual foundation models, speech systems and voice agents for Indian languages",
+        "Founders | Vivek Raghavan and Pratyush Kumar, both previously with AI4Bharat at IIT Madras",
+        "Founded | August 2023, headquartered in Bengaluru",
+        "Series B | $234 million first close in June 2026 at a $1.5 billion post-money valuation, led by HCLTech with $150 million",
+        "Earlier funding | $41 million seed and Series A in December 2023, led by Lightspeed with Peak XV and Khosla Ventures",
+        "Government selection | Chosen by MeitY in April 2025 under the IndiaAI Mission to build an indigenous foundation model with subsidised GPU access",
+        "Flagship models | Sarvam 30B (32B parameters, MoE, 65K context) and Sarvam 105B (106B parameters, MoE, 9B active, 128K context), both February 2026, both Apache 2.0",
+        "Other products | Saaras V3 speech-to-text, Sarvam Vision, the Indus consumer app, and Sarvam Kaze AI glasses",
+        "Verification status | Funding, valuation and model releases are press- and company-confirmed; revenue and usage figures are not public"
+      ],
+      "image": "https://insnaps.app/news/assets/sarvam-ai-sovereign-stack-cover.svg"
+    },
+    {
+      "slug": "snitch-offline-profit",
+      "h1": "Snitch was an online brand. Its growth now comes from shops",
+      "title": "Snitch was an online brand. Its growth now comes from shops",
+      "section": "Companies",
+      "dateline": "Bengaluru",
+      "description": "Snitch reported FY26 revenue up about 80% to roughly Rs 900 crore and its first profitable year, with offline stores growing at about 75% year on year and\u2026",
+      "read_min": 6,
+      "words": 1400,
+      "published": "22 August 2026",
+      "published_iso": "2026-08-22",
+      "about_name": "Snitch",
+      "about_url": "https://www.snitch.com/",
+      "about_type": "Organization",
+      "citations": [
+        "https://www.snitch.com/",
+        "https://www.outlookbusiness.com/corporate/snitch-fy26-revenue-jumps-80-to-900-cr-brand-hits-profitability",
+        "https://www.outlookbusiness.com/start-up/investors/snitch-raises-340-cr-funding-valuation-jumps-to-2500-crore-to-fuel-expansion",
+        "https://inc42.com/buzz/d2c-brand-snitchs-fy26-revenue-surges-80-to-%E2%82%B9900-cr/",
+        "https://in.fashionnetwork.com/news/Snitch-eyes-rs-1-000-crore-revenue-in-fy26-plans-75-store-launches,1692092.html",
+        "https://www.indianretailer.com/news/snitch-introduces-60-minute-fashion-delivery-redefines-quick-commerce-india"
+      ],
+      "image_credit": "",
+      "image_alt": "",
+      "about_same": [],
+      "about_desc": "Bengaluru men's fast-fashion brand founded in 2018 by Siddharth Dungarwal, selling online and through more than 100 own-brand stores across India.",
+      "founders": [
+        "Siddharth Dungarwal"
+      ],
+      "keywords": [
+        "Snitch",
+        "Snitch fashion",
+        "Siddharth Dungarwal",
+        "D2C India",
+        "men's fashion India",
+        "fast fashion",
+        "omnichannel retail",
+        "Shark Tank India",
+        "quick commerce fashion",
+        "IvyCap Ventures"
+      ],
+      "summary_line": "Snitch reported FY26 revenue up about 80% to roughly Rs 900 crore and its first profitable year, with offline stores growing at about 75% year on year and a target of 300 outlets by the end of 2026.",
+      "keyfacts": [
+        "What it is | An Indian men's fast-fashion brand selling online and through its own physical stores",
+        "Founder | Siddharth Ramesh Dungarwal",
+        "Founded | 2018, headquartered in Bengaluru",
+        "FY26 revenue | About Rs 900 crore, up roughly 80% year on year",
+        "Profitability | Reported first profitable year, at an unaudited EBITDA margin of about 2-3% of revenue",
+        "FY25 comparison | About Rs 505 crore of revenue and a net loss of roughly Rs 1.7 crore",
+        "Stores | Around 115 open, with a stated target of 300 by the end of 2026",
+        "Channel mix | About 60% online and 40% offline, with offline growing faster at roughly 75% year on year",
+        "Funding | About Rs 340 crore raised at a reported Rs 2,500 crore valuation, backers including 360 ONE Asset, IvyCap Ventures, SWC Global and the Ravi Modi family office",
+        "IPO | Founder has said a listing follows once net profit reaches about Rs 100 crore",
+        "Verification status | FY26 figures are company-reported and unaudited; store counts and targets move month to month"
+      ],
+      "image": "https://insnaps.app/news/assets/snitch-offline-profit-cover.svg"
     }
   ]
 }

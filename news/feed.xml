@@ -5,7 +5,7 @@
     <link>https://insnaps.app/news/</link>
     <description>Original reporting from the InSnaps desk on the companies, launches and events we think are worth writing down properly.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Aug 2026 12:56:16 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 13:07:40 +0000</lastBuildDate>
     <atom:link href="https://insnaps.app/news/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>deSal built a 50-article content operation before it built an audience</title>
@@ -13,6 +13,30 @@
       <guid isPermaLink="true">https://insnaps.app/news/desal-hard-water-hair-care/</guid>
       <category>Companies</category>
       <description>deSal is a two-founder Bengaluru hair-care brand selling two shampoos for hard-water and chlorine damage, which has published around fifty locality-level…</description>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Repello started by attacking chatbots. Now it is watching the coding agent on your laptop</title>
+      <link>https://insnaps.app/news/repello-ai-agent-security/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/repello-ai-agent-security/</guid>
+      <category>Companies</category>
+      <description>Repello AI, founded in 2024 by two IIT Roorkee alumni and seeded with $1.2M in June 2025, has moved from red-teaming GenAI apps to monitoring what Claude…</description>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Sarvam took the government's compute and gave the weights away</title>
+      <link>https://insnaps.app/news/sarvam-ai-sovereign-stack/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/sarvam-ai-sovereign-stack/</guid>
+      <category>Companies</category>
+      <description>Sarvam AI reached a $1.5 billion valuation in June 2026 on a $234 million Series B led by HCLTech, four months after open-sourcing two foundation models…</description>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Snitch was an online brand. Its growth now comes from shops</title>
+      <link>https://insnaps.app/news/snitch-offline-profit/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/snitch-offline-profit/</guid>
+      <category>Companies</category>
+      <description>Snitch reported FY26 revenue up about 80% to roughly Rs 900 crore and its first profitable year, with offline stores growing at about 75% year on year and…</description>
       <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
     </item>
   </channel>
