@@ -5,8 +5,40 @@
     <link>https://insnaps.app/news/</link>
     <description>Original reporting from the InSnaps desk on the companies, launches and events we think are worth writing down properly.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Aug 2026 18:38:07 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 18:49:23 +0000</lastBuildDate>
     <atom:link href="https://insnaps.app/news/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>CARPL sells the tools to check whether medical AI works. Its own FDA clearance checks nothing clinical</title>
+      <link>https://insnaps.app/news/carpl-ai-audit/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/carpl-ai-audit/</guid>
+      <category>Companies</category>
+      <description>CARPL.ai raised $10 million led by the IFC in July 2026 to run a platform that validates and monitors other companies' radiology AI. Its own FDA clearance…</description>
+      <pubDate>Sun, 23 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Sachin Bansal took outside money for the first time, at a third less than he wanted</title>
+      <link>https://insnaps.app/news/navi-prosus-markdown/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/navi-prosus-markdown/</guid>
+      <category>Companies</category>
+      <description>Navi accepted $100 million from Prosus at about a $1.3 billion valuation on 19 August 2026, its first institutional capital in eight years and roughly 35%…</description>
+      <pubDate>Sun, 23 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Skyroot reached orbit on the first try. Now it has to prove a launch business</title>
+      <link>https://insnaps.app/news/skyroot-vikram-orbit/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/skyroot-vikram-orbit/</guid>
+      <category>Companies</category>
+      <description>Vikram-1 put payloads into a 450 km orbit on 18 July 2026, making Skyroot the first private Indian company to reach orbit. It did so on FY25 revenue of Rs…</description>
+      <pubDate>Sun, 23 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Yulu stopped being a bike-share company. Now it rents to the people delivering your groceries</title>
+      <link>https://insnaps.app/news/yulu-gig-fleet/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/yulu-gig-fleet/</guid>
+      <category>Companies</category>
+      <description>Yulu raised $93 million in August 2026, of which $63 million is equity and $30 million debt. About 95% of its revenue now comes from renting electric…</description>
+      <pubDate>Sun, 23 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>deSal sells two shampoos for two different water problems. We read both labels</title>
       <link>https://insnaps.app/news/desal-hard-water-hair-care/</link>
