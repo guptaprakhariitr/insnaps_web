@@ -4,10 +4,26 @@ section: companies
 title: deSal built a 50-article content operation before it built an audience
 dateline: Bengaluru
 published: 22 August 2026
-summary: A two-founder Bengaluru hair-care brand has published locality-level articles on water hardness in dozens of Indian neighbourhoods — while its own Instagram sits under 700 followers.
+summary: deSal is a two-founder Bengaluru hair-care brand selling two shampoos for hard-water and chlorine damage, which has published around fifty locality-level articles on Indian water hardness while its own Instagram sits under 700 followers.
+image: news/assets/desal-hard-water-hair-care-hero.webp
+image_alt: deSal co-founders holding the brand's Hard Water Defense and Swimmers Wellness shampoo bottles
+image_credit: deSal co-founders Ankita and Akanksha with the brand's two shampoos. Photo: deSal
 about_name: deSal
 about_url: https://desal.in/
 about_type: Organization
+about_desc: Indian hair-care brand making chelating shampoos for hard-water and chlorine damage, founded in Bengaluru by two IIT Roorkee engineering graduates.
+about_same: https://www.instagram.com/officialdesal/
+founders: Ankita; Akanksha
+keywords: deSal; hard water shampoo; chelating shampoo; disodium EDTA; hard water hair damage; Indian D2C hair care; Bengaluru startup; swimmers shampoo
+fact: What it is | An Indian D2C hair-care brand selling shampoos for hard-water and chlorine damage
+fact: Founders | Ankita (chemical engineering) and Akanksha (electrical engineering), both IIT Roorkee alumni
+fact: Based in | Bengaluru, India
+fact: Launched | Around July 2026, inferred from its own Instagram milestone posts; no founding date published
+fact: Products | Hard Water Defense Shampoo, 220 ml, listed Rs 764 (MRP Rs 899); Swimmers Wellness Shampoo, 220 ml, listed Rs 806 (MRP Rs 949)
+fact: Key ingredient | Disodium EDTA, a chelating agent, at a stated pH of 5.45
+fact: Content output | Around 50 published articles, many covering water hardness in individual neighbourhoods
+fact: Audience | About 690 Instagram followers; 31 and 9 reviews on its own two product pages
+fact: Verification status | No press coverage, funding announcement or named testing labs found; market statistics on its site are uncited
 source: https://desal.in/
 source: https://desal.in/pages/our-story
 source: https://desal.in/products/hard-water-defense-shampoo

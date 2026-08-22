@@ -162,7 +162,10 @@ ORGANIZATION_NODE = {
     "name": "InSnaps",
     "alternateName": APP_NAME,
     "url": SITE_URL,
-    "logo": {"@type": "ImageObject", "url": SITE_URL + "/logo.png"},
+    # Dimensions on publisher.logo: Google treats the logo as an ImageObject and
+    # a bare url leaves it guessing whether the asset is usable.
+    "logo": {"@type": "ImageObject", "url": SITE_URL + "/logo.png",
+             "width": 480, "height": 480},
     "sameAs": [
         "https://x.com/BuildWtPrakhar",
         "https://www.instagram.com/insnapsofficial",

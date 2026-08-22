@@ -33,8 +33,8 @@ from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gen_answers import render_markdown, NAV, THEME_SCRIPT  # noqa: E402
 from gen_blog_posts import (  # noqa: E402
-    ORG_ID, ORGANIZATION_NODE, first_paragraph_text, iso_date, seo_title,
-    site_relative, smart_quotes,
+    ORG_ID, ORGANIZATION_NODE, first_paragraph_text, iso_date, local_path_for,
+    seo_title, site_relative, smart_quotes,
 )
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -48,6 +48,59 @@ PLAY_STORE = "https://play.google.com/store/apps/details?id=com.prakshaappthree.
 APP_STORE = "https://apps.apple.com/us/app/insnaps-read-share-world-news/id6762338049"
 
 WORDS_PER_MIN = 220
+
+# Google wants an article image at least 1200px wide, and schema.org image as an
+# ImageObject with real dimensions rather than a bare URL — a string works but
+# loses the size signal that decides whether a large-image result is eligible.
+COVER_W, COVER_H = 1200, 675
+
+
+def image_size(url):
+    """Real pixel size for a local file; the cover's declared size otherwise."""
+    path = local_path_for(url)
+    if path and os.path.isfile(path) and not path.endswith(".svg"):
+        try:
+            with open(path, "rb") as f:
+                head = f.read(2)
+                if head == b"\xff\xd8":                 # JPEG
+                    f.seek(2)
+                    while True:
+                        b = f.read(1)
+                        while b and b != b"\xff":
+                            b = f.read(1)
+                        marker = f.read(1)
+                        if not marker:
+                            break
+                        if marker[0] in range(0xC0, 0xD0) and marker[0] not in (0xC4, 0xC8, 0xCC):
+                            f.read(3)
+                            h = int.from_bytes(f.read(2), "big")
+                            w = int.from_bytes(f.read(2), "big")
+                            return w, h
+                        seg = int.from_bytes(f.read(2), "big")
+                        f.seek(seg - 2, 1)
+                elif head == b"\x89P":                    # PNG
+                    f.seek(16)
+                    return (int.from_bytes(f.read(4), "big"),
+                            int.from_bytes(f.read(4), "big"))
+                elif head == b"RI":                      # WebP (RIFF)
+                    f.seek(12)
+                    chunk = f.read(4)
+                    if chunk == b"VP8X":
+                        f.seek(24)
+                        w = int.from_bytes(f.read(3), "little") + 1
+                        h = int.from_bytes(f.read(3), "little") + 1
+                        return w, h
+                    if chunk == b"VP8 ":
+                        f.seek(26)
+                        return (int.from_bytes(f.read(2), "little") & 0x3FFF,
+                                int.from_bytes(f.read(2), "little") & 0x3FFF)
+                    if chunk == b"VP8L":
+                        f.seek(21)
+                        bits = int.from_bytes(f.read(4), "little")
+                        return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+        except Exception:
+            pass
+    return COVER_W, COVER_H
 
 # The desk a story belongs to. Kept closed on purpose: a free-text section field
 # produces "Company", "Companies" and "company news" as three separate desks in
@@ -176,7 +229,11 @@ def article_page(meta, body_html, ld_json, updated_iso):
     slug = meta["slug"]
     url = f"{SITE_URL}/news/{slug}/"
     img = meta.get("image") or f"{SITE_URL}/insnaps_og.png"
+    iw, ih = image_size(img)
     dateline = meta.get("dateline") or ""
+    # A third party's photograph gets a visible credit. Not optional.
+    credit = (f'<figcaption class="news-credit">{e(meta["image_credit"])}</figcaption>'
+              if meta.get("image_credit") else "")
     about = ""
     if meta.get("about_name"):
         target = meta.get("about_url")
@@ -188,6 +245,20 @@ def article_page(meta, body_html, ld_json, updated_iso):
                 if target else name)
         about = (f'<p class="news-about">This story is about {link}. '
                  f'{APP_NAME} has no commercial relationship with them.</p>')
+
+    # A one-line answer and a fact table, both marked `speakable`. This is what
+    # an AI answer engine quotes; burying it in paragraph four means the engine
+    # paraphrases the intro instead of citing the facts.
+    summary = (f'<p class="news-summary"><strong>In short:</strong> '
+               f'{e(meta["summary_line"])}</p>' if meta.get("summary_line") else "")
+    facts = ""
+    if meta.get("keyfacts"):
+        rows = "".join(
+            '<div class="kf-row"><dt>%s</dt><dd>%s</dd></div>'
+            % (e(f.split("|", 1)[0].strip()),
+               e(f.split("|", 1)[1].strip()) if "|" in f else "")
+            for f in meta["keyfacts"])
+        facts = (f'<dl class="news-keyfacts"><div class="kf-head">Key facts</div>{rows}</dl>')
 
     return f"""<!DOCTYPE html>
 <html lang="en" data-theme="light">
@@ -209,6 +280,13 @@ def article_page(meta, body_html, ld_json, updated_iso):
   <meta property="og:url" content="{url}">
   <meta property="og:image" content="{e(img)}">
   <meta property="article:section" content="{e(meta['section'])}">
+  <meta property="og:site_name" content="{APP_NAME}">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:publisher" content="{SITE_URL}">
+  <meta name="twitter:site" content="@BuildWtPrakhar">
+  <meta name="twitter:creator" content="@BuildWtPrakhar">
+  <meta name="news_keywords" content="{e(', '.join(meta.get('keywords') or []))}">
+  <meta name="author" content="{APP_NAME}">
   <meta property="article:published_time" content="{meta['published_iso']}">
   <meta property="article:modified_time" content="{updated_iso}">
   <meta name="twitter:card" content="summary_large_image">
@@ -237,14 +315,17 @@ def article_page(meta, body_html, ld_json, updated_iso):
       </nav>
       <span class="news-kicker">{e(meta['section'])}</span>
       <h1>{html.escape(meta['h1'], quote=False)}</h1>
-      <p class="post-meta">{(e(dateline) + " &middot; ") if dateline else ""}{e(meta.get('published', ''))} &middot; {meta['read_min']} min read</p>
+      <p class="post-meta">{(e(dateline) + " &middot; ") if dateline else ""}<time datetime="{meta['published_iso']}">{e(meta.get('published', ''))}</time> &middot; {meta['read_min']} min read{(' &middot; updated <time datetime="' + updated_iso + '">' + updated_iso + '</time>') if updated_iso != meta['published_iso'] else ''}</p>
     </header>
     <figure class="post-hero">
-      <img src="{e(site_relative(img))}" alt="" width="1200" height="675" fetchpriority="high" decoding="async">
+      <img src="{e(site_relative(img))}" alt="{e(meta.get('image_alt', ''))}" width="{iw}" height="{ih}" fetchpriority="high" decoding="async">
+      {credit}
     </figure>
     <p class="post-back"><a href="/news/">← All news</a></p>
     <article class="ans-article post-body news-body">
       {about}
+      {summary}
+      {facts}
       {body_html}
       <aside class="ans-cta">
         <h2>Follow stories like this as they break</h2>
@@ -461,16 +542,28 @@ def build_ld(meta, faqs, updated_iso):
     slug = meta["slug"]
     url = f"{SITE_URL}/news/{slug}/"
 
+    iw, ih = image_size(meta["image"])
     article = {
         "@type": "NewsArticle",
+        "@id": url + "#article",
         "headline": meta["h1"],
         "description": meta["description"],
-        "image": meta["image"],
+        # ImageObject, not a bare URL: the dimensions are what make the page
+        # eligible for a large-image result.
+        "image": {"@type": "ImageObject", "url": meta["image"],
+                  "width": iw, "height": ih},
         "datePublished": meta["published_iso"],
         "dateModified": updated_iso,
         "articleSection": meta["section"],
+        "wordCount": meta.get("words", 0),
         "inLanguage": "en",
         "isAccessibleForFree": True,
+        # An answer engine reading this page aloud, or quoting it, should take
+        # the summary and the key facts rather than the nav or the CTA.
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".news-summary", ".news-keyfacts"],
+        },
         # One publisher entity for the whole site, referenced by @id. Never
         # inline a second Organization — a crawler then resolves several
         # unrelated publishers instead of one.
@@ -481,15 +574,29 @@ def build_ld(meta, faqs, updated_iso):
     }
     if meta.get("dateline"):
         article["dateline"] = meta["dateline"]
+    if meta.get("keywords"):
+        article["keywords"] = meta["keywords"]
     if meta.get("about_name"):
         about = {"@type": meta.get("about_type") or "Organization",
                  "name": meta["about_name"]}
         if meta.get("about_url"):
             about["url"] = meta["about_url"]
-            # sameAs lets an engine tie the story to the entity it already knows
-            # from the company's own site, instead of minting a new one.
-            about["sameAs"] = [meta["about_url"]]
+        # sameAs is how an engine merges this with the entity it already knows
+        # rather than minting a second, unrelated one. Every profile we can
+        # verify goes in.
+        same = [u for u in ([meta.get("about_url")] + meta.get("about_same", []))
+                if u]
+        if same:
+            about["sameAs"] = same
+        # Named people are the strongest entity signal a company story can
+        # carry, and they are what a "who founded X" question resolves against.
+        if meta.get("founders"):
+            about["founder"] = [{"@type": "Person", "name": n}
+                                for n in meta["founders"]]
+        if meta.get("about_desc"):
+            about["description"] = meta["about_desc"]
         article["about"] = about
+        article["mentions"] = [about]
     if meta.get("citations"):
         article["citation"] = meta["citations"]
 
@@ -610,8 +717,24 @@ def main():
             "about_url": front.get("about_url", ""),
             "about_type": front.get("about_type", "Organization"),
             "citations": [u for u in as_list(front.get("source")) if u.startswith("http")],
-            "image": make_cover(slug, section, used),
+            "image_credit": front.get("image_credit", ""),
+            "image_alt": front.get("image_alt", ""),
+            "about_same": [u for u in as_list(front.get("about_same")) if u.startswith("http")],
+            "about_desc": front.get("about_desc", ""),
+            "founders": [n.strip() for n in front.get("founders", "").split(";") if n.strip()],
+            "keywords": [k.strip() for k in front.get("keywords", "").split(";") if k.strip()],
+            "summary_line": front.get("summary", ""),
+            "keyfacts": [f for f in as_list(front.get("fact")) if f],
         }
+        # An authored photo beats a drawn cover for both readers and image
+        # search; the cover is the fallback, not the default.
+        hero = front.get("image", "").strip()
+        if hero:
+            if not os.path.isfile(os.path.join(ROOT, hero.lstrip("/"))):
+                raise ValueError(f"{slug}: image {hero!r} is not in the repo")
+            meta["image"] = SITE_URL + "/" + hero.lstrip("/")
+        else:
+            meta["image"] = make_cover(slug, section, used)
 
         out_dir = os.path.join(OUT_DIR, slug)
         os.makedirs(out_dir, exist_ok=True)
