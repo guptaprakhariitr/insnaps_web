@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-22T13:19:04.742967+00:00",
+  "generatedAt": "2026-08-22T13:26:04.886132+00:00",
   "stories": [
     {
       "slug": "desal-hard-water-hair-care",
-      "h1": "deSal built a 50-article content operation before it built an audience",
-      "title": "deSal built a 50-article content operation before it built an audience",
+      "h1": "deSal sells two shampoos for two different water problems. We read both labels",
+      "title": "deSal sells two shampoos for two different water problems.",
       "section": "Companies",
       "dateline": "Bengaluru",
-      "description": "deSal is a two-founder Bengaluru hair-care brand selling two shampoos for hard-water and chlorine damage, which has published around fifty locality-level\u2026",
-      "read_min": 7,
-      "words": 1478,
+      "description": "deSal's Hard Water Defense and Swimmers Wellness shampoos target mineral deposition and chlorine oxidation respectively. Both share an identical base, and\u2026",
+      "read_min": 9,
+      "words": 1924,
       "published": "22 August 2026",
       "published_iso": "2026-08-22",
       "about_name": "deSal",
@@ -17,18 +17,18 @@
       "about_type": "Organization",
       "citations": [
         "https://desal.in/",
-        "https://desal.in/pages/our-story",
         "https://desal.in/products/hard-water-defense-shampoo",
         "https://desal.in/products/swimmers-wellness-shampoo",
-        "https://desal.in/blogs/news",
-        "https://www.instagram.com/officialdesal/"
+        "https://desal.in/blogs/news/hard-water-vs-chlorine-vs-salt-water-hair-damage",
+        "https://desal.in/blogs/news/the-chemistry-of-hard-water-hair-damage-how-disodium-edta-and-chelation-actually-work",
+        "https://desal.in/pages/our-story"
       ],
       "image_credit": "deSal co-founders Ankita and Akanksha with the brand's two shampoos. Photo: deSal",
       "image_alt": "deSal co-founders holding the brand's Hard Water Defense and Swimmers Wellness shampoo bottles",
       "about_same": [
         "https://www.instagram.com/officialdesal/"
       ],
-      "about_desc": "Indian hair-care brand making chelating shampoos for hard-water and chlorine damage, founded in Bengaluru by two IIT Roorkee engineering graduates.",
+      "about_desc": "Indian hair-care brand selling chelating shampoos for hard-water mineral buildup and chlorine damage, founded in Bengaluru by two IIT Roorkee engineering graduates.",
       "founders": [
         "Ankita",
         "Akanksha"
@@ -38,22 +38,26 @@
         "hard water shampoo",
         "chelating shampoo",
         "disodium EDTA",
-        "hard water hair damage",
-        "Indian D2C hair care",
-        "Bengaluru startup",
-        "swimmers shampoo"
+        "swimmers shampoo",
+        "chlorine hair damage",
+        "sodium ascorbyl phosphate",
+        "shampoo pH",
+        "TDS water hardness",
+        "mineral buildup hair"
       ],
-      "summary_line": "deSal is a two-founder Bengaluru hair-care brand selling two shampoos for hard-water and chlorine damage, which has published around fifty locality-level articles on Indian water hardness while its own Instagram sits under 700 followers.",
+      "summary_line": "deSal's Hard Water Defense and Swimmers Wellness shampoos target mineral deposition and chlorine oxidation respectively. Both share an identical base, and in both the headline active sits below the preservative on the ingredient list.",
       "keyfacts": [
-        "What it is | An Indian D2C hair-care brand selling shampoos for hard-water and chlorine damage",
-        "Founders | Ankita (chemical engineering) and Akanksha (electrical engineering), both IIT Roorkee alumni",
-        "Based in | Bengaluru, India",
-        "Launched | Around July 2026, inferred from its own Instagram milestone posts; no founding date published",
-        "Products | Hard Water Defense Shampoo, 220 ml, listed Rs 764 (MRP Rs 899); Swimmers Wellness Shampoo, 220 ml, listed Rs 806 (MRP Rs 949)",
-        "Key ingredient | Disodium EDTA, a chelating agent, at a stated pH of 5.45",
-        "Content output | Around 50 published articles, many covering water hardness in individual neighbourhoods",
-        "Audience | About 690 Instagram followers; 31 and 9 reviews on its own two product pages",
-        "Verification status | No press coverage, funding announcement or named testing labs found; market statistics on its site are uncited"
+        "The two products | Hard Water Defense Shampoo for mineral buildup and Swimmers Wellness Shampoo for chlorine damage, both 220 ml",
+        "Prices | Hard Water Defense at Rs 764 (MRP Rs 899); Swimmers Wellness at Rs 806 (MRP Rs 949)",
+        "Hard water mechanism | Calcium and magnesium ions deposit on the hair shaft as a film; deSal calls it \"a coating problem\"",
+        "Hard water active | Disodium EDTA, a chelating agent that binds metal ions so they rinse away. Listed 15th of 19 ingredients",
+        "Chlorine mechanism | Chlorine oxidises cystine bonds in keratin into cysteic acid, weakening the fibre from inside",
+        "Chlorine active | Sodium ascorbyl phosphate, a stable vitamin C derivative that reduces chlorine to chloride. Listed 13th of 22",
+        "Shared base | The first seven ingredients of both products are identical",
+        "Stated pH | 5.45 for Hard Water Defense, inside the mildly acidic range usually considered appropriate for hair",
+        "Dosing | Indexed to water hardness, not hair type: once weekly at 150-300 ppm, twice at 300-500 ppm, three times above 500 ppm",
+        "What deSal says it cannot do | Its own writing says hard water is \"not shown to cause hair fall\" and that neutralising chlorine \"doesn't reverse bonds already broken\"",
+        "Verification status | Ingredient lists and prices are published; clinical results sit behind a shared-drive link with no sample sizes, and the market statistics on the site are uncited"
       ],
       "image": "https://insnaps.app/news/assets/desal-hard-water-hair-care-hero.webp"
     },
