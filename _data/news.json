@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T13:26:32.561950+00:00",
+  "generatedAt": "2026-08-22T13:31:02.989823+00:00",
   "stories": [
     {
       "slug": "desal-hard-water-hair-care",
@@ -8,8 +8,8 @@
       "section": "Companies",
       "dateline": "Bengaluru",
       "description": "deSal's Hard Water Defense and Swimmers Wellness shampoos target mineral deposition and chlorine oxidation respectively. Both share an identical base, and\u2026",
-      "read_min": 9,
-      "words": 1924,
+      "read_min": 16,
+      "words": 3473,
       "published": "22 August 2026",
       "published_iso": "2026-08-22",
       "about_name": "deSal",
@@ -21,7 +21,16 @@
         "https://desal.in/products/swimmers-wellness-shampoo",
         "https://desal.in/blogs/news/hard-water-vs-chlorine-vs-salt-water-hair-damage",
         "https://desal.in/blogs/news/the-chemistry-of-hard-water-hair-damage-how-disodium-edta-and-chelation-actually-work",
-        "https://desal.in/pages/our-story"
+        "https://desal.in/pages/our-story",
+        "https://pubmed.ncbi.nlm.nih.gov/26711619/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3927171/",
+        "https://pubmed.ncbi.nlm.nih.gov/30034190/",
+        "https://onlinelibrary.wiley.com/doi/10.1111/j.1468-2494.2012.00755.x",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4158629/",
+        "https://jamanetwork.com/journals/jamadermatology/fullarticle/538026",
+        "https://pubmed.ncbi.nlm.nih.gov/31955438/",
+        "https://www.nsf.org/water-systems/water-filtration/nsf-ansi-177-shower-filter-certification",
+        "https://cgwb.gov.in/en/annual-ground-water-quality-report-2024"
       ],
       "image_credit": "deSal co-founders Ankita and Akanksha with the brand's two shampoos. Photo: deSal",
       "image_alt": "deSal co-founders holding the brand's Hard Water Defense and Swimmers Wellness shampoo bottles",
@@ -57,7 +66,8 @@
         "Stated pH | 5.45 for Hard Water Defense, inside the mildly acidic range usually considered appropriate for hair",
         "Dosing | Indexed to water hardness, not hair type: once weekly at 150-300 ppm, twice at 300-500 ppm, three times above 500 ppm",
         "What deSal says it cannot do | Its own writing says hard water is \"not shown to cause hair fall\" and that neutralising chlorine \"doesn't reverse bonds already broken\"",
-        "Verification status | Ingredient lists and prices are published; clinical results sit behind a shared-drive link with no sample sizes, and the market statistics on the site are uncited"
+        "Verification status | Ingredient lists and prices are published; clinical results sit behind a shared-drive link with no sample sizes, and two of the market statistics on the site trace to no source at all",
+        "Independent evidence | Mineral deposition on hair is well demonstrated; breakage is contested across four small studies; hard water causing shedding has no support"
       ],
       "image": "https://insnaps.app/news/assets/desal-hard-water-hair-care-hero.webp"
     },
