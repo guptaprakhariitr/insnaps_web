@@ -5,7 +5,7 @@
     <link>https://insnaps.app/news/</link>
     <description>Original reporting from the InSnaps desk on the companies, launches and events we think are worth writing down properly.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 22 Aug 2026 13:31:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 13:42:34 +0000</lastBuildDate>
     <atom:link href="https://insnaps.app/news/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>deSal sells two shampoos for two different water problems. We read both labels</title>
@@ -37,6 +37,14 @@
       <guid isPermaLink="true">https://insnaps.app/news/snitch-offline-profit/</guid>
       <category>Companies</category>
       <description>Snitch reported FY26 revenue up about 80% to roughly Rs 900 crore and its first profitable year, with offline stores growing at about 75% year on year and…</description>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Wispr spent three years on a wristband that read silent speech. The test harness became a $2 billion company</title>
+      <link>https://insnaps.app/news/wispr-flow-voice-pivot/</link>
+      <guid isPermaLink="true">https://insnaps.app/news/wispr-flow-voice-pivot/</guid>
+      <category>Companies</category>
+      <description>Wispr raised $280 million at a $2 billion valuation on 17 August 2026 for a dictation app that began life as scaffolding for the neural wristband it spent…</description>
       <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
     </item>
   </channel>
