@@ -53,11 +53,10 @@
   </nav>
 
   <main class="news-page">
-    <header class="news-head">
-      <span class="news-kicker">News desk</span>
-      <h1>Reporting from InSnaps</h1>
-      <p>Original reporting from the InSnaps desk on the companies, launches and events we think are worth writing down properly. Every story names its sources, and says plainly when we could not verify something.</p>
-    </header>
+    <!-- The visible masthead is gone by request; the stories lead the page. The
+         h1 stays for search and screen readers — an indexed page without a
+         heading is a real regression, so it is hidden rather than deleted. -->
+    <h1 class="sr-only">InSnaps News</h1>
 
       <a class="news-lead" href="/news/desal-hard-water-hair-care/">
         <div class="news-lead-media"><img src="/news/assets/desal-hard-water-hair-care-cover.svg" alt="" width="1200" height="675" decoding="async"></div>

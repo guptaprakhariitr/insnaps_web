@@ -397,11 +397,10 @@ def index_page(stories, updated_iso):
 <body>
 {NAV}
   <main class="news-page">
-    <header class="news-head">
-      <span class="news-kicker">News desk</span>
-      <h1>Reporting from InSnaps</h1>
-      <p>{e(INDEX_BLURB)} Every story names its sources, and says plainly when we could not verify something.</p>
-    </header>
+    <!-- The visible masthead is gone by request; the stories lead the page. The
+         h1 stays for search and screen readers — an indexed page without a
+         heading is a real regression, so it is hidden rather than deleted. -->
+    <h1 class="sr-only">InSnaps News</h1>
 
 {lead_html}
 {grid}
