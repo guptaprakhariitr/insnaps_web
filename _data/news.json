@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T13:08:23.936979+00:00",
+  "generatedAt": "2026-08-22T13:18:36.868451+00:00",
   "stories": [
     {
       "slug": "desal-hard-water-hair-care",
@@ -119,8 +119,8 @@
       "section": "Companies",
       "dateline": "Bengaluru",
       "description": "Sarvam AI reached a $1.5 billion valuation in June 2026 on a $234 million Series B led by HCLTech, four months after open-sourcing two foundation models\u2026",
-      "read_min": 6,
-      "words": 1390,
+      "read_min": 7,
+      "words": 1600,
       "published": "22 August 2026",
       "published_iso": "2026-08-22",
       "about_name": "Sarvam AI",
@@ -131,10 +131,13 @@
         "https://en.wikipedia.org/wiki/Sarvam_AI",
         "https://slator.com/sarvam-raises-234m-sovereign-multilingual-ai/",
         "https://inc42.com/features/sarvam-and-the-sovereign-ai-dream/",
-        "https://www.arcweb.com/blog/sarvam-building-indias-sovereign-ai-stack-rising-unicorn-status"
+        "https://www.arcweb.com/blog/sarvam-building-indias-sovereign-ai-stack-rising-unicorn-status",
+        "https://www.sarvam.ai/announcing-series-b",
+        "https://techcrunch.com/2026/06/15/sarvam-becomes-indias-newest-ai-unicorn-with-234-million-funding-round-led-by-hcltech/",
+        "https://www.hcltech.com/en-us/press-releases/sarvam-raises-234-million-first-close-300-million-series-b-15-billion-valuation"
       ],
-      "image_credit": "",
-      "image_alt": "",
+      "image_credit": "Sarvam's own announcement graphic for the round. Image: Sarvam AI",
+      "image_alt": "Sarvam AI Series B announcement graphic reading \"Announcing Series B, $300 Million\"",
       "about_same": [
         "https://en.wikipedia.org/wiki/Sarvam_AI"
       ],
@@ -160,14 +163,16 @@
         "What it is | An Indian AI company building multilingual foundation models, speech systems and voice agents for Indian languages",
         "Founders | Vivek Raghavan and Pratyush Kumar, both previously with AI4Bharat at IIT Madras",
         "Founded | August 2023, headquartered in Bengaluru",
-        "Series B | $234 million first close in June 2026 at a $1.5 billion post-money valuation, led by HCLTech with $150 million",
+        "Series B | $234 million first close of a $300 million round, June 2026, at a $1.5 billion post-money valuation",
+        "HCLTech stake | $150 million for 10.46%, reported at Rs 1,427.25 crore",
+        "Stated usage | Company says its conversational platform handles 2 million-plus interactions a day and its inference platform over 10 million API calls a day",
         "Earlier funding | $41 million seed and Series A in December 2023, led by Lightspeed with Peak XV and Khosla Ventures",
         "Government selection | Chosen by MeitY in April 2025 under the IndiaAI Mission to build an indigenous foundation model with subsidised GPU access",
         "Flagship models | Sarvam 30B (32B parameters, MoE, 65K context) and Sarvam 105B (106B parameters, MoE, 9B active, 128K context), both February 2026, both Apache 2.0",
         "Other products | Saaras V3 speech-to-text, Sarvam Vision, the Indus consumer app, and Sarvam Kaze AI glasses",
-        "Verification status | Funding, valuation and model releases are press- and company-confirmed; revenue and usage figures are not public"
+        "Verification status | Funding, valuation and model releases are press- and company-confirmed; usage figures are self-reported and revenue is not disclosed"
       ],
-      "image": "https://insnaps.app/news/assets/sarvam-ai-sovereign-stack-cover.svg"
+      "image": "https://insnaps.app/news/assets/sarvam-ai-sovereign-stack-hero.webp"
     },
     {
       "slug": "snitch-offline-profit",
@@ -176,8 +181,8 @@
       "section": "Companies",
       "dateline": "Bengaluru",
       "description": "Snitch reported FY26 revenue up about 80% to roughly Rs 900 crore and its first profitable year, with offline stores growing at about 75% year on year and\u2026",
-      "read_min": 6,
-      "words": 1400,
+      "read_min": 7,
+      "words": 1503,
       "published": "22 August 2026",
       "published_iso": "2026-08-22",
       "about_name": "Snitch",
@@ -191,8 +196,8 @@
         "https://in.fashionnetwork.com/news/Snitch-eyes-rs-1-000-crore-revenue-in-fy26-plans-75-store-launches,1692092.html",
         "https://www.indianretailer.com/news/snitch-introduces-60-minute-fashion-delivery-redefines-quick-commerce-india"
       ],
-      "image_credit": "",
-      "image_alt": "",
+      "image_credit": "Founder Siddharth Dungarwal pitching Snitch on Shark Tank India, the appearance that made the brand widely known. Photo: Shark Tank India / Sony LIV",
+      "image_alt": "Siddharth Dungarwal presenting the Snitch range on Shark Tank India",
       "about_same": [],
       "about_desc": "Bengaluru men's fast-fashion brand founded in 2018 by Siddharth Dungarwal, selling online and through more than 100 own-brand stores across India.",
       "founders": [
@@ -214,7 +219,7 @@
       "keyfacts": [
         "What it is | An Indian men's fast-fashion brand selling online and through its own physical stores",
         "Founder | Siddharth Ramesh Dungarwal",
-        "Founded | 2018, headquartered in Bengaluru",
+        "Founded | 2018 or 2019 depending on the source, headquartered in Bengaluru",
         "FY26 revenue | About Rs 900 crore, up roughly 80% year on year",
         "Profitability | Reported first profitable year, at an unaudited EBITDA margin of about 2-3% of revenue",
         "FY25 comparison | About Rs 505 crore of revenue and a net loss of roughly Rs 1.7 crore",
@@ -224,7 +229,7 @@
         "IPO | Founder has said a listing follows once net profit reaches about Rs 100 crore",
         "Verification status | FY26 figures are company-reported and unaudited; store counts and targets move month to month"
       ],
-      "image": "https://insnaps.app/news/assets/snitch-offline-profit-cover.svg"
+      "image": "https://insnaps.app/news/assets/snitch-offline-profit-hero.webp"
     }
   ]
 }

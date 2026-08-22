@@ -5,6 +5,9 @@ title: Snitch was an online brand. Its growth now comes from shops
 dateline: Bengaluru
 published: 22 August 2026
 summary: Snitch reported FY26 revenue up about 80% to roughly Rs 900 crore and its first profitable year, with offline stores growing at about 75% year on year and a target of 300 outlets by the end of 2026.
+image: news/assets/snitch-offline-profit-hero.webp
+image_alt: Siddharth Dungarwal presenting the Snitch range on Shark Tank India
+image_credit: Founder Siddharth Dungarwal pitching Snitch on Shark Tank India, the appearance that made the brand widely known. Photo: Shark Tank India / Sony LIV
 about_name: Snitch
 about_url: https://www.snitch.com/
 about_type: Organization
@@ -13,7 +16,7 @@ founders: Siddharth Dungarwal
 keywords: Snitch; Snitch fashion; Siddharth Dungarwal; D2C India; men's fashion India; fast fashion; omnichannel retail; Shark Tank India; quick commerce fashion; IvyCap Ventures
 fact: What it is | An Indian men's fast-fashion brand selling online and through its own physical stores
 fact: Founder | Siddharth Ramesh Dungarwal
-fact: Founded | 2018, headquartered in Bengaluru
+fact: Founded | 2018 or 2019 depending on the source, headquartered in Bengaluru
 fact: FY26 revenue | About Rs 900 crore, up roughly 80% year on year
 fact: Profitability | Reported first profitable year, at an unaudited EBITDA margin of about 2-3% of revenue
 fact: FY25 comparison | About Rs 505 crore of revenue and a net loss of roughly Rs 1.7 crore
@@ -40,7 +43,7 @@ A brand that reached scale on the internet is now, in growth terms, a retail cha
 
 ## The company
 
-Snitch was founded in **2018** by **Siddharth Ramesh Dungarwal**, and is headquartered in Bengaluru. It sells men's fast fashion — shirts, T-shirts, denim, co-ords, chinos, outerwear — at price points aimed at India's urban under-30s, with the trend-cycle speed that implies. Most people first encountered it on **Shark Tank India**, which remains the single best-known thing about it.
+Snitch was founded by **Siddharth Ramesh Dungarwal** and is headquartered in Bengaluru. The founding year is reported as both **2018 and 2019** — company databases list 2018, while Inc42 and YourStory date the launch to 2019. The likely explanation is that Dungarwal was already running an apparel manufacturing and retail operation before the D2C brand itself launched, so the two dates describe different things. We could not establish which the company treats as its founding. It sells men's fast fashion — shirts, T-shirts, denim, co-ords, chinos, outerwear — at price points aimed at India's urban under-30s, with the trend-cycle speed that implies. Most people first encountered it on **Shark Tank India**, which remains the single best-known thing about it.
 
 The financial arc:
 
@@ -77,6 +80,8 @@ There is also a category question nobody in Indian fast fashion has answered yet
 ## What we could not verify
 
 **The FY26 figures are company-reported and unaudited.** The revenue, the 80% growth and specifically the 2-3% EBITDA margin come from the company and were described as unaudited in the reporting. Audited filings will be the check on them.
+
+**FY25 revenue is reported two ways.** Around Rs 505 crore and around Rs 520 crore both appear in coverage of the same year, probably the difference between total and operating revenue. We have used the lower figure for the year-on-year comparison.
 
 **Sources disagree on the funding.** Coverage of the same Series B variously describes it as $33 million, $40 million, Rs 279 crore and Rs 340 crore. We have used Rs 340 crore at a Rs 2,500 crore valuation as the most recent figure, but the round was reported at different sizes at different stages and should be treated as approximate.
 

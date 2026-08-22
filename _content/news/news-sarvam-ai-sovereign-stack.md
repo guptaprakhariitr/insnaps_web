@@ -5,6 +5,9 @@ title: Sarvam took the government's compute and gave the weights away
 dateline: Bengaluru
 published: 22 August 2026
 summary: Sarvam AI reached a $1.5 billion valuation in June 2026 on a $234 million Series B led by HCLTech, four months after open-sourcing two foundation models trained on IndiaAI Mission compute under Apache 2.0.
+image: news/assets/sarvam-ai-sovereign-stack-hero.webp
+image_alt: Sarvam AI Series B announcement graphic reading "Announcing Series B, $300 Million"
+image_credit: Sarvam's own announcement graphic for the round. Image: Sarvam AI
 about_name: Sarvam AI
 about_url: https://www.sarvam.ai/
 about_type: Organization
@@ -15,17 +18,22 @@ keywords: Sarvam AI; sovereign AI India; IndiaAI Mission; Sarvam 105B; Sarvam 30
 fact: What it is | An Indian AI company building multilingual foundation models, speech systems and voice agents for Indian languages
 fact: Founders | Vivek Raghavan and Pratyush Kumar, both previously with AI4Bharat at IIT Madras
 fact: Founded | August 2023, headquartered in Bengaluru
-fact: Series B | $234 million first close in June 2026 at a $1.5 billion post-money valuation, led by HCLTech with $150 million
+fact: Series B | $234 million first close of a $300 million round, June 2026, at a $1.5 billion post-money valuation
+fact: HCLTech stake | $150 million for 10.46%, reported at Rs 1,427.25 crore
+fact: Stated usage | Company says its conversational platform handles 2 million-plus interactions a day and its inference platform over 10 million API calls a day
 fact: Earlier funding | $41 million seed and Series A in December 2023, led by Lightspeed with Peak XV and Khosla Ventures
 fact: Government selection | Chosen by MeitY in April 2025 under the IndiaAI Mission to build an indigenous foundation model with subsidised GPU access
 fact: Flagship models | Sarvam 30B (32B parameters, MoE, 65K context) and Sarvam 105B (106B parameters, MoE, 9B active, 128K context), both February 2026, both Apache 2.0
 fact: Other products | Saaras V3 speech-to-text, Sarvam Vision, the Indus consumer app, and Sarvam Kaze AI glasses
-fact: Verification status | Funding, valuation and model releases are press- and company-confirmed; revenue and usage figures are not public
+fact: Verification status | Funding, valuation and model releases are press- and company-confirmed; usage figures are self-reported and revenue is not disclosed
 source: https://www.sarvam.ai/
 source: https://en.wikipedia.org/wiki/Sarvam_AI
 source: https://slator.com/sarvam-raises-234m-sovereign-multilingual-ai/
 source: https://inc42.com/features/sarvam-and-the-sovereign-ai-dream/
 source: https://www.arcweb.com/blog/sarvam-building-indias-sovereign-ai-stack-rising-unicorn-status
+source: https://www.sarvam.ai/announcing-series-b
+source: https://techcrunch.com/2026/06/15/sarvam-becomes-indias-newest-ai-unicorn-with-234-million-funding-round-led-by-hcltech/
+source: https://www.hcltech.com/en-us/press-releases/sarvam-raises-234-million-first-close-300-million-series-b-15-billion-valuation
 ---
 
 # Sarvam took the government's compute and gave the weights away
@@ -72,15 +80,17 @@ Open-weighting a model built on public compute is the correct outcome and a genu
 
 It also creates the strategic problem Sarvam now has to answer. If the weights are free, the business is not the model — it is inference, tooling, support, distribution and whatever the enterprise actually needs wrapped around it. That is a services-shaped business, which is presumably part of why the round was led by a services company.
 
+Sarvam's own framing is "full-stack sovereign AI" — training and inference infrastructure, models across text and other modalities, and products for enterprises, developers and government, with named focus verticals in **banking, insurance, govtech and defence**. That is a systems-integrator's target list, and it lines up with who led the round.
+
 The open question is whether "best model for Indian languages" is a defensible position or a temporary one. Frontier labs are multilingual and improving; the gap on Hindi, Tamil or Marathi narrows with every general release. Sarvam's durable advantage, if there is one, is unlikely to be raw quality on a leaderboard. It is more likely the data pipeline, the voice stack, and being the vendor a state or a bank can actually procure from.
 
 ## What we could not verify
 
-**No revenue or usage figures are public.** Not disclosed: revenue, API volume, download counts, paying customers, or headcount. A $1.5 billion valuation four months after two open-weight releases is priced on a national position, not on published financials.
+**Usage is self-reported; revenue is not disclosed at all.** Sarvam does publish volume: it says its conversational platform handles **more than 2 million interactions a day** and its inference platform serves **over 10 million API calls a day**. Those are the company's own numbers, with no methodology attached — an "interaction" is whatever Sarvam counts as one. What is genuinely absent is money: no revenue, no paying-customer count, no headcount. A $1.5 billion valuation four months after two open-weight releases is priced on a national position, not on published financials.
 
 **Benchmark claims are not independently settled.** Sarvam's own evaluations of its models against comparable open models are the company's; we have not reproduced them, and Indic-language benchmarking is contested enough that leaderboard placement should be treated as a claim rather than a fact.
 
-**The Series B is a first close.** The reported ~$300 million target had not been confirmed as fully closed at the time of writing.
+**The Series B is a first close.** Sarvam announced the round as $300 million and disclosed $234 million as the first close; the balance had not been confirmed as closed at the time of writing.
 
 **Sarvam Kaze had not been independently reviewed.** The glasses were announced for May 2026; we found no hands-on coverage establishing what shipped.
 
@@ -121,5 +131,8 @@ Checked on 22 August 2026. Funding, valuation and model details are drawn from p
 - Slator — Series B amount, lead investor and valuation: <https://slator.com/sarvam-raises-234m-sovereign-multilingual-ai/>
 - Inc42 — analysis of the sovereign-AI positioning: <https://inc42.com/features/sarvam-and-the-sovereign-ai-dream/>
 - ARC Advisory Group — the sovereign AI stack and unicorn status: <https://www.arcweb.com/blog/sarvam-building-indias-sovereign-ai-stack-rising-unicorn-status>
+- Sarvam AI, "Announcing Series B" — the company's own account of the round, its full-stack framing and its usage figures: <https://www.sarvam.ai/announcing-series-b>
+- TechCrunch — unicorn status and round details: <https://techcrunch.com/2026/06/15/sarvam-becomes-indias-newest-ai-unicorn-with-234-million-funding-round-led-by-hcltech/>
+- HCLTech press release — the $150 million commitment and 10.46% stake: <https://www.hcltech.com/en-us/press-releases/sarvam-raises-234-million-first-close-300-million-series-b-15-billion-valuation>
 
 Sarvam AI was not contacted before publication and has not commented. Corrections are welcome and we will make them on the page.
