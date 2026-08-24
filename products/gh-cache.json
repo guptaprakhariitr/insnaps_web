@@ -1,6 +1,36 @@
 {
-  "generatedAt": "2026-08-24T08:37:31.507657+00:00",
+  "generatedAt": "2026-08-24T09:37:27.464338+00:00",
   "repos": {
+    "guptaprakhariitr/vigil": {
+      "pushed_at": "2026-06-27T07:27:57Z",
+      "stars": 2,
+      "language": "Rust",
+      "license": null,
+      "release": {
+        "tag": "v0.2.0",
+        "published_at": "2026-06-27T07:30:48Z",
+        "dmg": {
+          "name": "vigil-aarch64-apple-darwin",
+          "url": "https://github.com/guptaprakhariitr/vigil/releases/download/v0.2.0/vigil-aarch64-apple-darwin",
+          "size": 7700560
+        }
+      }
+    },
+    "guptaprakhariitr/decant": {
+      "pushed_at": "2026-06-24T04:54:48Z",
+      "stars": 2,
+      "language": "TypeScript",
+      "license": "AGPL-3.0",
+      "release": {
+        "tag": "v0.0.3",
+        "published_at": "2026-06-24T04:54:48Z",
+        "dmg": {
+          "name": "Decant_0.0.3_aarch64.dmg",
+          "url": "https://github.com/guptaprakhariitr/decant/releases/download/v0.0.3/Decant_0.0.3_aarch64.dmg",
+          "size": 27276128
+        }
+      }
+    },
     "guptaprakhariitr/aiconnect-figma-mcp": {
       "pushed_at": "2026-06-25T15:12:06Z",
       "stars": 15,
@@ -43,6 +73,21 @@
           "name": "TwinnedApp_1.0.0_aarch64.dmg",
           "url": "https://github.com/guptaprakhariitr/twinned/releases/download/v1.0.0/TwinnedApp_1.0.0_aarch64.dmg",
           "size": 2400536
+        }
+      }
+    },
+    "guptaprakhariitr/caliper": {
+      "pushed_at": "2026-06-24T04:50:43Z",
+      "stars": 2,
+      "language": "Swift",
+      "license": "AGPL-3.0",
+      "release": {
+        "tag": "v1.0.0",
+        "published_at": "2026-06-24T04:50:53Z",
+        "dmg": {
+          "name": "PicaMac_1.0.0_aarch64.dmg",
+          "url": "https://github.com/guptaprakhariitr/caliper/releases/download/v1.0.0/PicaMac_1.0.0_aarch64.dmg",
+          "size": 1922171
         }
       }
     },
